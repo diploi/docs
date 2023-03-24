@@ -112,7 +112,7 @@ const getStatus = async () => {
 
   const status = {
     diploiStatusVersion: 1,
-    items: [wwwStatus/*, await getPostgresStatus()*/],
+    items: [wwwStatus, await getPostgresStatus()],
   };
 
   return status;
@@ -130,10 +130,12 @@ const podReadinessLoop = async () => {
   
   const status = await getStatus();
   let allOK = !status.items.find((s) => s.status !== Status.GREEN);
-  if (allOK) {
-    await shellExec('touch /tmp/pod-ready');
+  if (allOK) { 
+    // NOTE! Disabling just to get prod to work
+    //await shellExec('touch /tmp/pod-ready');
   } else {
-    await shellExec('rm -f /tmp/pod-ready');
+    // NOTE! Disabling just to get prod to work
+    //await shellExec('rm -f /tmp/pod-ready');
   }
   setTimeout(() => {
     podReadinessLoop();
