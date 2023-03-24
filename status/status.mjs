@@ -112,7 +112,7 @@ const getStatus = async () => {
 
   const status = {
     diploiStatusVersion: 1,
-    items: [wwwStatus, await getPostgresStatus()],
+    items: [wwwStatus/*, await getPostgresStatus()*/],
   };
 
   return status;
@@ -127,6 +127,7 @@ const server = http.createServer(requestListener);
 server.listen(3000, '0.0.0.0');
 
 const podReadinessLoop = async () => {
+  
   const status = await getStatus();
   let allOK = !status.items.find((s) => s.status !== Status.GREEN);
   if (allOK) {
