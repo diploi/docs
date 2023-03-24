@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Documentation for Diploi",
   "scripts": {
-    "start": "if [ ${STAGE} = \"production\" ]; then next start -p 3000; else next dev -p 3000; fi",
+    "start": "if [ ${STAGE} = \"production\" ]; then next start -p 80; else next dev -p 80; fi",
     "dev": "next dev",
     "build": "next build",
     "prod": "next start"
