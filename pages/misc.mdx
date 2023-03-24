@@ -1,0 +1,64 @@
+# Another Page
+
+```js filename="demo.js" {3} copy
+let a = 1;
+
+console.log(a);
+```
+
+## Component
+
+import { useState } from 'react';
+
+{/* Import CSS modules */}
+import styles from '../components/counters.module.css'
+
+export const Counter = () => {
+  const [count, setCount] = useState(0);
+  return (
+    <div>
+      <button onClick={() => setCount(count + 1)} className={styles.counter}>
+        Clicked {count} times
+      </button>
+    </div>
+  );
+};
+
+<Counter />
+
+## External Component
+
+import Counters from '../components/counters';
+import Image from 'next/image';
+
+<Counters />
+<Image src="/public/logo.svg" alt="me" width="64" height="64" />
+
+The developer experience platform (DXP) is a set of tools and services that make it easier for
+developers to build, test, and deploy their applications. The DXP provides a unified experience across t
+he development lifecycle, from ideation to deployment, and is designed to be intuitive and user-friendly.
+
+# Features
+
+Integrated Development Environment (IDE): The DXP includes a powerful and customizable IDE that supports popular programming
+languages and frameworks. The IDE provides features such as code completion, debugging, and version control integration.
+
+Collaboration Tools: The DXP includes tools for collaboration and communication, such as chat, forums, and issue tracking.
+These tools make it easy for developers to work together and share their knowledge.
+
+Testing and Deployment: The DXP provides tools and services for testing and deploying applications, such as a
+cloud-based testing environment and a continuous integration and delivery (CI/CD) pipeline. These tools make it easy to test and deploy applications quickly and reliably.
+
+Documentation and Support: The DXP includes comprehensive documentation and support resources to help developers
+get started and learn how to use the platform.
+
+# Getting Started
+
+Sign up for an account on the DXP website.
+Download and install the DXP IDE on your computer.
+Explore the documentation and support resources to learn more about the DXP and its features.
+Start building, testing, and deploying your applications with the DXP.
+
+# Conclusion
+
+The developer experience platform is a powerful and user-friendly tool for developers of all skill levels. With its integrated development environment, collaboration tools, testing and deployment services, and comprehensive documentation and support, the DXP makes it easy to build and deploy high-quality applications quickly and efficiently.
