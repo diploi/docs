@@ -1,22 +1,31 @@
 # Get Started
 
-Ready to try out Diploi, this section will show how to set up a Next.js TODO App together with a Postgresql database.
+Ready to try out Diploi, this section will show how to set up a Next.js Todo List app together with a Postgresql database.
+
+{/*<video style={{marginTop: "30px;"}} src="/GetStartedTodoApp.mp4" width="640" height="360" playsinline autoplay muted loop></video>*/}
+
+import Image from 'next/image';
+
+<Image src="/GetStartedTodoApp.gif" alt="Next.js Todo app example" width={640} height={360} style={{marginTop: "30px;"}} unoptimized={true} />
+
+
+### Prerequisites
+
+- A GitHub account
+- Text Editor - We recommend [VSCode](https://code.visualstudio.com/)
+- An SSH Key (for development) - See XXX
+
+### Create an Account
+
+To get started you need a Diploi account. Since Diploi is tightly integrated
+with GitHub go to [pilot.diploi.dev](http://pilot.diploi.dev) and
+authenticate using your GitHub account.
 
 <Callout type="default" emoji="💡">
   Please note: Diploi is currently invite only. If you are interested in trying it out please contact us at
   [info@diploi.com](mailto://info@diploi.com)
 </Callout>
 
-### Prerequisites
-
-- A GitHub account
-- Text Editor - We recommend [VSCode](https://code.visualstudio.com/)
-
-### Create an account
-
-To get started you need a Diploi account. Since Diploi is tightly integrated
-with GitHub go to [pilot.diploi.dev](http://pilot.diploi.dev) and
-authenticate using your GitHub account.
 
 ### Launch a Core
 
@@ -25,18 +34,69 @@ Internally a Core is a kubernetes cluster, but don't worry, you don't need to kn
 Kubernetes in order to use Diploi. You can think of a Core as storage and computing power to
 run your workloads on.
 
-import Image from 'next/image';
+<Image src="/GetStartedCore.gif" alt="Add core example" width={640} height={360} style={{marginTop: "30px;"}} unoptimized={true} />
 
-<Image src="/create-core.png" alt="Hello" width={800} height={800} />
-
-If you have a Free plan there is only one size of Cores to choose and it will be
-preselected, so you can just click **Launch Core**.
+Click on the Core icon in the top bar and from there **Setup Core**. If you have are on the free plan there is 
+only one size of Cores to choose and it will be preselected, so you can just click **Launch Diploi Core**.
 
 import { Callout } from 'nextra-theme-docs';
 
 <Callout type="info" emoji="ℹ️">
-  The only difference between a paid and a Free Core is that a Free Core only will stay on for 8 hours, after that you need to manually log
-  in and restart it.
+  The only difference between a paid and a Free Core is that a Free Core only will stay on for 8 hours, after that 
+  you need to restart it from the control panel.
 </Callout>
 
-### Create a project
+
+### Create a Project
+
+Next we will create a project for our app. Click **Projects** in the top bar and then **Create project**. 
+In Diploi, a project template is used to select which containers and features (such as databases) 
+your project will use. From the template list choose **Next.js Starter**.
+
+In the project setup screen, we don't need to change anything, but you could here choose e.g. 
+which Core you want the project to run on or how to connect to the database. 
+
+<Image src="/GetStartedProject.gif" alt="Create a project example" width={640} height={360} style={{marginTop: "30px;"}} unoptimized={true} />
+
+However, we will need to create a GitHub repository for the project. Press **Create a new 
+repository** and follow the instructions on how to give Diploi rights to setup the 
+new repository on your GitHub account. Also give a name for the new repository and choose
+if you want it to initially be public or not.
+
+When done press **Create Project**
+
+### Launch your First Deployment
+
+In order to start developing we will need to add a development deployment to our project. Open your new project
+and press **Create Deployment**. There are a lot of options here, you could choose to create a staging or 
+production environment or we could modify the environment. Since development is preselected the only thing
+we need to do here is press **Create Deployment**. 
+
+<Image src="/GetStartedDeployment.gif" alt="Create a deployment example" width={640} height={360} style={{marginTop: "30px;"}} unoptimized={true} />
+
+Now you can lean back and watch your deployment starting. You can follow the progress from the status area.
+
+<Image src="/GetStartedStatus.png" alt="Add core example" width={970*0.4} height={1364*0.4} style={{marginTop: "30px;"}} unoptimized={true} />
+
+### Develop
+
+Once everything is showing green (shouldn't take long), you can verify that you site works by clicking on *App* 
+or you can connect remotely using VSCode by clicking the button. You can also connect to the 
+container directly by using ssh.
+
+<Image src="/GetStartedOpen.png" alt="Develop" width={970*0.4} height={1364*0.4} style={{marginTop: "30px;"}} unoptimized={true} />
+
+Here's short recap of things you can do now.
+
+1. **Edit code remotely** - Changes in api or react code should be visible instantly since React is running in development mode in this deployment type.
+
+2. **Access the database** - E.g. directly from VSCode using eg. the SQLTools extension. 
+
+3. **Commit your code changes** - Git is setup in your remote host so just commit your changes when you are done. If you add production deployments they will update automatically if you commit to the same branch.
+
+Can it get much easier?
+
+
+
+
+

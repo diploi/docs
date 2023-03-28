@@ -18,6 +18,11 @@ First, run `pnpm i` to install the dependencies.
 
 Then, run `pnpm dev` to start the development server and visit localhost:3000.
 
+## How to convert mp4=>gif
+
+ffmpeg -i video.mp4 -vf "scale=480:-1,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop 0 output.gif
+ffmpeg -i GetStartedTodoApp.mp4 -vf "fps=10,scale=960:-1,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop 0 GetStartedTodoApp.gif
+
 ## License
 
-This project is licensed under the MIT License.
+All rights reserved
