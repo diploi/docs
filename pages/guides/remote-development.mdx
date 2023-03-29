@@ -1,1 +1,45 @@
+import { Callout } from 'nextra-theme-docs';
+
 # Remote Development
+
+At the heart of Diploi lies remote development,
+allowing you to easily work on any of your projects without the need for software installation or maintenance on your local machine,
+or dealing with containers.
+With just a single button press, you can begin your work without hassle.
+
+You only need two things locally to get up and running:
+- [An SSH key](./add-ssh-key.mdx)
+- [VS Code](https://code.visualstudio.com/) (or any terminal based / remote supported IDE)
+
+## VS Code
+
+We recommend using [VS Code](https://code.visualstudio.com/) for remote development, but you can use any IDE which supports connecting remotely via SSH.
+
+#### Connecting
+
+Once you have created a deployment, simply click the "Open in VS Code" button visible on the "Overview" tab.  
+If you do not have the remote development extension installed, VS Code will prompt you to install it.
+
+<Callout type="info" emoji="ℹ️">
+  If you are developing on a Windows machine, VS Code might ask for the type of machine you are connecting to. When using an official Diploi template, you should always select "Linux".
+</Callout>
+
+<Callout type="warning" emoji="⚠️">
+  If you are developing on a Windows machine with WSL enabled, please note that a Windows VS Code install uses SSH keys on your **Windows** user by default.
+</Callout>
+
+#### Configuration
+
+Your local VS Code configuration will be used for all remote environments, but certain features (like extensions) need to be configured on a per-deployment basis.
+
+## Other IDEs
+
+<Callout type="warning" emoji="⚠️">
+  Diploi currently has built in persistent configuration for VS Code only. This means that you will have to configure/install your other IDE again after a deployment upgrade.
+</Callout>
+
+Diploi supports any IDE capable of conneting to a remote machine via SSH. This includes terminal based IDEs like Vim.
+
+#### Terminal Based IDEs
+
+Simply open an SSH connection to your deployment, and install your favorite IDE.
