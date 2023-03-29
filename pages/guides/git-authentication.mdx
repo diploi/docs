@@ -1,0 +1,80 @@
+import { Callout } from 'nextra-theme-docs';
+
+# Git Authentication
+
+Development environments on Diploi are remote (run on a specified Core, not your local machine), and thus do not inherit your local Git configuration.
+You have most likely done this first-time setup with Git in the past, but for those who havent, or those who want a refresher, we have collected information about these steps below.
+
+Firstly, Git requires you to input your username and email which will be included with every commit you make. Diploi can do this automatically for you, but you can also opt-out and fill in the information yourself.  
+You can read more about this step [here](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup#_your_identity).
+
+Secondly, Git requires you to authenticate with the remote repository you are trying to interact with. Usually this is done via SSH keys, and it can certainly be done this way while developing remotely too, it just might not be the most secure solution. Diploi can automate this step too via a repository-specific access token. This token is scoped to a single GitHub repository, and will not grant access to an entire organization or user.  
+You can choose opt-out of this automation, but you will have to supply an authentication method yourself.  
+You can read more about authenticating with GitHub [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-authentication-to-github#https).
+
+## Assigning a User to a Deployment
+
+This is the easiest way to handle Git configuration, as it will be handled automatically by Diploi.
+Diploi will use your GitHub email & username to sign commits with, and authenticate using a repository-scoped access token with limited access rights.
+
+<Callout type="info" emoji="ℹ️">
+  Please note, that the assigned user is not SSH-connection specific, so any user creating commits on the deployment will be using the same Git configuration.
+</Callout>
+
+#### Check if a deployment has a user assigned to it
+
+1. Select an existing, or start creating a new deployment
+2. Scroll down to the "Git" section
+3. If the assigned user card is showing "Empty", no user is assigned to the deployment. Otherwise, the user shown is the one assigned to the deployment.
+
+#### Assign yourself to a deployment
+
+1. Select an existing, or start creating a new deployment
+2. Scroll down to the "Git" section
+3. Click "Assign self"
+
+#### Remove an assigned user from a deployment
+
+1. Select an existing deployment
+2. Scroll down to the "Git" section
+3. Click the "trash" icon on the assigned user card
+
+<Callout type="info" emoji="ℹ️">
+  Please note, that it is not currently possible to assign other users than yourself to a deployment.
+</Callout>
+
+## Manual Authentication
+
+When the Git "assigned user" field is left empty on a deployment, no automated Git configuration or authentication will happen.
+This means that you will have to do the first-time setup with Git yourself, and provide a way to authenticate.  
+We have collected the best ways this can be achieved below, altough letting Diploi handle it is recommended.
+
+<Callout type="warning" emoji="⚠️">
+  Remember, that any user with SSH access to a deployment will be able to use Git and read files on that deployment. Creating SSH keys or credentials on deployment is thus not recommended.
+</Callout>
+
+### GitHub Personal Access Token (PAT)
+
+- [Creating a PAT](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+- [Using a PAT to authenticate with Git](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#using-a-token-on-the-command-line)
+
+<Callout type="error" emoji="️🚫">
+  As PATs are not scopeable to a specific repository, they will be able to access any repository the user that created them has access to.
+  If you allow multiple users SSH access to a deployment, they will all be able to read the PAT, and access everything it has access to.
+</Callout>
+
+### SSH Agent Forwarding
+
+- [Using SSH agent forwarding](https://docs.github.com/en/developers/overview/using-ssh-agent-forwarding)
+
+<Callout type="info" emoji="ℹ️">
+  You have to manually update the Git repository origins to the SSH supported formats. They are configured for HTTPS by default.
+</Callout>
+
+<Callout type="error" emoji="️🚫">
+  If two or more people are connected to a single deployment at the same time, they will be able to highjack each others SSH agents. This will allow them to use any SSH keys saved to the agent without the original SSH-connected users permisson. Read more of this attack [here](https://attack.mitre.org/techniques/T1563/001/).
+</Callout>
+
+### GitHub Deploy Key
+
+- [Creating & using deploy keys](https://docs.github.com/en/developers/overview/managing-deploy-keys#deploy-keys)
