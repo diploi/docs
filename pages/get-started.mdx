@@ -6,8 +6,9 @@ Ready to try out Diploi, this section will show how to set up a Next.js Todo Lis
 
 import Image from 'next/image';
 
-<Image src="/GetStartedTodoApp.gif" alt="Next.js Todo app example" width={640} height={360} style={{marginTop: "30px;"}} unoptimized={true} />
+import { GifImage } from '../components/images';
 
+<GifImage src="/GetStartedTodoApp.gif" alt="Next.js Todo app example"/>
 
 ### Prerequisites
 
@@ -34,7 +35,7 @@ Internally a Core is a kubernetes cluster, but don't worry, you don't need to kn
 Kubernetes in order to use Diploi. You can think of a Core as storage and computing power to
 run your workloads on.
 
-<Image src="/GetStartedCore.gif" alt="Add core example" width={640} height={360} style={{marginTop: "30px;"}} unoptimized={true} />
+<Image src="/GetStartedCore.gif" alt="Add core example" width={640} height={360} style={{marginTop: "30px;", borderRadius: '10px'}} unoptimized={true} />
 
 Click on the Core icon in the top bar and from there **Setup Core**. If you have are on the free plan there is 
 only one size of Cores to choose and it will be preselected, so you can just click **Launch Diploi Core**.
@@ -56,7 +57,7 @@ your project will use. From the template list choose **Next.js Starter**.
 In the project setup screen, we don't need to change anything, but you could here choose e.g. 
 which Core you want the project to run on or how to connect to the database. 
 
-<Image src="/GetStartedProject.gif" alt="Create a project example" width={640} height={360} style={{marginTop: "30px;"}} unoptimized={true} />
+<Image src="/GetStartedProject.gif" alt="Create a project example" width={640} height={360} style={{marginTop: "30px;", borderRadius: '10px'}} unoptimized={true} />
 
 However, we will need to create a GitHub repository for the project. Press **Create a new 
 repository** and follow the instructions on how to give Diploi rights to setup the 
@@ -72,11 +73,11 @@ and press **Create Deployment**. There are a lot of options here, you could choo
 production environment or we could modify the environment. Since development is preselected the only thing
 we need to do here is press **Create Deployment**. 
 
-<Image src="/GetStartedDeployment.gif" alt="Create a deployment example" width={640} height={360} style={{marginTop: "30px;"}} unoptimized={true} />
+<Image src="/GetStartedDeployment.gif" alt="Create a deployment example" width={640} height={360} style={{marginTop: "30px;", borderRadius: '10px'}} unoptimized={true} />
 
 Now you can lean back and watch your deployment starting. You can follow the progress from the status area.
 
-<Image src="/GetStartedStatus.png" alt="Add core example" width={970*0.4} height={1364*0.4} style={{marginTop: "30px;"}} unoptimized={true} />
+<Image src="/GetStartedStatus.png" alt="Add core example" width={970*0.4} height={1364*0.4} style={{marginTop: "30px;", borderRadius: '10px'}} unoptimized={true} />
 
 ### Develop
 
@@ -84,7 +85,7 @@ Once everything is showing green (shouldn't take long), you can verify that you 
 or you can connect remotely using VSCode by clicking the button. You can also connect to the 
 container directly by using ssh.
 
-<Image src="/GetStartedOpen.png" alt="Develop" width={970*0.4} height={1364*0.4} style={{marginTop: "30px;"}} unoptimized={true} />
+<Image src="/GetStartedOpen.png" alt="Develop" width={970*0.4} height={1364*0.4} style={{marginTop: "30px;", borderRadius: '10px'}} unoptimized={true} />
 
 Here's short recap of things you can do now.
 

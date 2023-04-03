@@ -1,15 +1,52 @@
 # Project
 
-- What?
+### What is a Diploi project?
 
-  - Topevel juttu jonka alla tulee staging / production / dev.
+A Diploi project contains the deployments of your application, like
+production, staging and perhaps several development instances. A project
+connects to a GitHub repository and contains common
+settings and environment variables.
 
-- Env ja Parameter group default values
+### Templates
 
-- Template ja mihin vaikuttaa
+Every project is started from a project template that defines the 
+infrastructure of your project. There are templates for common 
+frameworks and languages such as Node, PHP etc. In addition templates 
+might support databases like PostgreSQL or MySQL and other infrastructure
+like ElastiCache, Redis etc.
 
-- Repository ...
+We have a set of ready to go templates, in a later version of Diploi we
+want to give you the option to create your own templates.
 
--- ??? Core nyt vaan yksi kiinteä, myöhemmin (ehkä) core per deployment...
+### Features of a Project
 
-- Delete
+##### Name
+
+The project name can be chosen freely but will be used as a template for both deployment 
+names and hostnames so choosing a good short one can be a good idea.
+
+##### Options
+
+Depending on the template there might be some configurable options. E.g. if a database
+should be running, Redis enabled etc. Values provided in the project are defaults that
+you can override in the deployment.
+
+##### Environment Values
+
+For your project specific configurations and secrets you can add environment values.
+Values provided in the project are defaults that can be overridden in the deployment.
+
+
+##### Domain
+
+You can set a default domain for you project. This will be used as a base domain for all 
+hosts created in your projects. Diploi will provide you with a default hostname but you
+can change it later if you e.g. want to use you own domain 
+(see [Guides / Custom Domain](/guides/custom-domain))
+
+##### Repository
+
+
+### Deleting a project
+
+When you no longer need a Project it can be deleted. However you need to delete all deployments first and wait for the deletion to complete.
