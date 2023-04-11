@@ -25,4 +25,4 @@ ffmpeg -i GetStartedTodoApp.mp4 -vf "fps=10,scale=960:-1,split[s0][s1];[s0]palet
 
 ## License
 
-All rights reserved
+All rights reserved - Nemesys
