@@ -1,11 +1,27 @@
 # Deployment
 
-###
+### What is a Diploi Deployment?
 
-- What
+In Diploi, a diployment is a full instance of your application, including databases and
+other services. It also includes storage and current code changes you are working on.
 
-  - Prod/staging/dev
-  - Enable
+Deployment can be divided into dynamic development deployments and built deployments
+such as testing / staging / production. The main difference is that development
+deployments will have persisted storage for your code so that code changes will
+remain even if the service restart etc. For build deployments the containers will
+start fresh on every restart and run the built production version of your
+application. How this works can in part depend on how the project template works
+so make sure to check the project template documentation.
+
+### Hosts
+
+Diploi will by default create a public endpoint for your application and generate
+a SSL certificate. If you want to use your own domain please see the
+[Custom domain](/guides/custom-domain) guide.
+
+### Connecting using ssh
+
+Normally there are three types of deployments:
 
 - Host + DNS
 

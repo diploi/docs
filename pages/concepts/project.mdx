@@ -1,28 +1,30 @@
 # Project
 
-### What is a Diploi project?
+### What is a Diploi Project?
 
-A Diploi project contains the deployments of your application, like
-production, staging and perhaps several development instances. A project
-connects to a GitHub repository and contains common
-settings and environment variables.
+A Diploi project contains the deployments of your application. A typical
+setup could be one deployment for production, one for staging and perhaps
+one development instance per active developer. A project also connects to
+a GitHub repository and contains common settings and environment variables.
 
 ### Templates
 
-Every project is started from a project template that defines the 
-infrastructure of your project. There are templates for common 
-frameworks and languages such as Node, PHP etc. In addition templates 
+Every project is started from a project template that defines the
+infrastructure of your project. There are templates for common
+frameworks and languages such as Node, PHP etc. In addition templates
 might support databases like PostgreSQL or MySQL and other infrastructure
 like ElastiCache, Redis etc.
 
-We have a set of ready to go templates, in a later version of Diploi we
-want to give you the option to create your own templates.
+We provide a set of ready to go templates, and the can have options to enable or
+disable certain features.
+In a later version of Diploi we want to give you the
+option to create your own templates.
 
 ### Features of a Project
 
 ##### Name
 
-The project name can be chosen freely but will be used as a template for both deployment 
+The project name can be chosen freely but will be used as a template for both deployment
 names and hostnames so choosing a good short one can be a good idea.
 
 ##### Options
@@ -34,19 +36,27 @@ you can override in the deployment.
 ##### Environment Values
 
 For your project specific configurations and secrets you can add environment values.
-Values provided in the project are defaults that can be overridden in the deployment.
-
+Values provided in the project are defaults that you can override in the actual
+deployment.
 
 ##### Domain
 
-You can set a default domain for you project. This will be used as a base domain for all 
+You can set a default domain for you project. This will be used as a base domain for all
 hosts created in your projects. Diploi will provide you with a default hostname but you
-can change it later if you e.g. want to use you own domain 
+can change it later if you e.g. want to use you own domain
 (see [Guides / Custom Domain](/guides/custom-domain))
 
 ##### Repository
 
+The easiest way to set up a project is to let Diploi bootstrap a new GitHub repository for
+you. This will ensure that the repository contains the right files to make the project run.
+
+Optionally you create the project by connecting it to an existing repository. This can be
+useful for example if you want to share a repository between multiple cores or projects.
+In this case however you are responsible for ensuring that the repository is set up for the
+chosen project type.
 
 ### Deleting a project
 
-When you no longer need a Project it can be deleted. However you need to delete all deployments first and wait for the deletion to complete.
+When you no longer need a Project it can be deleted. However you need to delete all deployments
+first and wait for the deletion to complete.
