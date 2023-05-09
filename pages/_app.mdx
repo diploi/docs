@@ -1,7 +1,20 @@
 import '../style.css'
 
 export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return <>
+    <Script
+      src="https://www.googletagmanager.com/gtag/js?id=G-XFEEFZ85LQ"
+      strategy="afterInteractive"
+    />
+    <Script id="google-analytics" strategy="afterInteractive">
+      {`
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-
+        gtag('config', 'G-XFEEFZ85LQ');
+      `}
+    </Script>
+    <Component {...pageProps} />
+  </>
 }
