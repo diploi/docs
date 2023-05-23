@@ -1,3 +1,5 @@
+import { Callout } from 'nextra-theme-docs';
+
 # Deployment
 
 ### What is a Diploi Deployment?
@@ -12,6 +14,8 @@ remain even if the service restarts etc. For build deployments the containers wi
 start fresh on every restart and run the built production version of your
 application. How this works can in part depend on how the project template works
 so make sure to check the project template documentation.
+
+---
 
 ### Deployment Types
 
@@ -38,32 +42,40 @@ so the actual types provided may vary from the standard list mentioned above.
 By choosing the appropriate deployment type, you can ensure that your application is properly deployed, tested,
 and optimized for the specific stage of development or production environment it is intended for.
 
+---
+
 ### Hosts
 
 Diploi will by default create a public endpoint for your application and generate
 an SSL certificate. If you want to use your own domain please see the
 [Custom domain](/guides/custom-domain) guide.
 
+---
+
 ### Connecting using SSH
 
-- Host + DNS
+Once you have created a deployment, look for the "Connect via SSH" command on the "Overview" tab.
+This command can be copied to your terminal of choice to open an SSH connection to the deployment.
 
-- Connecting
+<Callout type="info" emoji="ℹ️">
+  You will need to add an SSH key to your profile in order to authenticate via
+  SSH. Please see the [Add SSH Key](/guides/add-ssh-key) guide for more
+  information.
+</Callout>
 
-  - SSH directly
+---
 
-- Remote connection
+### Remote Development
 
-  - VSCode
+Please see the [Remote Development](/guides/remote-development) guide.
+
+---
+
+🚧 TODO:
 
 - Branch + how it affects (prod + ci/cd etc.)
-
 - Logs + Actions
-
 - Status...
-
 - Cloning
-
 - Env+Params
-
 - Delete
