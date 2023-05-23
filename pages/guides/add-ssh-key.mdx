@@ -1,1 +1,30 @@
-# Add a SSH Key
+import { Callout } from 'nextra-theme-docs';
+
+# Add an SSH Key
+
+Diploi utilizes SSH keys for user authentication when establishing SSH connections to deployments.
+This authentication method is commonly employed for remote development connections, such as those established through VS Code.
+
+To add an SSH key to your Diploi profile, follow these steps:
+
+1. **Generate an SSH Key**: If you haven't already done so, generate an SSH key.
+   Alternatively, if you already have an existing SSH key, you can use that.
+
+   - [How to check for existing keys?](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/checking-for-existing-ssh-keys)
+   - [How to create an SSH key?](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+
+2. **Copy the Public Key**: Once you have an SSH key, copy the corresponding "public key" component.
+
+   - [How to find the public key?](https://stackoverflow.com/questions/3828164/how-do-i-access-my-ssh-public-key/3828169#3828169)
+
+3. **Add the Public Key to Your Diploi Profile**:
+   - Click the "Settings" button located in the top navigation bar.
+   - Select "Add new SSH key".
+   - Provide a description for your key, such as "Work MacBook," to help you remember its origin or purpose.
+   - Paste your SSH "public key" into the designated field.
+   - Click the "Add SSH Key" button.
+
+<Callout type="warning" emoji="⚠️">
+  Never share your SSH private key with anyone! This key grants access to any
+  deployment you have privileges for, allowing others to authenticate as you.
+</Callout>
