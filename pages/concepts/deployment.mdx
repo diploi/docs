@@ -13,6 +13,31 @@ start fresh on every restart and run the built production version of your
 application. How this works can in part depend on how the project template works
 so make sure to check the project template documentation.
 
+### Deployment Types
+
+There are three commonly used deployment types:
+
+1. **Production**: For the live version of your application accessible to end-users.
+   It involves creating a build from your application's source code.
+   Focuses on stability, performance, and scalability.
+
+2. **Staging**: Staging deployments are used for testing and quality assurance purposes.
+   They closely resemble the production environment but are separate from the live application.
+   Staging deployments usually create a build from your application's source code.
+   Allows you to test changes before deploying them to production.
+
+3. **Development**: The development deployment type is primarily used for remote development.
+   It offers a flexible environment for iterative development and debugging.
+   In this case, the code is cloned directly from Git without going through the build process.
+   Development deployments often utilize hot module reloading (HMR) or similar techniques
+   to enable quick code updates without restarting the entire server.
+
+It's important to note that the available deployment types are defined by the template,
+so the actual types provided may vary from the standard list mentioned above.
+
+By choosing the appropriate deployment type, you can ensure that your application is properly deployed, tested,
+and optimized for the specific stage of development or production environment it is intended for.
+
 ### Hosts
 
 Diploi will by default create a public endpoint for your application and generate
@@ -20,8 +45,6 @@ an SSL certificate. If you want to use your own domain please see the
 [Custom domain](/guides/custom-domain) guide.
 
 ### Connecting using SSH
-
-Normally there are three types of deployments:
 
 - Host + DNS
 
