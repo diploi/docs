@@ -1,4 +1,6 @@
-# Nextra Docs Template 
+# Diploi Docs 
+
+## Nextra
 
 This is a template for creating documentation with [Nextra](https://nextra.site).
 
