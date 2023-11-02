@@ -3,8 +3,8 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "start": "if [ ${STAGE} = \"production\" ]; then astro preview --port 80; else astro dev --port 80; fi",
+    "dev": "astro dev --host --port 80",
+    "start": "if [ ${STAGE} = \"production\" ]; then astro preview --host --port 80; else astro dev --host --port 80; fi",
     "build": "astro check && astro build",
     "astro": "astro"
   },
