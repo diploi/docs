@@ -46,7 +46,7 @@ const getSupervisorStatus = async (name, process) => {
 const getWWWStatus = async () => {
   try {
     const nextjsResponse = (await shellExec('curl http://localhost')).stdout;
-    if (nextjsResponse && nextjsResponse.includes('__NEXT_DATA__')) {
+    if (nextjsResponse && nextjsResponse.includes('Diploi')) {
       return {
         status: Status.GREEN,
         message: '',
@@ -112,7 +112,7 @@ const getStatus = async () => {
 
   const status = {
     diploiStatusVersion: 1,
-    items: [wwwStatus, /*await getPostgresStatus()*/],
+    items: [wwwStatus /*await getPostgresStatus()*/],
   };
 
   return status;
@@ -127,10 +127,9 @@ const server = http.createServer(requestListener);
 server.listen(3000, '0.0.0.0');
 
 const podReadinessLoop = async () => {
-
   const status = await getStatus();
   let allOK = !status.items.find((s) => s.status !== Status.GREEN);
-  if (allOK) { 
+  if (allOK) {
     await shellExec('touch /tmp/pod-ready');
   } else {
     await shellExec('rm -f /tmp/pod-ready');
