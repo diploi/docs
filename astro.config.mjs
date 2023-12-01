@@ -17,7 +17,10 @@ export default defineConfig({
       sidebar: [
         {
           label: 'Introduction',
-          items: [{ label: 'Get Started', link: '/get-started/' }],
+          items: [
+            { label: 'What is Diploi?', link: '/' },
+            { label: 'Get Started', link: '/get-started/' },
+          ],
         },
         {
           label: 'Guides',
