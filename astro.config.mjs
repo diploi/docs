@@ -23,12 +23,12 @@ export default defineConfig({
           ],
         },
         {
-          label: 'Guides',
-          autogenerate: { directory: 'guides' },
-        },
-        {
           label: 'Concepts',
           autogenerate: { directory: 'concepts' },
+        },
+        {
+          label: 'Guides',
+          autogenerate: { directory: 'guides' },
         },
         {
           label: 'Templates',
