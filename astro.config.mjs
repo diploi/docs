@@ -1,6 +1,8 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
+const googleAnalyticsMeasurementID = 'G-XFEEFZ85LQ';
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [
@@ -14,6 +16,26 @@ export default defineConfig({
       social: {
         github: 'https://github.com/diploi/docs',
       },
+      head: [
+        {
+          tag: 'script',
+          attrs: {
+            src: `https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsMeasurementID}`,
+            async: true,
+          },
+        },
+        {
+          tag: 'script',
+          content: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+              dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', '${googleAnalyticsMeasurementID}');
+          `,
+        }
+      ],
       sidebar: [
         {
           label: 'Introduction',
