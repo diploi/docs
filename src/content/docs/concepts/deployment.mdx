@@ -1,7 +1,13 @@
 ---
 title: Deployment
 description: A deployment is a full instance of your application.
+sidebar:
+  order: 2
 ---
+
+import { Image } from 'astro:assets';
+
+import GetStartedStatusImage from '../../../assets/GetStartedStatus.png';
 
 ### What is a Diploi Deployment?
 
@@ -68,15 +74,41 @@ information.
 
 ### Remote Development
 
-Please see the [Remote Development](/guides/remote-development) guide.
+Diploi supports remote development by using the remote development capabilities of eg. Visual Studio 
+Code, but any editor that support editing using an SSH connection will work.
+
+For more details, please see the [Remote Development](/guides/remote-development) guide.
 
 ---
 
-🚧 TODO:
+### Status and Logs
 
-- Branch + how it affects (prod + ci/cd etc.)
-- Logs + Actions
-- Status...
-- Cloning
-- Env+Params
-- Delete
+After a deployment is started you can check it's status from the Deployments Overview page. You can
+check CPU load and Diploi has a color indication of the overall state of the deployment
+
+* **Green** –  the deployment is working correctly
+* **Yellow** – there is some issue but the deployment still runs
+* **Red** – there is some bigger issue that needs to be addressed 
+
+At the bottom of the page is a status tree that gives a more detailed view of the current state.
+
+* **Storage** – Shows the state of persistant storage
+* **Builds** – Indicates the state of container images required to run your application. If some image is being built you can follow the progress here. There is also a link to GitHub Actions so you can debug possible build issues there.
+* **Containers** – Lists all containers running in the cluster
+* **Services** – Show the status of services within your application. The entries here and how they work depend on the template you are running. Depending on the template you might even be able to add/remove items to this list.
+
+<Image src={GetStartedStatusImage} alt="drawing2" style="width:600px;"/>
+
+{/* ### Cloning a Deployment */}
+
+{/* ### Parameters and Environment Variables */}
+
+{/* ### Branches, Images as CI/CD */}
+
+### Deleting a Deployment
+
+When you don't need a deployment anymore, you should press the Delete deployment 
+button on last on the Options tab. Please be aware that this will permanently 
+delete any persistent storage (such as code, databases etc.) associated with 
+the instance. You don't need to shut down the deployment before deleting.
+
