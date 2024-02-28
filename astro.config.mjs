@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-
+import tailwind from '@astrojs/tailwind';
 const googleAnalyticsMeasurementID = 'G-XFEEFZ85LQ';
 
 // https://astro.build/config
@@ -15,6 +15,9 @@ export default defineConfig({
       },
       social: {
         github: 'https://github.com/diploi/docs',
+      },
+      components: {
+        SiteTitle: './src/components/SiteTitle.astro',
       },
       head: [
         {
@@ -34,14 +37,20 @@ export default defineConfig({
             gtag('js', new Date());
             gtag('config', '${googleAnalyticsMeasurementID}');
           `,
-        }
+        },
       ],
       sidebar: [
         {
           label: 'Introduction',
           items: [
-            { label: 'What is Diploi?', link: '/' },
-            { label: 'Get Started', link: '/get-started/' },
+            {
+              label: 'What is Diploi?',
+              link: '/',
+            },
+            {
+              label: 'Get Started',
+              link: '/get-started/',
+            },
           ],
         },
         {
@@ -59,5 +68,6 @@ export default defineConfig({
       ],
       customCss: ['./src/styles/custom.css'],
     }),
+    tailwind(),
   ],
 });

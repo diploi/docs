@@ -1,0 +1,34 @@
+---
+import type { Props } from '@astrojs/starlight/props';
+import Default from '@astrojs/starlight/components/SiteTitle.astro';
+import { Icon } from '@astrojs/starlight/components';
+---
+
+<Default {...Astro.props}><slot /></Default>
+<a href="http://diploi.com" id="diploi-link"> <Icon name="external" /> diploi.com</a>
+
+<style>
+  #diploi-link {
+    display: block;
+    position: absolute;
+    left: 140px;
+    top: 13px;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-white);
+    text-decoration: none;
+    svg {
+      transform: translate(2px, 3px);
+    }
+  }
+
+  #diploi-link:hover {
+    color: var(--sl-color-gray-2);
+  }
+
+  @media (min-width: 50em) {
+    #diploi-link {
+      left: 180px;
+      top: 18px;
+    }
+  }
+</style>
