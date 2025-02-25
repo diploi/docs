@@ -1,10 +1,19 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import tailwind from '@astrojs/tailwind';
+import node from '@astrojs/node';
 const googleAnalyticsMeasurementID = 'G-XFEEFZ85LQ';
 
 // https://astro.build/config
 export default defineConfig({
+  adapter: node({
+    mode: 'standalone',
+  }),
+  vite: {
+    server: {
+      allowedHosts: ['.diploi.app'],
+    },
+  },
   integrations: [
     starlight({
       title: 'Diploi Docs',
