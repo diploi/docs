@@ -34,5 +34,5 @@ jobs:
         env:
           project: ${{ secrets.DIPLOI_REGISTRY_PROJECT }}
           registry: ${{ secrets.DIPLOI_REGISTRY_HOSTNAME }}
-          username: ${{ secrets.DIPLOI_REGISTRY_USER }}
-          password: ${{ secrets.DIPLOI_REGISTRY_SECRET }}
+          username: ${{ secrets.DIPLOI_REGISTRY_USERNAME }}
+          password: ${{ secrets.DIPLOI_REGISTRY_PASSWORD }}
