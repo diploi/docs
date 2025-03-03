@@ -1,75 +1,138 @@
 ---
 title: Get Started
-description: How to set up a Next.js Todo List app together with a Postgresql database.
+description: How to set up a server with components and add-ons.
 ---
 
-Ready to try out Diploi, this section will show how to set up a Next.js Todo List app together with a Postgresql database.
+## Ways to start using Diploi 
 
-{/* <video style={{marginTop: "30px;"}} src="/GetStartedTodoApp.mp4" width="640" height="360" playsinline autoplay muted loop></video> */}
+You have two ways to get started
+* [**Instant launch**](#instant-launch) if you want to try Diploi and don't want to create an account or
+* [**Dashboard launch**](#dashboard-launch) available when you create an account and gives you access to all features available in Diploi
 
-![Next.js Todo app example](../../assets/GetStartedTodoApp.gif)
+Diploi uses Github to authenticate your account and it is where Diploi will create your deployment's repository 
 
-### Prerequisites
+***
 
-- A GitHub account
-- Text Editor - We recommend [VSCode](https://code.visualstudio.com/)
-- An SSH Key (for development) - See [Add an SSH Key](/guides/add-ssh-key/)
+### Instant launch
 
-### Create an Account
+If you don't have an account Diploi, you can get started with an **instant launch**, this will create a deployment in which you can access directly using our browser IDE, connect remotely using VS code or connect directly to the remote server using SSH.
+
+:::tip
+No account or credit card needed!
+:::
+
+You can start a deployment right away by trying our quick launch demo server [directly from our homepage](https://diploi.com/#testid "directly from our homepage")
+
+![Instant launch builder](../../assets/QuickStartBuilder.png)
+
+In the stack builder, you can can choose the components and add-ons you want to have in your deployment, and that's it!
+
+You can click "**Launch stack**" and your deployment will be ready in less than 30 seconds.
+
+![Instant launch builder](../../assets/InstantLaunchLoading.png)
+
+Once the launch is complete, you will be able to connect to the remote server and you deployment will be accessible online with https.
+
+![Instant launch builder](../../assets/QuickLaunchHome.png)
+
+
+:::tip
+This deployment will be available for 1 hour, and after you are done testing, if you want to keep the deployment online, all you need to do is create an account by connecting your Github account, **no credit card required**.
+![Instant launch builder](../../assets/ClaimAccount.png)
+:::
+
+***
+
+
+### Dashboard launch
+
+When you create an account in Diploi, you get access to [the Diploi dashboard](https://console.diploi.com/ "to the Diploi dashboard") which allows you to create projects, where you can collaborate with your team, and create deployments from development, staging and production environments. To register, all you need is a Github account.
+
+#### Prerequisites
+
+* A GitHub account
+* Text Editor - We recommend [VSCode](https://code.visualstudio.com/)
+* An SSH Key (for development) - See [Add an SSH Key](/guides/add-ssh-key/)
+
+#### Create an Account
 
 To get started you need a Diploi account. Since Diploi is tightly integrated
 with GitHub go to [console.diploi.com](https://console.diploi.com) and
 authenticate using your GitHub account.
 
+#### Create a Project
 
-### Create a Project
+In Diploi, a project refer to a combination of **components** and **add-ons** that form the stack that will make up your application.
 
-Next we will create a project for our app. On the frontpage click **Create Project**.
-In Diploi, a project template is used to select which containers and features (such as databases)
-your project will use. From the template list choose **Next.js Starter**.
+:::caution
+Once you define the components and add-ons of your application, you won't be able to change it, so make sure to select the correct combination for your project
+:::
 
-In the project setup screen, we don't need to change anything, but here you could choose
-how much resources you application needs or how to connect to the database.
+To create a project for your app click **Create Project** from your dashboard, which will open the **Stack Builder** where you can choose the components and add-ons for your project.
 
-![Create a project example](../../assets/GetStartedProject.gif)
+##### Components
+![Create a project example](../../assets/CreateProjectComponents.png)
 
-However, we will need to create a GitHub repository for the project. Press **Create a new
-repository** and follow the instructions on how to give Diploi rights to setup the
-new repository on your GitHub account. Also give a name for the new repository and choose
-if you want it to initially be public or not.
+##### Add-ons
+![Create a project example](../../assets/CreateProjectAddons.png)
 
-When done press **Create Project**
+Once you have chosen the stack for your project, you will be able to see a preview of your selected stack.
 
-### Launch your First Deployment
+##### Stack preview
+![Create a project example](../../assets/CreateProjectPreview.png)
 
-In order to start developing we will need to add a development deployment to our project. Open your new project
-and press **Create Deployment**. There are a lot of options here, you could choose to create a staging or
-production environment or we could modify the environment. Since development is preselected the only thing
-we need to do here is press **Create Deployment**.
+In the preview you can edit the identifier for each component and add-on you have selected by clicking on the previewed elements of your stack. This will change the folder name of the components in your monorepo and the database name of your addons. 
 
-![Create a deployment example](../../assets/GetStartedDeployment.gif)
+![Create a project example](../../assets/CreateProjectEditNames.png)
 
-Now you can lean back and watch your deployment starting. You can follow the progress from the status area.
+##### Creating a repository to host you project
 
-![Deployment status example](../../assets/GetStartedStatus.png)
+The last step before launching your project is to configure how your new application's code will be stored.
 
-<img src="/assets/GetStartedStatus.png" alt="drawing" style="width:200px;"/>
+You have two options available:
 
+- **Quick Launch** where you can launch a project without a repository to store your code. This is ideal for testing quick, where you will run simple scripts or applications which must be accessible online.
 
-### Develop
+- **Create Repository** where a newly created repository is linked to your project. Ideal for launching new application intended for production. By creating a new repository for your project, you automagically enable Diploi's push-to-deployment pipeline, where changes in your repository's will update the state of your deployment.
 
-Once everything is showing green (shouldn't take long), you can verify that your site works by clicking on _App_
-or you can connect remotely using VSCode by clicking the button. You can also connect to the
-container directly by using SSH.
+![Create a project example](../../assets/CreateProjectRepo.png)
 
-![Develop](../../assets/GetStartedOpen.png)
+Now that you have selected your desired stack and the configuration of your project, you can complete the creation of the project by clicking **Launch Stack**.
 
-Here's a short recap of things you can do now:
+:::caution
+**Quick Launch** projects are **not intended for production**, as your code will only exist on the deployment launched, and changes will not be persisted to other deployments you launch within the project.
+:::
 
-1. **Edit code remotely** - Changes in the API or React code should be visible instantly since React is running in development mode in this deployment type.
+***
 
-2. **Access the database** - E.g. directly from VSCode using eg. the SQLTools extension.
+#### Launching a Deployment
 
-3. **Commit your code changes** - Git is set up in your remote host so just commit your changes when you are done. If you add production deployments they will update automatically if you commit to the same branch.
+To start a deployment, you have three different options:
+- **Development** which allows you to start a server on which you can start a remote development environment using VSCode or our browser IDE, or connect directly to the server via SSH
+- **Staging** to test your application and ensure stability before launching changes in your application to production
+- **Production** to launch your application when it is ready to be used by your end users 
 
-Can it get much easier?
+:::tip
+If you need to connect via SSH to your staging or production deployment, you can do it by getting the SSH connection string from the "containers" section found at the bottom of the "Overview" tab of your deployment
+![Create a project example](../../assets/CreateDeploymentConnect.png)
+:::
+
+***
+
+#### Shuting down a Deployment
+
+If you want to stop a deployment from running, all you need to do is click on the "enabled" switch from the **Deployments** tab inside of your Project
+
+![Create a project example](../../assets/DisableDeploymentCard.png)
+
+Alternatively, you can also shutdown a deployment by clicking on the "enabled" switch found at the top of your Deployment's status page
+
+![Create a project example](../../assets/DisableDeploymentSwitch.png)
+
+You can restart your Deployment at any time by clicking on the same switch you used for shutdown
+
+![Create a project example](../../assets/EnableDeployment.png)
+
+***
+
+Now your application is ready to be used! If anything was unclear, feel free to ask directly on [Discord](https://discord.gg/YV6GYpbQRG) or [contact us](mailto:hello@diploi.com)

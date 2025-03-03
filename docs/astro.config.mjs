@@ -60,6 +60,14 @@ export default defineConfig({
               label: 'Get Started',
               link: '/get-started/',
             },
+            {
+              label: 'Tutorial',
+              link: '/tutorial/',
+            },
+            // {
+            //   label: 'Roadmap',
+            //   link: '/roadmap/',
+            // },            
           ],
         },
         {
