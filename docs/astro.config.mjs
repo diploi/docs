@@ -60,10 +60,10 @@ export default defineConfig({
               label: 'Get Started',
               link: '/get-started/',
             },
-            {
-              label: 'Tutorial',
-              link: '/tutorial/',
-            },
+            // {
+            //   label: 'Tutorial',
+            //   link: '/tutorial/',
+            // },
             // {
             //   label: 'Roadmap',
             //   link: '/roadmap/',
@@ -75,13 +75,17 @@ export default defineConfig({
           autogenerate: { directory: 'concepts' },
         },
         {
+          label: 'Tutorials',
+          autogenerate: { directory: 'tutorials' },
+        },
+        {
           label: 'Guides',
           autogenerate: { directory: 'guides' },
         },
-        {
-          label: 'Templates',
-          autogenerate: { directory: 'templates' },
-        },
+        // {
+        //   label: 'Templates',
+        //   autogenerate: { directory: 'templates' },
+        // },
       ],
       customCss: ['./src/styles/custom.css'],
     }),
