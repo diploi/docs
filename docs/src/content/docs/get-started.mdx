@@ -4,28 +4,29 @@ description: How to set up a server with components and add-ons.
 ---
 
 import { Image } from 'astro:assets';
+import DeploymentSizesAvailable from  "../../components/DeploymentSizesAvailable.mdx"
+import ContactInfo from  "../../components/ContactInfo.mdx"
 
 
 ## Ways to start using Diploi 
 
 You have two ways to get started
-* [**Quick launch**](#quick-launch) if you want only want to test drive Diploi and don't want to create an account just yet, or
 
-* [**Dashboard launch**](#dashboard-launch) available when you create an account and gives you access to all features available in Diploi
+1. [**Quick launch**](#quick-launch), recommended for cloud functions, simple APIs and ephimeral applications, were you do not need version control and want to focus on the code only.
 
-Diploi uses Github to authenticate your account and it is where Diploi will create your deployment's repository 
+2. [**Project launch**](#project-launch), allows you to deploy new applications with a repository bootstrap for you application. All you need is to sign up using a Github account. We recommend you use this method if you plan to deploy production-ready applications.
 
 ***
 
 ### Quick launch
 
-If you don't have an account Diploi, you can get started with an **quick launch**, this will create a deployment in which you can access directly using our browser IDE, connect remotely using VS code or connect directly to the remote server using SSH.
+With quick launch, you can create a deployment in seconds in which you can access directly using our browser IDE, connect remotely using VS code or connect directly to the remote server using SSH.
 
 :::tip
-No account or credit card needed!
+No account or credit card needed to get started!
 :::
 
-You can start a deployment right away by trying our quick launch demo server [directly from our homepage](https://diploi.com/#testid "directly from our homepage")
+You can start a deployment right away from [our homepage](https://diploi.com/#quick-launch)
 
 ![Quick launch builder](../../assets/QuickStartBuilder.png)
 
@@ -33,22 +34,19 @@ In the stack builder, you can can choose the components and add-ons you want to 
 
 You can click "**Launch stack**" and your deployment will be ready in less than 30 seconds.
 
-![Quick launch builder](../../assets/QuickLaunchLoading.png)
+![Quick launch loading](../../assets/QuickLaunchLoading.png)
 
 Once the launch is complete, you will be able to connect to the remote server and you deployment will be accessible online with https.
 
-![Quick launch builder](../../assets/QuickLaunchHome.png)
+![Quick launch home](../../assets/QuickLaunchHome.png)
 
 
 :::tip
-This deployment will be available for 1 hour, and after you are done testing, if you want to keep the deployment online, all you need to do is create an account by connecting your Github account, **no credit card required**.
-![Quick launch builder](../../assets/ClaimAccount.png)
+Quick launch is an alternative to cloud functions and works well for launching small applications and simple APIs.
 :::
 
 ***
-
-
-### Dashboard launch
+### Project launch
 
 When you create an account in Diploi, you get access to [the Diploi dashboard](https://console.diploi.com/ "to the Diploi dashboard") which allows you to create projects, where you can collaborate with your team, and create deployments from development, staging and production environments. To register, all you need is a Github account.
 
@@ -116,27 +114,39 @@ To start a deployment, you have three different options:
 - **Staging** to test your application and ensure stability before launching changes in your application to production
 - **Production** to launch your application when it is ready to be used by your end users 
 
+Once you choose the type of deployment you need, choose the size that the deployment should have. The available deployment sizes include:
+
+<DeploymentSizesAvailable/>
+
+![Deployment size](../../assets/CreateDeploymentSize.png)
+
 :::tip
 If you need to connect via SSH to your staging or production deployment, you can do it by getting the SSH connection string from the "containers" section found at the bottom of the "Overview" tab of your deployment
-![Create a project example](../../assets/CreateDeploymentConnect.png)
+![Connect to deployment with SSH](../../assets/CreateDeploymentConnect.png)
 :::
+
 
 ***
 
-#### Shuting down a Deployment
+### Shuting down a Deployment
 
 If you want to stop a deployment from running, all you need to do is click on the "enabled" switch from the **Deployments** tab inside of your Project
 
-![Create a project example](../../assets/DisableDeploymentCard.png)
+![Shutdown deployment](../../assets/DisableDeploymentCard.png)
 
 Alternatively, you can also shutdown a deployment by clicking on the "enabled" switch found at the top of your Deployment's status page
 
-![Create a project example](../../assets/DisableDeploymentSwitch.png)
+![Shutdown switch](../../assets/DisableDeploymentSwitch.png)
 
 You can restart your Deployment at any time by clicking on the same switch you used for shutdown
 
-![Create a project example](../../assets/EnableDeployment.png)
+![Restart deployment](../../assets/EnableDeployment.png)
 
+:::note
+When you shutdown a deployment, it will not generate any costs, you are only charged for the time that your deployment is online
+:::
 ***
 
-Now your application is ready to be used! If anything was unclear, feel free to ask directly on [Discord](https://discord.gg/YV6GYpbQRG) or [contact us](mailto:hello@diploi.com)
+Now your application is ready to be used!
+
+<ContactInfo/>

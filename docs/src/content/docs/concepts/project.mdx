@@ -1,5 +1,5 @@
 ---
-title: Project
+title: Projects
 description: A project contains the deployments of your application.
 sidebar:
   order: 1
@@ -14,9 +14,16 @@ A Diploi project contains the deployments of your application. A typical setup c
 
 A project is defined by the components and add-ons. A project also connects to a GitHub repository and contains common settings and environment variables.
 
-## Components and Add-ons
+***
 
-Every project is started from a set of components and add-ons you choose, which defines the infrastructure of your project.
+## Creating a project
+
+This is the first step to deploy a new application using Diploi. To create a project you must:
+
+1. Select the components and add-ons that your application will be using
+2. Choose between creating a new repository to store your application's code or quick launching without a repository associated for testing purposes
+
+Every project is started from a set of components and add-ons you choose, which defines the structure of your project.
 
 ### Components
 
@@ -26,39 +33,95 @@ You can think of components as the application layer of your project. In Diploi 
 
 ### Add-ons
 
-Now that you understand components, you might need a way to persist data or a way to do pub/sub actions, which is where add-ons come in. Add-ons provide services that can be used by your application.
+Now that you understand components, you might need a way to persist data or a way to perform pub/sub actions, which is where add-ons come in. Add-ons provide services that can be used by your application.
 
 <AddonList/>
 
-## Features of a Project
-
-### Name
-
-The project name can be chosen freely but will be used as a template for both deployment
-names and hostnames so choosing a good short one can be a good idea.
-
-### Components and Add-ons settings
-
 Depending on your combination of components and add-ons there might be some configurable options. E.g. if a database should be running, Redis enabled etc. Values provided in the project are defaults that you can override in the deployment.
 
-### Environment Variables
+***
 
-For your project specific configurations and secrets, you can add environment values.
+### Previewing your project
 
-Values provided in the project are defaults that you can override in the actual deployment.
+In this section you can see a preview of your monorepo folder structure at root level.
 
+![Create project preview](../../../assets/CreateProjectPreview.png)
 
-### Repository
+:::note
+From the preview, you can rename the folders that contain your components and the add-on names that your application will be using, by clicking on the element you want to edit
+![Edit component or add-on name](../../../assets/CreateProjectEditNames.png)
+:::
+
+### Choosing between creating a new repository or quick launch
 
 The easiest way to set up a project is to let Diploi bootstrap a new GitHub repository for
 you. This will ensure that the repository contains the right files to make the project run.
 
-Optionally you can create the project by connecting it to an existing repository. This can be
-useful for example if you want to share a repository between multiple cores or projects.
-In this case however, you are responsible for ensuring that the repository is set up for the
-chosen project type.
+You can also create an project without a repository attached to it, but it is only intended to run tests.
 
-## Deleting a project
+:::caution
+Once you choose between using a new repository or quick launching without a repository, you will not be able to change the repository or add a repository.
+:::
 
-When you no longer need a Project it can be deleted. However you need to delete all deployments
-first and wait for the deletion to complete.
+### Using an existing repository
+
+Alternatively you can create the project by connecting it to an existing repository. This can be
+useful for example if you want to share a repository between multiple cores or projects, but we currently do not have an automagically way to do it. In this case, you are responsible for ensuring that the repository is set up for the chosen project type.
+
+***
+
+## Managing a project
+
+After you create project you will be able to create new deployments and modify the options of the project.
+
+![Project home page](../../../assets/ProjectHomePage.png)
+
+### Project deployments
+
+You will be able to create deployments. Each deployment represents a virtual machine that serves your application online and autoscales on demand. For a deeper dive on deployments, check [Concepts / Deployment](/concepts/deployment/).
+
+### Project options
+
+In this tab you can view and edit properties of your project.
+
+#### General
+
+From here you can update the project's name inside Diploi. When you launch new deployments, the new deployment's name will start by using the project's name.
+
+![Project options general](../../../assets/ProjectOptionsGeneral.png)
+
+:::note
+If you update the name of your project, it won't affect the repository's name.
+:::
+
+#### Parent domain
+
+By default, Diploi generates a domain for your application. The basic structure of a generated domain uses the following logic:
+
+```
+<Deployment endpoint>.<Project parent domain>.diploi.com
+```
+
+![Project options parent domain](../../../assets/ProjectOptionsDomain.png)
+
+:::tip
+If you want to setup a custom domain, you can do it from each deployment. For more information, click here [Guides / custom-domain](/guides/custom-domain/)
+:::
+
+#### Component and Add-on settings
+
+You can view component specific settings and add-on configuration in this section.
+
+![Project options components and add-ons](../../../assets/ProjectOptionsComponentsAndAddons.png)
+
+:::note
+Not all components and add-ons have editable or visible settings in this section.
+:::
+
+#### Deleting a project
+
+When you no longer need a Project you can delete it by first deleting all deployments within the project and the going to the "options" tab of your projects and look for the actions sections, to delete the project click on the "delete project" button
+
+![Delete project](../../../assets/DeleteProject.png)
+
+
