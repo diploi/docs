@@ -1,0 +1,197 @@
+import { Steps } from '@astrojs/starlight/components';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Badge } from '@astrojs/starlight/components';
+import { LinkCard } from '@astrojs/starlight/components';
+import importedCode from './SiteTitle.astro?raw';
+import { Icon } from '@astrojs/starlight/components';
+import { LinkButton } from '@astrojs/starlight/components';
+import { Code } from '@astrojs/starlight/components';
+import { FileTree } from '@astrojs/starlight/components';
+import { Card } from '@astrojs/starlight/components';
+import { CardGrid } from '@astrojs/starlight/components';
+
+export const exampleCode = `console.log('This could come from a file or CMS!');`
+export const fileName = 'example.js';
+export const highlights = ['file', 'CMS'];
+
+
+# Cards
+<LinkCard title="Authoring Markdown" href="/guides/authoring-content/" />
+
+<LinkCard
+  title="Internationalization"
+  href="/guides/i18n/"
+  description="Configure Starlight to support multiple languages."
+/>
+
+<CardGrid>
+  <Card title="Check this out" icon="open-book">
+    Interesting content you want to highlight.
+  </Card>
+  <Card title="Other feature" icon="information">
+    More information you want to share.
+  </Card>
+</CardGrid>
+
+<CardGrid>
+  <LinkCard title="Authoring Markdown" href="/guides/authoring-content/" />
+  <LinkCard title="Components" href="/components/using-components/" />
+</CardGrid>
+
+<CardGrid stagger>
+  <Card title="Check this out" icon="open-book">
+    Interesting content you want to highlight.
+  </Card>
+  <Card title="Other feature" icon="information">
+    More information you want to share.
+  </Card>
+</CardGrid>
+
+
+
+# Badges
+
+<Badge text="Note" variant="note" />
+<Badge text="Success" variant="success" />
+<Badge text="Tip" variant="tip" />
+<Badge text="Caution" variant="caution" />
+<Badge text="Danger" variant="danger" />
+
+<Badge text="New" size="small" />
+<Badge text="New and improved" size="medium" />
+<Badge text="New, improved, and bigger" size="large" />
+
+<Badge text="Custom" variant="success" style={{ fontStyle: 'italic' }} />
+<Card title="Stars" icon="star">
+  Sirius, Vega, Betelgeuse
+</Card>
+<Card title="Check this out">Interesting content you want to highlight.</Card>
+
+
+# Code
+<Code code={importedCode} lang="astro" title="SiteTitle.astro" />
+
+## Imported code
+<Code code={exampleCode} lang="js" title={fileName} mark={highlights} />
+
+
+# Filetree
+
+<FileTree>
+
+- src
+  - components
+    - **Header.astro**
+    - Title.astro
+
+</FileTree>
+
+
+<FileTree>
+
+- src
+  - components
+    - Header.astro an **important** file
+    - Title.astro
+
+</FileTree>
+
+
+<FileTree>
+
+- src
+  - components
+    - Header.astro
+    - …
+
+</FileTree>
+
+<FileTree>
+
+- astro.config.mjs
+- package.json
+- src
+  - components
+    - Header.astro
+    - Title.astro
+  - pages/
+
+</FileTree>
+
+
+# Icons
+
+<Icon name="star" />
+<Icon name="starlight" label="The Starlight logo" />
+
+
+<Icon name="star" color="goldenrod" size="2rem" />
+<Icon name="rocket" color="var(--sl-color-text-accent)" />
+
+
+
+# Buttons
+<LinkButton href="/getting-started/">Get started</LinkButton>
+<LinkButton href="/reference/configuration/" variant="secondary">
+  Configuration Reference
+</LinkButton>
+
+
+<LinkButton
+  href="https://docs.astro.build"
+  variant="secondary"
+  icon="external"
+  iconPlacement="start"
+>
+  Related: Astro
+</LinkButton>
+
+
+# Steps
+
+<Steps>
+
+1. Import the component into your MDX file:
+
+   ```js
+   ```
+
+2. Wrap `<Steps>` around your ordered list items.
+
+</Steps>
+
+
+
+# Tabs
+
+<Tabs>
+  <TabItem label="Stars">Sirius, Vega, Betelgeuse</TabItem>
+  <TabItem label="Moons">Io, Europa, Ganymede</TabItem>
+</Tabs>
+
+## Synced
+
+_Some stars:_
+
+<Tabs syncKey="constellations">
+  <TabItem label="Orion">Bellatrix, Rigel, Betelgeuse</TabItem>
+  <TabItem label="Gemini">Pollux, Castor A, Castor B</TabItem>
+</Tabs>
+
+_Some exoplanets:_
+
+<Tabs syncKey="constellations">
+  <TabItem label="Orion">HD 34445 b, Gliese 179 b, Wasp-82 b</TabItem>
+  <TabItem label="Gemini">Pollux b, HAT-P-24b, HD 50554 b</TabItem>
+</Tabs>
+
+## with icons
+
+<Tabs>
+  <TabItem label="Stars" icon="star">
+    Sirius, Vega, Betelgeuse
+  </TabItem>
+  <TabItem label="Moons" icon="moon">
+    Io, Europa, Ganymede
+  </TabItem>
+</Tabs>
