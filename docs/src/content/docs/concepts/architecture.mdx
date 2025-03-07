@@ -1,0 +1,49 @@
+---
+title: Architecture
+description: A high level explanation of how Diploi works.
+sidebar:
+  order: 1
+---
+
+import { Image } from 'astro:assets';
+
+import GetStartedStatusImage from '../../../assets/GetStartedStatusFull.png';
+import DeploymentSizesAvailable from "../../../components/DeploymentSizesAvailable.mdx"
+import ContactInfo from  "../../../components/ContactInfo.mdx"
+
+## Diploi in a nutshell
+
+Diploi's mission is to make deployment into a process that you do not need to think about. Our goal is for you to just focus on the code that makes defines your app, without worrying about SSL certificates, setting up CI/CD pipelines and other commonly cursed devops demons.
+
+To make that possible, we came up with a simple architecture to define what is part of an application.
+
+In Diploi, you start by first creating a **Project**. A project is the basic building block of your new application. Inside of your **Project**, you define the elements that will power your application.
+
+There are two types of elements that are part of your **Project**,
+- Components, which are the elements that will be exposed for users to access them. These can be frontend, backend or fullstack, and inside of a project you can have multiple components running at the same time as a monorepo
+- Add-ons, which are elements that will be accesible to your components only. These can be databases, cache servers or message queues.
+
+![Project components and add-ons available](../../../assets/ProjectStructure.svg)
+
+:::note
+You can have as many components and add-ons in your project as you want 🙂
+:::
+
+To make the following explanations clearer, let's assume we just created a Project with Bun for the backend and React+vite for the frontend, Redis for caching and PostgreSQL as our app's database
+
+![Project example](../../../assets/ProjectExample.svg)
+
+After you create a **Project**, you can create **Deployments** which will belong to the **Project**. You can think of deployments as virtual machines that will your application, but is not exactly a single machine.
+
+![Deployment example](../../../assets/DeploymentExample.svg)
+
+Each deployment consist of a virtual machine that runs the Diploi core process in charge of communicating with our main server along with Docker containers for each component and add-on that your project has.
+
+![Deployment container structure](../../../assets/DeploymentContainers.svg)
+
+So when you launch deployments, basically you are creating a new virtual machine for your project, so you can have deployments for multiple stages of your application.
+
+![Deployment container structure](../../../assets/ProjectExampleWithDeployments.svg)
+
+***
+<ContactInfo/>
