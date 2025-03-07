@@ -7,7 +7,27 @@ sidebar:
 
 import { Image } from 'astro:assets';
 
-import GetStartedStatusImage from '../../../assets/GetStartedStatusFull.png';
+import GetStartedStatusFull from '../../../assets/GetStartedStatusFull.png';
+import CreateDeploymentGeneral from '../../../assets/CreateDeploymentGeneral.png';
+import CreateDeploymentRepository from '../../../assets/CreateDeploymentRepository.png';
+import ProjectOptionsComponentsAndAddons from '../../../assets/ProjectOptionsComponentsAndAddons.png';
+import DeploymentHomePage from '../../../assets/DeploymentHomePage.png';
+import ProjectOverviewAccessPoints from '../../../assets/ProjectOverviewAccessPoints.png';
+import DeploymentOverviewStack from '../../../assets/DeploymentOverviewStack.png';
+import DeploymentOverviewWeb from '../../../assets/DeploymentOverviewWeb.png';
+import DeploymentOverviewDevelopment from '../../../assets/DeploymentOverviewDevelopment.png';
+import DeploymentOverviewInternal from '../../../assets/DeploymentOverviewInternal.png';
+import DeploymentResourceUsage from '../../../assets/DeploymentResourceUsage.png';
+import DeploymentOverviewStackPreview from '../../../assets/DeploymentOverviewStackPreview.png';
+import DeploymentOverviewLogs from '../../../assets/DeploymentOverviewLogs.png';
+import DeploymentRepoSettings from '../../../assets/DeploymentRepoSettings.png';
+import DeploymentOptionName from '../../../assets/DeploymentOptionName.png';
+import DeploymentOptionSize from '../../../assets/DeploymentOptionSize.png';
+import DeploymentOptionEndpoints from '../../../assets/DeploymentOptionEndpoints.png';
+import GodaddyCustomDomainExample from '../../../assets/GodaddyCustomDomainExample.png';
+import DeploymentOptionEnvironment from '../../../assets/DeploymentOptionEnvironment.png';
+import DeploymentOptionDelete from '../../../assets/DeploymentOptionDelete.png';
+import CreateDeploymentConnect from '../../../assets/CreateDeploymentConnect.png';
 import DeploymentSizesAvailable from "../../../components/DeploymentSizesAvailable.mdx"
 
 ## What is a Diploi Deployment?
@@ -37,7 +57,7 @@ If you already have a project, you can start creating a deployment. Below you wi
 
 Within the general settings of your new deployment, you can define the name that your deployment will have and the stage.
 
-![Deployment general settings](../../../assets/CreateDeploymentGeneral.png)
+<Image src={CreateDeploymentGeneral} alt='Deployment general settings'/>
 
 :::note
 The stage of your deployment will define if your environment will be a dynamic or a build deployment. 
@@ -75,7 +95,7 @@ You must choose the appropiate size for your application. You can update later t
 
 In this section you will be able to define the branch that your deploymeny must use. You will be able to change the branch source for your deployment from the _**Repository & Git**_   tab of your deployment.
 
-![Deployment repository branch](../../../assets/CreateDeploymentRepository.png)
+<Image src={CreateDeploymentRepository} alt='Deployment repository branch'/>
 
 :::note
 The Repository section is only available for projects that are started with a new repository associated to them. Quick launch projects do not have a way to attach a repository at the moment so the Repository section will not be shown when creating a new deployment.
@@ -85,7 +105,7 @@ The Repository section is only available for projects that are started with a ne
 
 Depending on your project's components and add-ons, you might be able to make changes to the configuration, changes in this section will not affect other deployments or your project's default configuration. 
 
-![Project options components and add-ons](../../../assets/ProjectOptionsComponentsAndAddons.png)
+<Image src={ProjectOptionsComponentsAndAddons} alt='Project options components and add-ons'/>
 
 :::note
 Not all components and add-ons have editable settings in this section.
@@ -95,7 +115,7 @@ Not all components and add-ons have editable settings in this section.
 
 Once you have created a deployment inside of a project, you will be able access to access you deployment's settings from the project page.
 
-![Deployment home page](../../../assets/DeploymentHomePage.png)
+<Image src={DeploymentHomePage} alt='Deployment home page'/>
 
 ### Overview
 
@@ -106,19 +126,19 @@ The overview tab is divided in three core sections:
 <div class=' rounded-md border-l-2 p-4'>
 - **[Access points](#access-points)**, which is divided into **[Web](#web)**, **[Development](#development)** and **[Internal](#internal)** access points.
 
-![Overview fields](../../../assets/ProjectOverviewAccessPoints.png)
+<Image src={ProjectOverviewAccessPoints} alt='Overview fields'/>
 </div>
 
 <div class=' rounded-md border-l-2 p-4'>
 - **[Status and resources](#status-and-resources)**, where you can see the resource usage of your deployment and the status of containers that define your deployment.
 
-![Status and resources view](../../../assets/GetStartedStatusFull.png)
+<Image src={GetStartedStatusFull} alt='Status and resources view'/>
 </div>
 
 <div class=' rounded-md border-l-2 p-4'>
 - **[Deployment stack and logs](#deployment-stack-logs)**, in here you can view the active stack that your deployment uses, which is defined by your project and gives you access to the deployment logs of each component and add-on that is enabled on your project.
 
-![Stack preview and logs](../../../assets/DeploymentOverviewStack.png)
+<Image src={DeploymentOverviewStack} alt='Stack preview and logs'/>
 </div>
 
 :::note
@@ -133,14 +153,14 @@ Depending on the deployment stage, your deployment's overview will show differen
 
 Here you can see all public facing URL endpoints that your applications expose. All URLs shown have SSL encryption by default.
 
-![Overview web endpoints](../../../assets/DeploymentOverviewWeb.png)
+<Image src={DeploymentOverviewWeb} alt='Overview web endpoints'/>
 
 ##### Development
 <sup>Only available on Development deployments</sup>
 
 In this section you can get the SSH connection string to your development environment and access to the remote IDE environment.
 
-![Overview development SSH connection string](../../../assets/DeploymentOverviewDevelopment.png)
+<Image src={DeploymentOverviewDevelopment} alt='Overview development SSH connection string'/>
 
 :::note
 For deployments that are not for development, you can still access the deployment with SSH [by going to the containers section in the overview page](#ssh-containers) 
@@ -168,7 +188,7 @@ information.
 
 Here you can find connection strings for the add-ons attached to your project.
 
-![Overview internal endpoints](../../../assets/DeploymentOverviewInternal.png)
+<Image src={DeploymentOverviewInternal} alt='Overview internal endpoints'/>
 
 :::note
 All add-ons by default are only accesible locally by your applications and are not exposed to the wider internet.
@@ -182,7 +202,7 @@ All add-ons by default are only accesible locally by your applications and are n
 
 Here you can visualize the overall resource usage of your deployment. You can adjust the timeframe to show 1 minute, 1 hour or 1 day.
 
-![Resource usage graph](../../../assets/DeploymentResourceUsage.png)
+<Image src={DeploymentResourceUsage} alt='Resource usage graph'/>
 
 ##### Deployment setup status
 
@@ -204,14 +224,14 @@ At the bottom of the page is a status tree that gives a more detailed view of th
 * **Containers** – Lists all containers running in the cluster
 * **Services** – Show the status of services within your application. The entries here and how they work depend on the template you are running. Depending on the template you might even be able to add/remove items to this list.
 
-![Deployment setup status](../../../assets/GetStartedStatusFull.png)
+<Image src={GetStartedStatusFull} alt='Deployment setup status'/>
 
 <div id='ssh-containers'/>
 
 :::tip
 You can connect directly to each container that is part of your deployment via SSH. To get the SSH connection string to each container, click on the _**Connect +**_ button next to each container and this will copy the connection string to your clipboard.
-span
-![Conntect to container](../../../assets/CreateDeploymentConnect.png)
+
+<Image src={CreateDeploymentConnect} alt='Conntect to container'/>
 :::
 
 #### Deployment stack and logs
@@ -220,7 +240,7 @@ span
 
 In stack preview you can see all components and add-ons that are currently running on your deployment.
 
-![Stack preview](../../../assets/DeploymentOverviewStackPreview.png)
+<Image src={DeploymentOverviewStackPreview} alt='Stack preview'/>
 
 :::note
 At the moment, it is not possible to change the stack of your project or deployment after it is created.
@@ -230,7 +250,7 @@ At the moment, it is not possible to change the stack of your project or deploym
 
 You can access from the overview page, the logs of all running elements of your stack.
 
-![Stack logs](../../../assets/DeploymentOverviewLogs.png)
+<Image src={DeploymentOverviewLogs} alt='Stack logs'/>
 
 :::note
 In the future, you will be able to clone your deployment, which at the moment is disabled.
@@ -247,7 +267,7 @@ When you push new changes to your selected branch, a GitHub action will be run i
 
 In this tab you can also change the attribution of updates to the environment, which by default is attributed to the Github account that created the project.
 
-![Deployment repository settings](../../../assets/DeploymentRepoSettings.png)
+<Image src={DeploymentRepoSettings} alt='Deployment repository settings'/>
 
 ### Deployment options
 
@@ -257,7 +277,7 @@ From here you can update the deployment's name, change the size of your deployme
 
 You can update the deployment's name used inside of your project.
 
-![Project options general](../../../assets/DeploymentOptionName.png)
+<Image src={DeploymentOptionName} alt='Project options general'/>
 
 :::note
 If you update the name of your deployment, it won't affect the repository's name or alter your application's behavior.
@@ -267,7 +287,7 @@ If you update the name of your deployment, it won't affect the repository's name
 
 You can change the size of the deployment machine that your deployment uses, by first disabling the deployment and then choosing a different size.
 
-![Project options size](../../../assets/DeploymentOptionSize.png)
+<Image src={DeploymentOptionSize} alt='Project options size'/>
 
 #### Endpoint settings
 
@@ -276,7 +296,7 @@ an SSL certificates for the public endpoints. You can customize the auto-generat
 
 For a more detailed explanation, check the [Custom domain](/guides/custom-domain/) guide.
 
-![Deployment endpoints](../../../assets/DeploymentOptionEndpoints.png)
+<Image src={DeploymentOptionEndpoints} alt='Deployment endpoints'/>
 
 ##### Using a custom domain
 
@@ -288,7 +308,7 @@ If you want to use a custom domain all you need to do is:
 
 For example, if you use GoDaddy domains, if you want to use a subdomain like `custom.mydomain.com` your DNS configuration would look like this:
 
-![Godaddy domain example](../../../assets/GodaddyCustomDomainExample.png)
+<Image src={GodaddyCustomDomainExample} alt='Godaddy domain example'/>
 
 :::note
 When you first assign a new domain for your application, it can take up to 30 minutes for the new SSL certificate to become valid.
@@ -298,7 +318,7 @@ When you first assign a new domain for your application, it can take up to 30 mi
 
 You can customize the environment variables that each of your components and add-ons use. Some variables are automatically generated from your add-ons into your components.
 
-![Deployment environment](../../../assets/DeploymentOptionEnvironment.png)
+<Image src={DeploymentOptionEnvironment} alt='Deployment environment'/>
 
 #### Deleting a deployment
 
@@ -307,7 +327,7 @@ button on last on the Options tab. Please be aware that this will permanently
 delete any persistent storage (such as code, databases etc.) associated with 
 the instance. You don't need to shut down the deployment before deleting.
 
-![Delete deployment](../../../assets/DeploymentOptionDelete.png)
+<Image src={DeploymentOptionDelete} alt='Delete deployment'/>
 
 :::note
 If you want to delete an entire project, you must first delete all deployments that belong to the project first.

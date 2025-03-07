@@ -4,7 +4,8 @@ description: Diploi offers the flexibility to configure custom domains on two le
 ---
 import ContactInfo from  "../../../components/ContactInfo.mdx"
 import { Steps } from '@astrojs/starlight/components';
-
+import { Image } from 'astro:assets';
+import ProjectOptionsDomain from  "../../../assets/ProjectOptionsDomain.png"
 
 Diploi offers the flexibility to configure custom domains on two levels: at the project level and at the deployment level.
 
@@ -31,7 +32,7 @@ For both case, Projects and Deployments, all you need to do is:
     1. Access your domain DNS records.
     2. Create a new CNAME record, pointing to `edge.diploi.com` and using for name, the subdomain or root domain you want to use.
     3. Add your custom domain in your Project or Deployment.
-        ![Applying a custom domain](../../../assets/ProjectOptionsDomain.png)
+        <Image src={ProjectOptionsDomain} alt='Applying a custom domain'/>
 
 </Steps>
 
