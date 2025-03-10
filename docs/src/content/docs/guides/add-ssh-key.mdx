@@ -3,8 +3,8 @@ title: Connecting via SSH
 description: Diploi utilizes SSH keys for user authentication when establishing SSH connections to deployments.
 ---
 import { Steps, Code, Tabs, TabItem } from '@astrojs/starlight/components';
-import { Image } from 'astro:assets';
 import AddSSHKey from  "../../../assets/AddSSHKey.png"
+import ImageToPNG from  "../../../components/ImageToPNG.astro"
 
 
 Diploi utilizes SSH keys for user authentication when establishing SSH connections to deployments.
@@ -190,7 +190,7 @@ Now that you copied the contents of your public key, you need to add it your Dip
    3. Provide a description for your key, such as "Work MacBook," to help you remember its origin or purpose.
    4. Paste your SSH "public key" into the designated field.
    5. Click the "Add SSH Key" button.
-      <Image src={AddSSHKey} alt="Add SSH Key"/>
+      <ImageToPNG src={AddSSHKey} alt="Add SSH Key"/>
 </Steps>
 
 :::caution

@@ -3,7 +3,7 @@ title: Get Started
 description: How to set up a server with components and add-ons.
 ---
 
-import { Image } from 'astro:assets';
+import ImageToPNG from  "../../components/ImageToPNG.astro"
 import DeploymentSizesAvailable from  "../../components/DeploymentSizesAvailable.mdx"
 import ContactInfo from  "../../components/ContactInfo.mdx"
 import QuickStartBuilder from '../../assets/QuickStartBuilder.png'
@@ -40,17 +40,17 @@ No account or credit card needed to get started!
 
 You can start a deployment right away from [our homepage](https://diploi.com/#quick-launch)
 
-<Image src={QuickStartBuilder} alt="Quick launch builder"/>
+<ImageToPNG src={QuickStartBuilder} alt="Quick launch builder"/>
 
 In the stack builder, you can can choose the components and add-ons you want to have in your deployment, and that's it!
 
 You can click "**Launch stack**" and your deployment will be ready in less than 30 seconds.
 
-<Image src={QuickLaunchLoading} alt="Quick launch loading"/>
+<ImageToPNG src={QuickLaunchLoading} alt="Quick launch loading"/>
 
 Once the launch is complete, you will be able to connect to the remote server and you deployment will be accessible online with https.
 
-<Image src={QuickLaunchHome} alt="Quick launch home"/>
+<ImageToPNG src={QuickLaunchHome} alt="Quick launch home"/>
 
 
 :::tip
@@ -83,19 +83,19 @@ Once you define the components and add-ons of your application, you can change t
 To create a project for your app click **Create Project** from your dashboard, which will open the **Stack Builder** where you can choose the components and add-ons for your project.
 
 ##### Components
-<Image src={CreateProjectComponents} alt="Project components"/>
+<ImageToPNG src={CreateProjectComponents} alt="Project components"/>
 
 ##### Add-ons
-<Image src={CreateProjectAddons} alt="Project add-ons"/>
+<ImageToPNG src={CreateProjectAddons} alt="Project add-ons"/>
 
 Once you have chosen the stack for your project, you will be able to see a preview of your selected stack.
 
 ##### Stack preview
-<Image src={CreateProjectPreview} alt="Create a project example"/>
+<ImageToPNG src={CreateProjectPreview} alt="Create a project example"/>
 
 In the preview you can edit the identifier for each component and add-on you have selected by clicking on the previewed elements of your stack. This will change the folder name of the components in your monorepo and the internal hostname of your add-ons. 
 
-<Image src={CreateProjectEditNames} alt="Create a project example"/>
+<ImageToPNG src={CreateProjectEditNames} alt="Create a project example"/>
 
 ##### Creating a repository to host you project
 
@@ -107,7 +107,7 @@ You have two options available:
 
 - **Create Repository** where a newly created repository is linked to your project. Ideal for launching new application intended for production. By creating a new repository for your project, you automagically enable Diploi's push-to-deployment pipeline, where changes in your repository's will update the state of your deployment.
 
-<Image src={CreateProjectRepo} alt="Create a project repo"/>
+<ImageToPNG src={CreateProjectRepo} alt="Create a project repo"/>
 
 Now that you have selected your desired stack and the configuration of your project, you can complete the creation of the project by clicking **Launch Stack**.
 
@@ -128,12 +128,12 @@ Once you choose the type of deployment you need, choose the size that the deploy
 
 <DeploymentSizesAvailable/>
 
-<Image src={CreateDeploymentSize} alt="Deployment size"/>
+<ImageToPNG src={CreateDeploymentSize} alt="Deployment size"/>
 
 :::tip
 If you need to connect via SSH to your staging or production deployment, you can do it by getting the SSH connection string from the "containers" section found at the bottom of the "Overview" tab of your deployment
 
-<Image src={CreateDeploymentConnect} alt="Connect to deployment with SSH"/>
+<ImageToPNG src={CreateDeploymentConnect} alt="Connect to deployment with SSH"/>
 :::
 
 ***
@@ -142,15 +142,15 @@ If you need to connect via SSH to your staging or production deployment, you can
 
 If you want to stop a deployment from running, all you need to do is click on the "enabled" switch from the **Deployments** tab inside of your Project
 
-<Image src={DisableDeploymentCard} alt="Shutdown deployment"/>
+<ImageToPNG src={DisableDeploymentCard} alt="Shutdown deployment"/>
 
 Alternatively, you can also shutdown a deployment by clicking on the "enabled" switch found at the top of your Deployment's status page
 
-<Image src={DisableDeploymentSwitch} alt="Shutdown switch"/>
+<ImageToPNG src={DisableDeploymentSwitch} alt="Shutdown switch"/>
 
 You can restart your Deployment at any time by clicking on the same switch you used for shutdown
 
-<Image src={EnableDeployment} alt="Restart deployment"/>
+<ImageToPNG src={EnableDeployment} alt="Restart deployment"/>
 
 :::note
 When you shutdown a deployment, it will not generate any costs, you are only charged for the time that your deployment is online
