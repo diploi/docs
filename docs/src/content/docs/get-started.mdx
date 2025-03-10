@@ -24,9 +24,9 @@ import EnableDeployment from '../../assets/EnableDeployment.png'
 
 You have two ways to get started
 
-1. [**Quick launch**](#quick-launch), recommended for cloud functions, simple APIs and ephimeral applications, were you do not need version control and want to focus on the code only.
+1. [**Quick launch**](#quick-launch), recommended to launch simple APIs, code snippets, and simple applications in seconds. You can think of it as an alternative to cloud functions where you have control over the virtual machine running your functions, without the need for version control and want to focus mainly on the code.
 
-2. [**Project launch**](#project-launch), allows you to deploy new applications with a repository bootstrap for you application. All you need is to sign up using a Github account. We recommend you use this method if you plan to deploy production-ready applications.
+2. [**Repository launch**](#repository-launch), allows you to deploy new applications with a repository bootstrap for you application. All you need is to sign up using a Github account. We recommend you use this method if you plan to deploy production-ready applications.
 
 ***
 
@@ -54,19 +54,17 @@ Once the launch is complete, you will be able to connect to the remote server an
 
 
 :::tip
-Quick launch is an alternative to cloud functions and works well for launching small applications and simple APIs.
+Quick launch is an alternative for launching small applications and simple APIs.
 :::
 
 ***
-### Project launch
+### Repository launch
 
 When you create an account in Diploi, you get access to [the Diploi dashboard](https://console.diploi.com/ "to the Diploi dashboard") which allows you to create projects, where you can collaborate with your team, and create deployments from development, staging and production environments. To register, all you need is a Github account.
 
 #### Prerequisites
 
 * A GitHub account
-* Text Editor - We recommend [VSCode](https://code.visualstudio.com/)
-* An SSH Key (for development) - See [Add an SSH Key](/guides/add-ssh-key/)
 
 #### Create an Account
 
@@ -76,10 +74,10 @@ authenticate using your GitHub account.
 
 #### Create a Project
 
-In Diploi, a project refer to a combination of **components** and **add-ons** that form the stack that will make up your application.
+In Diploi, a project refer to a combination of **components** and **add-ons** that form the **stack** that will make up your application.
 
-:::caution
-Once you define the components and add-ons of your application, you won't be able to change it, so make sure to select the correct combination for your project
+:::Note
+Once you define the components and add-ons of your application, you can change them by editing the `diploi.yaml` in your project's repository
 :::
 
 To create a project for your app click **Create Project** from your dashboard, which will open the **Stack Builder** where you can choose the components and add-ons for your project.
@@ -95,7 +93,7 @@ Once you have chosen the stack for your project, you will be able to see a previ
 ##### Stack preview
 <Image src={CreateProjectPreview} alt="Create a project example"/>
 
-In the preview you can edit the identifier for each component and add-on you have selected by clicking on the previewed elements of your stack. This will change the folder name of the components in your monorepo and the database name of your addons. 
+In the preview you can edit the identifier for each component and add-on you have selected by clicking on the previewed elements of your stack. This will change the folder name of the components in your monorepo and the internal hostname of your add-ons. 
 
 <Image src={CreateProjectEditNames} alt="Create a project example"/>
 
