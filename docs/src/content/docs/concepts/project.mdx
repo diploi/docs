@@ -5,9 +5,6 @@ sidebar:
   order: 2
 ---
 
-
-import { Image } from 'astro:assets';
-
 import CreateProjectPreview from '../../../assets/CreateProjectPreview.png';
 import CreateProjectEditNames from '../../../assets/CreateProjectEditNames.png';
 import ProjectHomePage from '../../../assets/ProjectHomePage.png';
@@ -16,6 +13,7 @@ import ProjectOptionsDomain from '../../../assets/ProjectOptionsDomain.png';
 import ProjectOptionsComponentsAndAddons from '../../../assets/ProjectOptionsComponentsAndAddons.png';
 import DeleteProject from '../../../assets/DeleteProject.png';
 import ComponentList from  "../../../components/ComponentList.mdx"
+import ImageToPNG from  "../../../components/ImageToPNG.astro"
 import AddonList from  "../../../components/AddonList.mdx"
 
 ## What is a Diploi Project?
@@ -53,11 +51,11 @@ Add-ons provide services that can be used by your application. In general, add-o
 
 In this section you can see a preview of your monorepo folder structure at root level.
 
-<Image src={CreateProjectPreview} alt='Create project preview'/>
+<ImageToPNG src={CreateProjectPreview} alt='Create project preview'/>
 
 :::note
 From the preview, you can rename the folders that contain your components and the add-on names that your application will be using, by clicking on the element you want to edit
-<Image src={CreateProjectEditNames} alt='Edit component or add-on name'/>
+<ImageToPNG src={CreateProjectEditNames} alt='Edit component or add-on name'/>
 :::
 
 ### Choosing between creating a new repository or quick launch
@@ -81,7 +79,7 @@ Once you choose between using a new repository or quick launching without a repo
 
 After you create project you will be able to create new deployments and modify the options of the project.
 
-<Image src={ProjectHomePage} alt='Project home page'/>
+<ImageToPNG src={ProjectHomePage} alt='Project home page'/>
 
 ### Project deployments
 
@@ -95,7 +93,7 @@ In this tab you can view and edit properties of your project.
 
 From here you can update the project's name inside Diploi. When you launch new deployments, the new deployment's name will start by using the project's name.
 
-<Image src={ProjectOptionsGeneral} alt='Project options general'/>
+<ImageToPNG src={ProjectOptionsGeneral} alt='Project options general'/>
 ![Project options general](../../../assets/ProjectOptionsGeneral.png)
 
 :::note
@@ -110,7 +108,7 @@ By default, Diploi generates a domain for your application. The basic structure 
 <Deployment endpoint>.<Project parent domain>.diploi.app
 ```
 
-<Image src={ProjectOptionsDomain} alt='Project options parent domain'/>
+<ImageToPNG src={ProjectOptionsDomain} alt='Project options parent domain'/>
 
 :::tip
 If you want to setup a custom domain, you can do it from each deployment. For more information, click here [Guides / custom-domain](/guides/custom-domain/)
@@ -120,7 +118,7 @@ If you want to setup a custom domain, you can do it from each deployment. For mo
 
 You can view component specific settings and add-on configuration in this section.
 
-<Image src={ProjectOptionsComponentsAndAddons} alt='Project options components and add-ons'/>
+<ImageToPNG src={ProjectOptionsComponentsAndAddons} alt='Project options components and add-ons'/>
 
 :::note
 Not all components and add-ons have editable or visible settings in this section.
@@ -130,6 +128,6 @@ Not all components and add-ons have editable or visible settings in this section
 
 When you no longer need a Project you can delete it by first deleting all deployments within the project and the going to the "options" tab of your projects and look for the actions sections, to delete the project click on the "delete project" button
 
-<Image src={DeleteProject} alt='Delete project'/>
+<ImageToPNG src={DeleteProject} alt='Delete project'/>
 
 
