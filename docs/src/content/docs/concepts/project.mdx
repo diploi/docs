@@ -30,7 +30,7 @@ A project is defined by the components and add-ons. A project also connects to a
 
 This is the first step to deploy a new application using Diploi. To create a project you must:
 
-1. Select the components and add-ons that your application will be using
+1. Select the stack of components and add-ons that your application will be using
 2. Choose between creating a new repository to store your application's code or quick launching without a repository associated for testing purposes
 
 Every project is started from a set of components and add-ons you choose, which defines the structure of your project.
@@ -43,11 +43,9 @@ You can think of components as the application layer of your project. In Diploi 
 
 ### Add-ons
 
-Now that you understand components, you might need a way to persist data or a way to perform pub/sub actions, which is where add-ons come in. Add-ons provide services that can be used by your application.
+Add-ons provide services that can be used by your application. In general, add-ons in Diploi are services that do not require directly development work like databases, analytics services, CMS dashboards, etc.
 
 <AddonList/>
-
-Depending on your combination of components and add-ons there might be some configurable options. E.g. if a database should be running, Redis enabled etc. Values provided in the project are defaults that you can override in the deployment.
 
 ***
 
@@ -73,10 +71,9 @@ You can also create an project without a repository attached to it, but it is on
 Once you choose between using a new repository or quick launching without a repository, you will not be able to change the repository or add a repository.
 :::
 
-### Using an existing repository
-
-Alternatively you can create the project by connecting it to an existing repository. This can be
-useful for example if you want to share a repository between multiple cores or projects, but we currently do not have an automagically way to do it. In this case, you are responsible for ensuring that the repository is set up for the chosen project type.
+:::note
+**Using an existing repository and importing an application to Diploi** is not an automagically process, but it is possible. If you would like to bring your existing application to Diploi, contact us on [Discord](https://discord.gg/YV6GYpbQRG) or [via email](mailto:hello@diploi.com).
+:::
 
 ***
 
@@ -88,7 +85,7 @@ After you create project you will be able to create new deployments and modify t
 
 ### Project deployments
 
-You will be able to create deployments. Each deployment represents a virtual machine that serves your application online and autoscales on demand. For a deeper dive on deployments, check [Concepts / Deployment](/concepts/deployment/).
+You will be able to create deployments. Each deployment represents a virtual machine that serves your application online. For a deeper dive on deployments, check [Concepts / Deployment](/concepts/deployment/).
 
 ### Project options
 
@@ -110,7 +107,7 @@ If you update the name of your project, it won't affect the repository's name.
 By default, Diploi generates a domain for your application. The basic structure of a generated domain uses the following logic:
 
 ```
-<Deployment endpoint>.<Project parent domain>.diploi.com
+<Deployment endpoint>.<Project parent domain>.diploi.app
 ```
 
 <Image src={ProjectOptionsDomain} alt='Project options parent domain'/>

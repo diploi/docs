@@ -33,7 +33,7 @@ import DeploymentSizesAvailable from "../../../components/DeploymentSizesAvailab
 ## What is a Diploi Deployment?
 
 In Diploi, a deployment is a full instance of your application, including databases and
-other services. It also includes storage and current code changes you are working on. In simple terms, a deployment is a virtual machine instance that can autoscale and runs your code.
+other services. It also includes storage and current code changes you are working on. In simple terms, a deployment is a virtual machine instance that runs your code.
 
 ***
 
@@ -43,7 +43,7 @@ Deployments can be divided into two general categories, dynamic development depl
 
 - **Dynamic development deployments** in Diploi are called _**Development deployments**_ and they have persistent storage for your code so that code changes will remain even if your deployment restarts or it is shutdown.
 
-- **Build deployments** in Diploi can be _**Staging**_ or _**Production deployments**_  and their virtual machine instances will start fresh on every restart and run the built production version of your application.
+- **Build deployments** in Diploi can be _**Staging**_ or _**Production deployments**_  and their virtual machine instances will run the production built of your application.
 
 You can define what branch of your repository each deployment will use to build your application for production. How this works can in part depend on how the project component and add-ons works.
 
@@ -77,11 +77,11 @@ In Diploi, you have three stages that you can assign to your deployments:
 </div>
 <div class=' rounded-md border-l-2 p-4'>
    ##### Staging
-   Staging deployments are used for testing and quality assurance purposes. They closely resemble the production environment but are separate from the live application. Staging deployments usually create a build from your application's source code. Allows you to test changes before deploying them to production.
+   Staging deployments are used for testing and quality assurance purposes. They closely resemble the production environment but are separate from the live application. Staging deployments use built images of your application and allows you to test changes before deploying them to production.
 </div>
 <div class=' rounded-md border-l-2 p-4'>
    ##### Production
-   For the live version of your application accessible to end-users. It involves creating a build from your application's source code. Focuses on stability, performance, and scalability.
+   Intended to be used as the live version of your application which is accessible to your end-users. It uses a build of your application, to launch the production environment.
 </div>
 
 
@@ -136,7 +136,7 @@ The overview tab is divided in three core sections:
 </div>
 
 <div class=' rounded-md border-l-2 p-4'>
-- **[Deployment stack and logs](#deployment-stack-logs)**, in here you can view the active stack that your deployment uses, which is defined by your project and gives you access to the deployment logs of each component and add-on that is enabled on your project.
+- **[Deployment stack and logs](#deployment-stack-logs)**, in here you can view the active stack that your deployment uses and gives you access to the deployment logs of each component and add-on that is enabled on your deployment.
 
 <Image src={DeploymentOverviewStack} alt='Stack preview and logs'/>
 </div>
@@ -243,7 +243,7 @@ In stack preview you can see all components and add-ons that are currently runni
 <Image src={DeploymentOverviewStackPreview} alt='Stack preview'/>
 
 :::note
-At the moment, it is not possible to change the stack of your project or deployment after it is created.
+At the moment, it is possible to change the stack of your deployment by directly editing the `diploi.yaml` file in the root of your project's repository.
 :::
 
 ##### Logs
