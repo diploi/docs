@@ -20,7 +20,7 @@ import AddonList from  "../../../components/AddonList.mdx"
 
 A Diploi project contains the deployments of your application. A typical setup could be one deployment for production, one for staging and perhaps one development instance per active developer.
 
-A project is defined by the components and add-ons. A project also connects to a GitHub repository and contains common settings and environment variables.
+A project is defined by components and add-ons. A project also connects to a GitHub repository and contains common settings and environment variables.
 
 ***
 
@@ -31,17 +31,20 @@ This is the first step to deploy a new application using Diploi. To create a pro
 1. Select the stack of components and add-ons that your application will be using
 2. Choose between creating a new repository to store your application's code or quick launching without a repository associated for testing purposes
 
-Every project is started from a set of components and add-ons you choose, which defines the structure of your project.
+Every project is started from the set of components and add-ons you choose and this defines the structure of your project.
 
 ### Components
 
-You can think of components as the application layer of your project. In Diploi you can have multiple options available to define your application, which you can mix as wish.
+You can think of components as the application layer of your project. In Diploi you can have multiple options available to define your application, which you can mix as you wish.
 
 <ComponentList/>
 
 ### Add-ons
 
-Add-ons provide services that can be used by your application. In general, add-ons in Diploi are services that do not require directly development work like databases, analytics services, CMS dashboards, etc.
+Add-ons provide services used by your application. In general, add-ons in Diploi are services that do not require direct development work, which can be services like databases, analytics services, CMS dashboards, etc.
+
+:::note
+Services are not exposed publicly by default. They can only be accessed by the components in your project.
 
 <AddonList/>
 
@@ -49,7 +52,7 @@ Add-ons provide services that can be used by your application. In general, add-o
 
 ### Previewing your project
 
-In this section you can see a preview of your monorepo folder structure at root level.
+In this section, you can see a preview of your monorepo folder structure at root level.
 
 <ImageToPNG src={CreateProjectPreview} alt='Create project preview'/>
 
@@ -58,26 +61,25 @@ From the preview, you can rename the folders that contain your components and th
 <ImageToPNG src={CreateProjectEditNames} alt='Edit component or add-on name'/>
 :::
 
-### Choosing between creating a new repository or quick launch
+### Choosing between creating a Repository launch  or Quick launch
 
-The easiest way to set up a project is to let Diploi bootstrap a new GitHub repository for
-you. This will ensure that the repository contains the right files to make the project run.
+Repository launch is the easiest way to set up a project is to let Diploi bootstrap a new GitHub repository for you. This will ensure that the repository contains the right files to make the project run.
 
-You can also create an project without a repository attached to it, but it is only intended to run tests.
+Quick launck is the fatest way to launch a VM in seconds and it can be used when you need to run a simple script online or just want to test drive Diploi. With a Quick launch, you create an project without a repository attached to it.
 
 :::caution
 Once you choose between using a new repository or quick launching without a repository, you will not be able to change the repository or add a repository.
 :::
 
 :::note
-**Using an existing repository and importing an application to Diploi** is not an automagically process, but it is possible. If you would like to bring your existing application to Diploi, contact us on [Discord](https://discord.gg/YV6GYpbQRG) or [via email](mailto:hello@diploi.com).
+**Using an existing repository and importing an application to Diploi** is not yet an automagically process, but it is possible. If you would like to bring your existing application to Diploi, contact us on [Discord](https://discord.gg/YV6GYpbQRG) or [via email](mailto:hello@diploi.com).
 :::
 
 ***
 
 ## Managing a project
 
-After you create project you will be able to create new deployments and modify the options of the project.
+After creating a project, you will be able to create new deployments and modify the options of the project.
 
 <ImageToPNG src={ProjectHomePage} alt='Project home page'/>
 
@@ -111,7 +113,7 @@ By default, Diploi generates a domain for your application. The basic structure 
 <ImageToPNG src={ProjectOptionsDomain} alt='Project options parent domain'/>
 
 :::tip
-If you want to setup a custom domain, you can do it from each deployment. For more information, click here [Guides / custom-domain](/guides/custom-domain/)
+If you want to set up a custom domain, you can do it from each deployment. For more information, click here [Guides / custom-domain](/guides/custom-domain/)
 :::
 
 #### Component and Add-on settings
@@ -126,7 +128,7 @@ Not all components and add-ons have editable or visible settings in this section
 
 #### Deleting a project
 
-When you no longer need a Project you can delete it by first deleting all deployments within the project and the going to the "options" tab of your projects and look for the actions sections, to delete the project click on the "delete project" button
+When you no longer need a Project you can delete it by first deleting all deployments within the project and the going to the "options" tab of your projects and look for the actions sections, to delete the project click on the "delete project" button.
 
 <ImageToPNG src={DeleteProject} alt='Delete project'/>
 
