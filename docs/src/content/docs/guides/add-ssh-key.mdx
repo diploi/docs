@@ -12,7 +12,7 @@ This authentication method is commonly employed for remote development connectio
 
 To add an SSH key to your Diploi profile, you must:
 
-- Generate a SSH key pair
+- Generate an SSH key pair
 - Copy the public SSH key
 - Add the copied content of your public SSH in Diploi
 
@@ -25,8 +25,8 @@ Let's go through each step in detail.
 <Tabs syncKey="os">
   <TabItem label="Linux">
    <Steps>
-   1. Open a terminal and run: `ssh-keygen` which generate by default a ed25519 key pair
-   2. You will get the message, asking you to assign a name for the key pair
+   1. Open a terminal and run: `ssh-keygen` which generates by default an ed25519 key pair
+   2. You will get a message, asking you to assign a name for the key pair
       ```bash
       Generating public/private ed25519 key pair.
       Enter file in which to save the key (/home/<your_username>/.ssh/id_ed25519): 
@@ -34,7 +34,7 @@ Let's go through each step in detail.
    3. After that, you will be prompted to add a passphrase.
       ```bash
       Enter passphrase (empty for no passphrase): 
-      Enter same passphrase again: 
+      Enter the same passphrase again: 
       ```
    4. Now your new key pair is ready, you will see the following message:
       ```bash
@@ -59,8 +59,8 @@ Let's go through each step in detail.
   </TabItem>
   <TabItem label="Windows">
    <Steps>
-   1. Using Git Bash, Terminal or WSL run: `ssh-keygen` which generate by default a ed25519 key pair
-   2. You will get the message, asking you to assign a name for the key pair
+   1. Using Git Bash, Terminal or WSL run: `ssh-keygen` which generates by default an ed25519 key pair
+   2. You will get a message, asking you to assign a name for the key pair
       ```bash
       Generating public/private ed25519 key pair.
       Enter file in which to save the key (/home/<your_username>/.ssh/id_ed25519): 
@@ -68,7 +68,7 @@ Let's go through each step in detail.
    3. After that, you will be prompted to add a passphrase.
       ```bash
       Enter passphrase (empty for no passphrase): 
-      Enter same passphrase again: 
+      Enter the same passphrase again: 
       ```
    4. Now your new key pair is ready, you will see the following message:
       ```bash
@@ -93,8 +93,8 @@ Let's go through each step in detail.
   </TabItem>
   <TabItem label="Mac">
    <Steps>
-   1. Open Terminal and run: `ssh-keygen` which generate by default a ed25519 key pair
-   2. You will get the message, asking you to assign a name for the key pair
+   1. Open Terminal and run: `ssh-keygen` which generates by default an ed25519 key pair
+   2. You will get a message, asking you to assign a name for the key pair
       ```bash
       Generating public/private ed25519 key pair.
       Enter file in which to save the key (/home/<your_username>/.ssh/id_ed25519): 
@@ -102,7 +102,7 @@ Let's go through each step in detail.
    3. After that, you will be prompted to add a passphrase.
       ```bash
       Enter passphrase (empty for no passphrase): 
-      Enter same passphrase again: 
+      Enter the same passphrase again: 
       ```
    4. Now your new key pair is ready, you will see the following message:
       ```bash
@@ -128,7 +128,7 @@ Let's go through each step in detail.
 </Tabs>
 
 :::note
-Alternatively, if you already have an existing SSH key, you can use that.
+Alternatively, you can use an existing SSH key.
 
 - [How to check for existing keys?](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/checking-for-existing-ssh-keys)
 - [How to create an SSH key? walkthrough by GitHub](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
@@ -143,7 +143,7 @@ Alternatively, if you already have an existing SSH key, you can use that.
          ```bash
          cat someKey.pub
          ```
-      2. By using `cat` you will be print the content of the `someKey.pub` file, it will look like this:
+      2. By using `cat` you will print the content of the `someKey.pub` file, it will look like this:
          ```bash
          ssh-ed25519 AA786grtyreugigyuwifewy65643354qWrjhBLtBSewyweRTIZw5DqD0zj <your_username>@<your_username>
          ```
@@ -156,7 +156,7 @@ Alternatively, if you already have an existing SSH key, you can use that.
          ```bash
          cat someKey.pub
          ```
-      2. By using `cat` you will be print the content of the `someKey.pub` file, it will look like this:
+      2. By using `cat` you will print the content of the `someKey.pub` file, it will look like this:
          ```bash
          ssh-ed25519 AA786grtyreugigyuwifewy65643354qWrjhBLtBSewyweRTIZw5DqD0zj <your_username>@<your_username>
          ```
@@ -168,7 +168,7 @@ Alternatively, if you already have an existing SSH key, you can use that.
          ```bash
          cat someKey.pub
          ```
-      2. By using `cat` you will be print the content of the `someKey.pub` file, it will look like this:
+      2. By using `cat` you will print the content of the `someKey.pub` file, it will look like this:
          ```bash
          ssh-ed25519 AA786grtyreugigyuwifewy65643354qWrjhBLtBSewyweRTIZw5DqD0zj <your_username>@<your_username>
          ```
@@ -178,12 +178,12 @@ Alternatively, if you already have an existing SSH key, you can use that.
 </Tabs>
 
 :::note
-Having trouble finding your public key? Check this thread from StackOverflow about [how to find the public key?](https://stackoverflow.com/questions/3828164/how-do-i-access-my-ssh-public-key/3828169#3828169)
+Having trouble finding your public key? Check this thread from StackOverflow about [how to find the public key](https://stackoverflow.com/questions/3828164/how-do-i-access-my-ssh-public-key/3828169#3828169)
 :::
 
 ## Add your public key in Diploi
 
-Now that you copied the contents of your public key, you need to add it your Diploi profile:
+Now that you copied the contents of your public key, you need to add it to your Diploi profile:
 <Steps>
    1. Go to [your profile settings](https://console.diploi.com/settings)
    2. Select "Add new SSH key".
