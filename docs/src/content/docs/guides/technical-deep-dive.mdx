@@ -3,39 +3,34 @@ title: Technical Deep Dive
 description: How it works
 ---
 
-Customers often ask us if going with Diploi will result in vendor lock-in. We think it is quite the opposite, but in order to make our point, first a short technical description of how Diploi works.
+People often ask us if going with Diploi will result in vendor lock-in. The short answer is **no**, let's walkthrough how Diploi works under the hood.
 
-To begin with, starting a deployment in Diploi will internally launch a private Kubernetes cluster. It's not something you need to know about but to understand how things work it could be useful. When the cluster starts it will launch all services you have selected and after that, monitor and control them until you close your cluster (eg. by pausing or deleting your deployment).
+To begin with, when you start a deployment, Diploi will internally launch a private Kubernetes cluster for your deployment.
 
-#### Templates
+When the cluster starts it will launch all services you have selected as individual containers in the cluster and after that, through Kubernetes you are able to monitor and control the cluster until you close it (eg. by pausing or deleting your deployment).
 
-But how does Diploi know what services to launch? The answer is templates. Every deployment has a template that describes services, repositories, hosts, storage etc. The kubernetes setup is handled with standard helm charts. In fact all the specifications for our public templates are available to see on GitHub at https://github.com/diploi.
+#### Stack, Components and Add-ons
 
-In the future we want customers to be able to build and maintain their own templates, allowing for an endless possibility of services to be mixed and matched. If you have need for this already now, we might be able to work something out, please contact us at info@diploi.com.
+But how does Diploi know what services to launch? The answer is your stack. Every deployment you launch, uses your selected stack to describe the services, repositories, hosts, storage, etc. that your cluster must use.
+
+The kubernetes setup is handled with standard helm charts. In fact all the specifications for our stack building logic are available on GitHub at https://github.com/diploi.
+
+In the future we want you to be able to build and maintain your own components and add-ons, allowing for an endless possibility of services to be mixed and matched. If you would like to help us or want custom features to use Diploi, connect with us on [Discord](https://discord.gg/YV6GYpbQRG) or [by email](mailto:hello@diploi.com).
 
 #### Builds, CI/CD and Images
 
-With Diploi you don't need to setup build pipelines, host images of your containers or think about CI/CD, but how does this actually work.
+With Diploi you don't need to setup build pipelines, host images of your containers or think about CI/CD, but how does this actually work?
 
 The normal way of starting a Diploi project is to let Diploi create the GitHub repository for you. In that process Diploi will also set up GitHub actions that will handle image builds when pushing to that repository.
 
 These images are pushed to an image repository hosted by us in order to make images as fast as possible when launching deployments.
 
-If you want to make modifications to the application container you have full power to control the image created in your own github repository, so you are not restricted to the images dockerfiles we provide as starting points.
+If you want to make modifications to the application container you have full power to control the image created in your own GitHub repository, so you are not restricted to the images dockerfiles we provide as starting points.
 
-But in order to make remote development, deployment statuses etc. work there are certain things that need to be in place. We will provide more documentation on how these things work as the Diploi service matures.
+In order to make remote development, deployment statuses, etc. work there are certain things that need to be in place. We will provide more documentation on how these things work as the Diploi service matures.
 
 #### So What About That Vendor Lock-in
 
-So Diploi is running on pretty standard kubernetes, with publicly available helm charts and Dockerfiles for the containers. Using all this together with the code you host yourself on GitHub should not make it too hard to move your project to Google Cloud, Amazon EKS, Azure or any other kubernetes.
+Diploi runs on a standard kubernetes setup, with publicly available helm charts and Dockerfiles for the containers. Using all this together with the code you host yourself on GitHub makes it easy for you to migrate your project to any cloud provider with kubernetes support.
 
-Sure it will require some level of work, but should not be too difficult for a kubernetes expert.
-
-
-
-
-
-
-
-
-
+If you want assistance migrating out of Diploi, you can connect with us on [Discord](https://discord.gg/YV6GYpbQRG) or [by email](mailto:hello@diploi.com).

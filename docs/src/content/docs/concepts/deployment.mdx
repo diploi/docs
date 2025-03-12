@@ -46,7 +46,7 @@ Deployments in Diploi are divided into two general categories, dynamic developme
 
 ***
 
-## Creating a deployment
+## Creating a Deployment
 
 To start creating a deployment, you must first [create a project](/concepts/project/). Once you have a project, you can start creating new deployments.
 
@@ -62,11 +62,11 @@ Within the general settings of your new deployment, you can define the name of t
 The stage for your deployment will define if your environment is a dynamic or a build deployment.
 :::
 
-#### Project name
+#### Project Name
 
 This will identify the internal name of your deployment within your Diploi project. You can change the name of a deployment at any time. Changes to the project name will not affect your deployment, project, repository or dependencies. 
 
-#### Deployment stage
+#### Deployment Stage
 
 In Diploi, you have three stages that you can assign to your deployments:
 
@@ -102,7 +102,7 @@ In this section you will be able to define the branch that your deployment will 
 The Repository section is only available for projects that are started with a new repository, while Quick launch projects do not have a way to attach a repository at the moment.
 :::
 
-### Component and Add-on settings
+### Component and Add-on Settings
 
 Depending on your project's components and add-ons, you might be able to make changes to the configuration, changes in this section will not affect other deployments or your project's default configuration. 
 
@@ -112,7 +112,7 @@ Depending on your project's components and add-ons, you might be able to make ch
 Not all components and add-ons have editable settings in this section.
 :::
 
-## Managing a deployment
+## Managing a Deployment
 
 Once you have created a deployment inside a project, you can access your deployment's settings from the project page.
 
@@ -148,7 +148,7 @@ Depending on the deployment stage of your deployment, the overview page will sho
 
 ***
 
-#### Access points
+#### Access Points
 
 ##### Web
 
@@ -197,15 +197,15 @@ All add-ons by default are only accesible locally by your applications and are n
 
 ***
 
-#### Status and resources
+#### Status and Resources
 
-##### Resource usage graph
+##### Resource Usage Graph
 
 Here you can visualize the overall resource usage of your deployment. You can adjust the timeframe to show 1 minute, 1 hour or 1 day.
 
 <ImageToPNG src={DeploymentResourceUsage} alt='Resource usage graph'/>
 
-##### Deployment setup status
+##### Deployment Setup Status
 
 In this section you can visualize the status of each component and add-on that defines your deployment. 
 
@@ -235,9 +235,9 @@ You can connect directly to each container part of your deployment via SSH. To g
 <ImageToPNG src={CreateDeploymentConnect} alt='Conntect to container'/>
 :::
 
-#### Deployment stack and logs
+#### Deployment Stack and Logs
 
-##### Stack preview
+##### Stack Preview
 
 In stack preview, you can see all components and add-ons currently running on your deployment.
 
@@ -270,11 +270,11 @@ In this tab, you can also change the attribution of updates to the environment, 
 
 <ImageToPNG src={DeploymentRepoSettings} alt='Deployment repository settings'/>
 
-### Deployment options
+### Deployment Options
 
 From here you can update the deployment's name, change the size of your deployment, assign a custom domain to the public endpoints exposed by your deployment, update the environment variables used by each component and add-on in your deployment or delete your deployment.
 
-#### Updating the name
+#### Updating the Name
 
 You can update the deployment's name used inside of your project.
 
@@ -284,13 +284,13 @@ You can update the deployment's name used inside of your project.
 If you update the name of your deployment, it won't affect the repository's name or alter your application's behavior.
 :::
 
-#### Machine size
+#### Machine Size
 
 You can change the size of the deployment machine that your deployment uses, by first disabling the deployment and then choosing a different size.
 
 <ImageToPNG src={DeploymentOptionSize} alt='Project options size'/>
 
-#### Endpoint settings
+#### Endpoint Settings
 
 Diploi will by default create a public endpoint for your application and generate
 SSL certificates for the public endpoints. You can customize the auto-generated domains or if you prefer, you can assign a custom domain.
@@ -299,7 +299,7 @@ For a more detailed explanation, check the [custom domain guide](/guides/custom-
 
 <ImageToPNG src={DeploymentOptionEndpoints} alt='Deployment endpoints'/>
 
-##### Using a custom domain
+##### Using a Custom Domain
 
 If you want to use a custom domain all you need to do is:
 
@@ -315,13 +315,13 @@ For example, if you use GoDaddy domains, if you want to use a subdomain like `cu
 When you first assign a new domain for your application, it can take up to 30 minutes for the new SSL certificate to become valid.
 :::
 
-#### Managing environment variables
+#### Managing Environment Variables
 
 You can customize the environment variables that each of your components and add-ons use. Some variables are automatically generated from your add-ons into your components.
 
 <ImageToPNG src={DeploymentOptionEnvironment} alt='Deployment environment'/>
 
-#### Deleting a deployment
+#### Deleting a Deployment
 
 When you don't need a deployment anymore, you can delete it by looking for the button _**Delete deployment**_ at the bottom of the Options tab. Be aware that this will permanently 
 delete all data stored (such as code, databases etc.) associated with 
