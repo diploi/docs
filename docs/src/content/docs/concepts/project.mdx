@@ -1,67 +1,135 @@
 ---
-title: Project
+title: Projects
 description: A project contains the deployments of your application.
 sidebar:
-  order: 1
+  order: 2
 ---
 
-### What is a Diploi Project?
+import CreateProjectPreview from '../../../assets/CreateProjectPreview.png';
+import CreateProjectEditNames from '../../../assets/CreateProjectEditNames.png';
+import ProjectHomePage from '../../../assets/ProjectHomePage.png';
+import ProjectOptionsGeneral from '../../../assets/ProjectOptionsGeneral.png';
+import ProjectOptionsDomain from '../../../assets/ProjectOptionsDomain.png';
+import ProjectOptionsComponentsAndAddons from '../../../assets/ProjectOptionsComponentsAndAddons.png';
+import DeleteProject from '../../../assets/DeleteProject.png';
+import ComponentList from  "../../../components/ComponentList.mdx"
+import ImageToPNG from  "../../../components/ImageToPNG.astro"
+import AddonList from  "../../../components/AddonList.mdx"
 
-A Diploi project contains the deployments of your application. A typical
-setup could be one deployment for production, one for staging and perhaps
-one development instance per active developer. A project also connects to
-a GitHub repository and contains common settings and environment variables.
+## What is a Diploi Project?
 
-### Templates
+A Diploi project contains the deployments of your application. A typical setup could be one deployment for production, one for staging and perhaps one development instance per active developer.
 
-Every project is started from a project template that defines the
-infrastructure of your project. There are templates for common
-frameworks and languages such as Node, PHP etc. In addition templates
-might support databases like PostgreSQL or MySQL and other infrastructure
-like ElastiCache, Redis etc.
+A project is defined by components and add-ons. A project also connects to a GitHub repository and contains common settings and environment variables.
 
-We provide a set of ready to go templates, and you can have options to enable or
-disable certain features.
-In a later version of Diploi we want to give you the
-option to create your own templates.
+***
 
-### Features of a Project
+## Creating a Project
 
-##### Name
+This is the first step to deploy a new application using Diploi. To create a project you must:
 
-The project name can be chosen freely but will be used as a template for both deployment
-names and hostnames so choosing a good short one can be a good idea.
+1. Select the stack of components and add-ons that your application will be using
+2. Choose between creating a new repository to store your application's code or quick launching without a repository associated for testing purposes
 
-##### Options
+Every project is started from the set of components and add-ons you choose and this defines the structure of your project.
 
-Depending on the template there might be some configurable options. E.g. if a database
-should be running, Redis enabled etc. Values provided in the project are defaults that
-you can override in the deployment.
+### Components
 
-##### Environment Values
+You can think of components as the application layer of your project. In Diploi you can have multiple options available to define your application, which you can mix as you wish.
 
-For your project specific configurations and secrets, you can add environment values.
-Values provided in the project are defaults that you can override in the actual
-deployment.
+<ComponentList/>
 
-##### Domain
+### Add-ons
 
-You can set a default domain for your projects. This will be used as a base domain for all
-hosts created in your projects. Diploi will provide you with a default hostname but you
-can change it later if you want to use your own domain
-(see [Guides / Custom Domain](/guides/custom-domain/)).
+Add-ons provide services used by your application. In general, add-ons in Diploi are services that do not require direct development work, which can be services like databases, analytics services, CMS dashboards, etc.
 
-##### Repository
+:::note
+Services are not exposed publicly by default. They can only be accessed by the components in your project.
 
-The easiest way to set up a project is to let Diploi bootstrap a new GitHub repository for
-you. This will ensure that the repository contains the right files to make the project run.
+<AddonList/>
 
-Optionally you can create the project by connecting it to an existing repository. This can be
-useful for example if you want to share a repository between multiple cores or projects.
-In this case however, you are responsible for ensuring that the repository is set up for the
-chosen project type.
+***
 
-### Deleting a project
+### Previewing your Project
 
-When you no longer need a Project it can be deleted. However you need to delete all deployments
-first and wait for the deletion to complete.
+In this section, you can see a preview of your monorepo folder structure at root level.
+
+<ImageToPNG src={CreateProjectPreview} alt='Create project preview'/>
+
+:::note
+From the preview, you can rename the folders that contain your components and the add-on names that your application will be using, by clicking on the element you want to edit
+<ImageToPNG src={CreateProjectEditNames} alt='Edit component or add-on name'/>
+:::
+
+### Choosing Between Creating a Repository Launch  or Quick Launch
+
+Repository Launch is the easiest way to set up a project is to let Diploi bootstrap a new GitHub repository for you. This will ensure that the repository contains the right files to make the project run.
+
+Quick launck is the fatest way to launch a VM in seconds and it can be used when you need to run a simple script online or just want to test drive Diploi. With a Quick Launch, you create an project without a repository attached to it.
+
+:::caution
+Once you choose between using a new repository or quick launching without a repository, you will not be able to change the repository or add a repository.
+:::
+
+:::note
+**Using an existing repository and importing an application to Diploi** is not yet an automagically process, but it is possible. If you would like to bring your existing application to Diploi, contact us on [Discord](https://discord.gg/YV6GYpbQRG) or [via email](mailto:hello@diploi.com).
+:::
+
+***
+
+## Managing a Project
+
+After creating a project, you will be able to create new deployments and modify the options of the project.
+
+<ImageToPNG src={ProjectHomePage} alt='Project home page'/>
+
+### Project Deployments
+
+You will be able to create deployments. Each deployment represents a virtual machine that serves your application online. For a deeper dive on deployments, check [Concepts / Deployment](/concepts/deployment/).
+
+### Project Options
+
+In this tab you can view and edit properties of your project.
+
+#### General
+
+From here you can update the project's name inside Diploi. When you launch new deployments, the new deployment's name will start by using the project's name.
+
+<ImageToPNG src={ProjectOptionsGeneral} alt='Project options general'/>
+![Project options general](../../../assets/ProjectOptionsGeneral.png)
+
+:::note
+If you update the name of your project, it won't affect the repository's name.
+:::
+
+#### Parent Domain
+
+By default, Diploi generates a domain for your application. The basic structure of a generated domain uses the following logic:
+
+```
+<Deployment endpoint>.<Project parent domain>.diploi.app
+```
+
+<ImageToPNG src={ProjectOptionsDomain} alt='Project options parent domain'/>
+
+:::tip
+If you want to set up a custom domain, you can do it from each deployment. For more information, click here [Guides / custom-domain](/guides/custom-domain/)
+:::
+
+#### Component and Add-on Settings
+
+You can view component specific settings and add-on configuration in this section.
+
+<ImageToPNG src={ProjectOptionsComponentsAndAddons} alt='Project options components and add-ons'/>
+
+:::note
+Not all components and add-ons have editable or visible settings in this section.
+:::
+
+#### Deleting a Project
+
+When you no longer need a Project you can delete it by first deleting all deployments within the project and the going to the "options" tab of your projects and look for the actions sections, to delete the project click on the "delete project" button.
+
+<ImageToPNG src={DeleteProject} alt='Delete project'/>
+
+

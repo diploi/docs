@@ -1,43 +1,44 @@
-import { defineConfig } from 'astro/config';
-import starlight from '@astrojs/starlight';
-import tailwind from '@astrojs/tailwind';
-import node from '@astrojs/node';
-const googleAnalyticsMeasurementID = 'G-XFEEFZ85LQ';
+import { defineConfig } from "astro/config";
+import starlight from "@astrojs/starlight";
+import tailwind from "@astrojs/tailwind";
+import node from "@astrojs/node";
+const googleAnalyticsMeasurementID = "G-XFEEFZ85LQ";
 
 // https://astro.build/config
 export default defineConfig({
   adapter: node({
-    mode: 'standalone',
+    mode: "standalone",
   }),
   vite: {
     server: {
-      allowedHosts: ['.diploi.app'],
+      allowedHosts: [".diploi.app"],
     },
   },
   integrations: [
     starlight({
-      title: 'Diploi Docs',
+      title: "Diploi Docs",
       logo: {
-        light: './src/assets/logo-text.svg',
-        dark: './src/assets/logo-white-text.svg',
+        light: "./src/assets/logo-text.svg",
+        dark: "./src/assets/logo-white-text.svg",
         replacesTitle: true,
       },
       social: {
-        github: 'https://github.com/diploi/docs',
+        github: "https://github.com/diploi/docs",
       },
       components: {
-        SiteTitle: './src/components/SiteTitle.astro',
+        SiteTitle: "./src/components/SiteTitle.astro",
       },
+      tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 5 },
       head: [
         {
-          tag: 'script',
+          tag: "script",
           attrs: {
             src: `https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsMeasurementID}`,
             async: true,
           },
         },
         {
-          tag: 'script',
+          tag: "script",
           content: `
             window.dataLayer = window.dataLayer || [];
             function gtag() {
@@ -50,32 +51,44 @@ export default defineConfig({
       ],
       sidebar: [
         {
-          label: 'Introduction',
+          label: "Introduction",
           items: [
             {
-              label: 'What is Diploi?',
-              link: '/',
+              label: "What is Diploi?",
+              link: "/",
             },
             {
-              label: 'Get Started',
-              link: '/get-started/',
+              label: "Get Started",
+              link: "/get-started/",
             },
+            // {
+            //   label: 'Tutorial',
+            //   link: '/tutorial/',
+            // },
+            // {
+            //   label: 'Roadmap',
+            //   link: '/roadmap/',
+            // },
           ],
         },
         {
-          label: 'Concepts',
-          autogenerate: { directory: 'concepts' },
+          label: "Concepts",
+          autogenerate: { directory: "concepts" },
         },
+        // {
+        //   label: "Tutorials",
+        //   autogenerate: { directory: "tutorials" },
+        // },
         {
-          label: 'Guides',
-          autogenerate: { directory: 'guides' },
+          label: "Guides",
+          autogenerate: { directory: "guides" },
         },
-        {
-          label: 'Templates',
-          autogenerate: { directory: 'templates' },
-        },
+        // {
+        //   label: 'Templates',
+        //   autogenerate: { directory: 'templates' },
+        // },
       ],
-      customCss: ['./src/styles/custom.css'],
+      customCss: ["./src/styles/custom.css"],
     }),
     tailwind(),
   ],
