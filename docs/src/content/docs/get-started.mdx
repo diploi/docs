@@ -20,22 +20,24 @@ import DisableDeploymentCard from '../../assets/DisableDeploymentCard.png'
 import DisableDeploymentSwitch from '../../assets/DisableDeploymentSwitch.png'
 import EnableDeployment from '../../assets/EnableDeployment.png'
 
-## Ways to start using Diploi 
 
-You have two ways to get started
+## Ways to Start Using Diploi 
 
-1. [**Quick launch**](#quick-launch), recommended to launch simple APIs, code snippets, and simple applications in seconds. You can think of it as an alternative to cloud functions where you have control over the virtual machine running your functions, without the need for version control and want to focus mainly on the code.
+You have two options on how to get started
 
-2. [**Repository launch**](#repository-launch), allows you to deploy new applications with a repository bootstrap for you application. All you need is to sign up using a GitHub account. We recommend you use this method if you plan to deploy production-ready applications.
+1. [**Quick Launch**](#quick-launch), recommended to launch simple APIs, code snippets, and simple applications in seconds. You can play around with different tech stacks and technologies without registering or even using a code repository, just focus on your code.
+
+
+2. [**Repository Launch**](#repository-launch), the normal way to deploy new applications connected to a repository in your GitHub account. All you need is to sign up using a Github account. We recommend you use this method for all your normal long-lived projects.
 
 ***
 
-### Quick launch
+### Quick Launch
 
-With quick launch, you can create a deployment in seconds in which you can access directly using our browser IDE, connect remotely using VS code or connect directly to the remote server using SSH.
+With Quick Launch, you can create a deployment in seconds in which you can access directly using our browser IDE, connect remotely using VS code or connect directly to the remote server using SSH.
 
 :::tip
-No account or credit card needed to get started!
+No registration or credit card needed to get started!
 :::
 
 You can start a deployment right away from [our homepage](https://diploi.com/#quick-launch)
@@ -48,7 +50,7 @@ You can click "**Launch stack**" and your deployment will be ready in less than 
 
 <ImageToPNG src={QuickLaunchLoading} alt="Quick launch loading"/>
 
-Once the launch is complete, you will be able to connect to the remote server and you deployment will be accessible online with https.
+Once the launch is complete, you will be able to connect to the remote server and your deployment will be accessible online with https.
 
 <ImageToPNG src={QuickLaunchHome} alt="Quick launch home"/>
 
@@ -58,9 +60,9 @@ Quick launch is an alternative for launching small applications and simple APIs.
 :::
 
 ***
-### Repository launch
+### Repository Launch
 
-When you create an account in Diploi, you get access to [the Diploi dashboard](https://console.diploi.com/ "to the Diploi dashboard") which allows you to create projects, where you can collaborate with your team, and create deployments from development, staging and production environments. To register, all you need is a GitHub account.
+When you register, you get access to [the Diploi dashboard](https://console.diploi.com/ "to the Diploi dashboard") which allows you to create projects where you can collaborate with your team, and create development, staging and production deployments. To register, all you need is a Github account.
 
 #### Prerequisites
 
@@ -74,7 +76,7 @@ authenticate using your GitHub account.
 
 #### Create a Project
 
-In Diploi, a project refer to a combination of **components** and **add-ons** that form the **stack** that will make up your application.
+In Diploi, a project refers to a combination of **components** and **add-ons** that form the **stack** that will make up your application.
 
 :::Note
 Once you define the components and add-ons of your application, you can change them by editing the `diploi.yaml` in your project's repository
@@ -90,14 +92,15 @@ To create a project for your app click **Create Project** from your dashboard, w
 
 Once you have chosen the stack for your project, you will be able to see a preview of your selected stack.
 
-##### Stack preview
+##### Stack Preview
+
 <ImageToPNG src={CreateProjectPreview} alt="Create a project example"/>
 
 In the preview you can edit the identifier for each component and add-on you have selected by clicking on the previewed elements of your stack. This will change the folder name of the components in your monorepo and the internal hostname of your add-ons. 
 
 <ImageToPNG src={CreateProjectEditNames} alt="Create a project example"/>
 
-##### Creating a repository to host you project
+##### Creating a Repository to Host Your Project
 
 The last step before launching your project is to configure how your new application's code will be stored.
 
@@ -138,7 +141,7 @@ If you need to connect via SSH to your staging or production deployment, you can
 
 ***
 
-### Shuting down a Deployment
+### Shutting Down a Deployment
 
 If you want to stop a deployment from running, all you need to do is click on the "enabled" switch from the **Deployments** tab inside of your Project
 

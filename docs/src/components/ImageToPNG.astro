@@ -8,3 +8,4 @@ const { src, alt, ...attrs } = Astro.props as { src: ImageMetadata; alt?: string
 <div class={'w-full flex justify-center items-center'}>
     <Image format="png" class={'rounded-md'} src={src} alt={alt ?? "Image"} {...attrs} />
 </div>
+  
