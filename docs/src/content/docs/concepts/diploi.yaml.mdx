@@ -1,0 +1,106 @@
+---
+title: diploi.yaml
+description: A deployment is a full instance of your application.
+sidebar:
+  order: 1
+---
+
+The `diploi.yaml` file at the root of a Diploi repository is the **Infrastructure as Code (IaC)** configuration file Diploi uses to build the infrastructure for a deployment.   
+Our component-based model allows for easy configuration of stacks without making the config overly verbose.
+The more detailed config for a component, such as HELM charts and other setup files, are housed in dedicated GitHub repositories maintained by the component owners.
+
+:::tip
+  Read our blog post about our [IaC implementation](https://dev.to/diploi/how-we-solved-infrastructure-as-code-2ldn) for more information.
+:::
+
+```yaml
+diploiVersion: v1.0
+components:
+  - name: Next.js
+    identifier: next
+    package: https://github.com/diploi/component-nextjs#main
+    env:
+      include:
+        - *
+  - name: Bun
+    identifier: bun
+    package: https://github.com/diploi/component-bun#main
+    env:
+      include:
+        - postgres.*
+  - name: Node.js
+    identifier: node
+    package: https://github.com/diploi/component-nodejs#main
+    env:
+      include:
+        - postgres.POSTGRES_USER:DB_USER
+addons:
+  - name: PostgreSQL
+    identifier: postgres
+    package: https://github.com/diploi/addon-postgres#main
+```
+
+## `components` and `addons`
+
+The list of components and addons to be included in a project. Everything in this list can be edited and your infrastucture will adapt.
+
+### `name`
+
+The display name for a component. 
+
+### `identifier`
+
+An internal identifier for a component. **This has to be unique.**   
+The identifier is used as the internal hostname for a component, and as the folder name where the component files are located.
+
+:::caution
+  The component identifier has to match the folder name it is stored in. If you change one, make sure to change the other too.
+:::
+
+### `package`
+
+The URL for the package repository.
+Version comes after the hashtag `#` symbol. Version can be a Git tag or branch reference.
+
+### `env`
+
+ENV values from other components aren't available by default, but can be configured here.
+Importing an ENV variable means making it available for processes inside of a component.
+
+
+```yaml
+env:
+  include:
+    # Imports every ENV value from every component
+    - *
+    # Imports all ENV values from a component with the `postgres` identifier
+    - postgres.*
+    # Imports all ENV values that start with `POSTGRES_` from a component with the `postgres` identifier
+    - postgres.POSTGRES_*
+    # Imports all ENV values from all components where an identifier starts with `post`
+    - `post*`
+    # Imports the `POSTGRES_USER` ENV value from a component with the `postgres` identifier
+    - postgres.POSTGRES_USER
+    # Imports the `POSTGRES_USER` ENV value from a component with the `postgres` identifier and renames it to `DB_USER`
+    - postgres.POSTGRES_USER:DB_USER
+```
+
+#### `import`
+
+A list of ENV values available for processes inside of this component.
+
+You can use wildcards when importing values.
+- `*`
+  - Imports every ENV value from every component
+- `postgres.*`
+  - Imports all ENV values from a component with the `postgres` identifier
+- `postgres.POSTGRES_*`
+  - Imports all ENV values that start with `POSTGRES_` from a component with the `postgres` identifier
+- `post*`
+  - Imports all ENV values from all components where an identifier starts with `post`
+- `postgres.POSTGRES_USER`
+  - Imports the `POSTGRES_USER` ENV value from a component with the `postgres` identifier
+
+You can remap individual ENV values while importing them
+- `postgres.POSTGRES_USER:DB_USER`
+  - Imports the `POSTGRES_USER` ENV value from a component with the `postgres` identifier and renames it to `DB_USER`
