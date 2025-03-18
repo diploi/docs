@@ -2,3 +2,8 @@
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
 }
+
+.icon {
+  height: 28px !important;
+  width: 28px !important;
+}

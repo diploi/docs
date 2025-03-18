@@ -1,0 +1,29 @@
+---
+import { Image } from "astro:assets";
+
+type Addon = { owner: string; name:string, repo: string }
+
+const addonList: Addon[] = [
+  { owner: "diploi", name:"Postgres",repo: "addon-postgres" },
+  { owner: "diploi", name:"Redis",repo: "addon-redis" },
+  { owner: "diploi", name:"Mongo",repo: "addon-mongo" },
+];
+
+---
+
+<h4>Add-ons available</h4>
+
+<div class="flex gap-8 items-baseline flex-wrap">
+    {addonList.map(addon => (
+        <div class="flex gap-2">
+          <Image
+            src={`https://diploi.b-cdn.net/component/${addon.owner}/${addon.repo}/icon.svg?ref=main`}
+            alt={addon.repo}
+            class="icon"
+            width={28}
+            height={28}
+          />
+          <strong>{addon.name}</strong>
+        </div>
+    ))}
+</div>
