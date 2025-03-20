@@ -33,6 +33,14 @@ export default defineConfig({
         {
           tag: "script",
           attrs: {
+            defer:true,
+            src: "https://umami.console.diploi.com/script.js",
+            "data-website-id": "0845061e-d7dd-43ea-afa4-3cdf948fe08b",
+          },
+        },
+        {
+          tag: "script",
+          attrs: {
             src: `https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsMeasurementID}`,
             async: true,
           },
