@@ -1,0 +1,31 @@
+---
+import { Image } from "astro:assets";
+
+type Component = { owner: string; name:string, repo: string }
+
+const componentList: Component[] = [
+  { owner: "diploi", name:"Next.js",repo: "component-nextjs" },
+  { owner: "diploi", name:"React + Vite",repo: "component-react-vite" },
+  { owner: "diploi", name:"Node.js",repo: "component-nodejs" },
+  { owner: "diploi", name:"Bun",repo: "component-bun" },
+  { owner: "diploi", name:"Astro",repo: "component-astro" },
+];
+
+---
+
+<h4>Components available</h4>
+
+<div class="flex gap-8 items-baseline flex-wrap">
+    {componentList.map(component => (
+        <div class="flex gap-2">
+          <Image
+            src={`https://diploi.b-cdn.net/component/${component.owner}/${component.repo}/icon.svg?ref=main`}
+            alt={component.repo}
+            class="icon"
+            width={28}
+            height={28}
+          />
+          <strong>{component.name}</strong>
+        </div>
+    ))}
+</div>
