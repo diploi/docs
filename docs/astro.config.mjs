@@ -33,7 +33,7 @@ export default defineConfig({
         {
           tag: "script",
           attrs: {
-            defer,
+            defer:true,
             src: "https://umami.console.diploi.com/script.js",
             "data-website-id": "0845061e-d7dd-43ea-afa4-3cdf948fe08b",
           },
