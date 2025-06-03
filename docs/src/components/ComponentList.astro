@@ -1,16 +1,17 @@
 ---
-import { Image } from "astro:assets";
+import ElementCard from "./ElementCard.astro";
+import type {DiploiElement} from "./types"
 
-type Component = { owner: string; name:string, repo: string }
-
-const componentList: Component[] = [
-  { owner: "diploi", name:"Next.js",repo: "component-nextjs" },
-  { owner: "diploi", name:"React + Vite",repo: "component-react-vite" },
-  { owner: "diploi", name:"Node.js",repo: "component-nodejs" },
-  { owner: "diploi", name:"Bun",repo: "component-bun" },
-  { owner: "diploi", name:"Astro",repo: "component-astro" },
-  { owner: "diploi", name:"SvelteKit",repo: "component-sveltekit" },
-  { owner: "diploi", name:"Nue",repo: "component-nue" },
+const componentList: DiploiElement  [] = [
+  { owner: "diploi", name:"Next.js",repo: "component-nextjs", released:true },
+  { owner: "diploi", name:"React + Vite",repo: "component-react-vite", released:true },
+  { owner: "diploi", name:"Node.js",repo: "component-nodejs", released:true },
+  { owner: "diploi", name:"Bun",repo: "component-bun", released:true },
+  { owner: "diploi", name:"Astro",repo: "component-astro", released:true },
+  { owner: "diploi", name:"SvelteKit",repo: "component-sveltekit", released:true },
+  { owner: "diploi", name:"Nue",repo: "component-nue", released:true },
+  { owner: "diploi", name:"Django",repo: "component-django", released:false },
+  { owner: "diploi", name:"n8n",repo: "component-n8n", released:false },
 ];
 
 ---
@@ -19,15 +20,6 @@ const componentList: Component[] = [
 
 <div class="flex gap-8 items-baseline flex-wrap">
     {componentList.map(component => (
-        <div class="flex gap-2">
-          <Image
-            src={`https://diploi.b-cdn.net/component/${component.owner}/${component.repo}/icon.svg?ref=main`}
-            alt={component.repo}
-            class="icon"
-            width={28}
-            height={28}
-          />
-          <strong>{component.name}</strong>
-        </div>
+      <ElementCard element={component}/>
     ))}
 </div>
