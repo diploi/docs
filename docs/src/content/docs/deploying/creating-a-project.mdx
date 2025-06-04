@@ -1,0 +1,82 @@
+---
+title: Creating a Project
+description: How to create a new project
+sidebar:
+    order: 1
+---
+
+import ImageToPNG from  "../../../components/ImageToPNG.astro"
+import CreateProjectComponents from '../../../assets/CreateProjectComponents.png'
+import CreateProjectAddons from '../../../assets/CreateProjectAddons.png'
+import CreateProjectPreview from '../../../assets/CreateProjectPreview.png'
+import CreateProjectEditNames from '../../../assets/CreateProjectEditNames.png'
+import CreateProjectRepo from '../../../assets/CreateProjectRepo.png'
+
+In Diploi, the process to host a new application online, starts by creating a new Project, which will let you the stack of the application you want to deploy, and then launching a Deployment which will run the application online.
+
+The overall process to launch a new application is as follows:
+
+```mermaid
+graph TD;
+    A[Create a Project] --> B[Choose app stack]
+    B --> C@{ shape: diamond, label: "Is your app intended for production?" }
+    C -->|Yes| D[choose 'Create a Repository']
+    C -->|No| E[choose 'Quick Launch']
+    E --> F[Launch a Deployment]
+    D --> F
+    F --> G[Your app is online!]
+```
+
+## Create a Project
+
+In Diploi, a project refers to a combination of **components** and **add-ons** (also called **services**) that form the **stack** that will make up your application.
+
+:::note
+After you create a Project, you can change the stack of your project by editing the `diploi.yaml` in your project's repository. For more information on how to do this, check out the [Diploi YAML documentation](/guides/diploiyaml/)
+:::
+
+To create a project for your app click **Create Project** from your dashboard:
+
+`https://console.diploi.com/<your account>/projects`
+
+Which will open the **Stack Builder** where you can choose the components and add-ons for your project.
+
+### Selecting Components
+<ImageToPNG src={CreateProjectComponents} alt="Project components"/>
+
+### Selecting Add-ons
+<ImageToPNG src={CreateProjectAddons} alt="Project add-ons"/>
+
+:::note
+Your project requires at least one component to be selected
+::: 
+
+Once you have chosen the stack for your project, you will be able to see a preview of your selected stack.
+
+### Stack Preview
+
+<ImageToPNG src={CreateProjectPreview} alt="Create a project example"/>
+
+In the preview you can edit the identifier for each component and add-on you have selected by clicking on the previewed elements of your stack. This will change the folder name of the components in your monorepo and the internal hostname of your add-ons. 
+
+<ImageToPNG src={CreateProjectEditNames} alt="Create a project example"/>
+
+### Choosing the type of project
+
+The last step before launching your project is to configure how your new application's code will be stored.
+
+You have two options available:
+
+- **Quick Launch or Temporary Project** where you can launch a project without a repository to store your code. This is ideal for testing quick, where you will run simple scripts or applications which must be accessible online. Learn more about [Temporary Projects](/project-types/temporary-project).
+
+- **Create Repository  or Production Project** where a new repository will be created for your project. Ideal for launching new application intended for production. By creating a new repository for your project, you automagically enable Diploi's push-to-deployment pipeline, where changes in your repository's will update the state of your deployment. Learn more about [Production Projects](/project-types/production-project).
+
+<ImageToPNG src={CreateProjectRepo} alt="Create a project repo"/>
+
+Now that you have selected your preferred stack and the configuration of your project, you can complete the creation of the project by clicking **Launch Stack**.
+
+For both types of projects, when you finish creating a new project, a new development deployment will be started for your project, which you can use to start developing your application right away.
+
+:::caution
+**Quick Launch** projects are **not intended for production**, as your code will only exist on the deployment launched, and changes will not be persisted to other deployments you launch within the project.
+:::
