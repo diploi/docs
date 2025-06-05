@@ -29,9 +29,13 @@ And there, you can click on the **Create Deployment** button to launch the deplo
 
 To start a deployment, you have three different options:
 
-- **Development** which allows you to start a server on which you can start a remote development environment using VSCode or our browser IDE, or connect directly to the server via SSH. For more about remote development, check out our [Remote Development guide](/building/remote-development/)
-- **Staging** to test your application and ensure stability before launching changes in your application to production
-- **Production** to launch your application when it is ready to be used by your end users 
+- **Development** which allows you to start a server on which you can start a remote development environment using VSCode or our browser IDE, or connect directly to the server via SSH. For more about remote development, check out our [Remote Development guide](/building/remote-development/).
+- **Staging** to test your application and ensure stability before launching changes in your application to production.
+- **Production** to launch your application when it is ready to be used by your end users.
+
+:::note
+When you create a new development deployment, it will be active for 12 hours, after which it will be automatically shut down to avoid unnecessary costs. For staging and production deployments are not started with a time limit, and will remain active until you shut them down manually.
+:::
 
 ### Choosing a Deployment Size
 
@@ -51,7 +55,7 @@ If you need to connect via SSH to your deployment, you can do it by getting the 
 
 From there, you can copy the SSH connection string for the component or add-on you want to connect to by clicking on the "Connect +" button next to the component or add-on.
 
-For more information on how to connect to your deployment via SSH, check out our [SSH guide](/guides/ssh/).
+For more information on how to connect to your deployment via SSH, check out our [SSH guide](/building/add-ssh-key/).
 
 <ImageToPNG src={CreateDeploymentConnect} alt="Connect to deployment with SSH"/>
 
@@ -59,20 +63,18 @@ For more information on how to connect to your deployment via SSH, check out our
 
 ## Shutting Down a Deployment
 
-If you want to stop a deployment from running, all you need to do is click on the "enabled" switch from the **Deployments** tab inside of your Project
+If you want to stop a deployment from running, all you need to do is click on the "enabled" switch from the **Deployments** tab inside of your Project.
 
 <ImageToPNG src={DisableDeploymentCard} alt="Shutdown deployment"/>
 
-Alternatively, you can also shutdown a deployment by clicking on the "enabled" switch found at the top of your Deployment's status page
+Alternatively, you can also shutdown a deployment by clicking on the "enabled" switch found at the top of your Deployment's status page.
 
 <ImageToPNG src={DisableDeploymentSwitch} alt="Shutdown switch"/>
 
-You can restart your Deployment at any time by clicking on the same switch you used for shutdown
+You can restart your Deployment at any time by clicking on the same switch you used for shutdown. When you click on the switch, a dropdown will appear allowing you to choose the amount of time you want the deployment to be active for.
 
 <ImageToPNG src={EnableDeployment} alt="Restart deployment"/>
 
-Now your application is ready to be used!
-
 :::note
-When you shutdown a deployment, it will not generate any costs, you are only charged for the time that your deployment is online
+When you shutdown a deployment, it will not generate any costs, you are only charged for the time that your deployment is active.
 :::
