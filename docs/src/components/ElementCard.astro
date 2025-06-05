@@ -18,7 +18,7 @@ const { element } = Astro.props;
     width={28}
     height={28}
   />
-  <strong class={`${!element.released && "text-yellow-100"}`}
+  <strong class={`${!element.released && "text-gray-400"}`}
     >{element.name}</strong
   >
   {!element.released && <Badge text="soon!" variant="tip" class="self-start" />}
