@@ -92,6 +92,7 @@ export default defineConfig({
           items: [
             'deploying/creating-a-project',
             'deploying/creating-a-deployment',
+            'deploying/custom-domain',
             {
               label: "Project Types",
               items: [
@@ -102,16 +103,16 @@ export default defineConfig({
           ],
         },
         {
-          label: "Concepts",
-          autogenerate: { directory: "concepts" },
+          label: "Building",
+          autogenerate: { directory: "building" },
         },
         // {
         //   label: "Tutorials",
         //   autogenerate: { directory: "tutorials" },
         // },
         {
-          label: "Guides",
-          autogenerate: { directory: "guides" },
+          label: "Reference",
+          autogenerate: { directory: "reference" },
         },
         // {
         //   label: 'Templates',
