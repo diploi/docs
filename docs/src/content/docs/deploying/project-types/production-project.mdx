@@ -1,0 +1,19 @@
+---
+title: Production Project (Git Repository)
+description: How to launch a new application online using Diploi
+sidebar:
+  order: 4
+---
+
+import ImageToPNG from  "../../../../components/ImageToPNG.astro"
+import CreateDeploymentRepository from '../../../../assets/CreateDeploymentRepository.png'
+
+When you choose to create a new project with a new repository, you will be able to launch a new deployments from different branches of your repository, allowing you to have different environments online at the same time without having to configure servers manually.
+
+<ImageToPNG src={CreateDeploymentRepository} alt="Selecting a branch to launch a new deployment"/>
+
+By default, when you create a new project, a development deployment will be started, which you can use to start developing your application right away and will be active for 12 hours. This development deployment will use your repository's default branch main branch as its source.
+
+:::note
+If you want to create a new project with a repository, you can do so by following the steps in our [Creating a Project](/deploying/creating-a-project) guide.
+:::

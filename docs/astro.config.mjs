@@ -2,10 +2,18 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import tailwind from "@astrojs/tailwind";
 import node from "@astrojs/node";
+import rehypeMermaid from "rehype-mermaid";
+import rehypeCenterMermaidGraphs from "./rehypeUtils";
 const googleAnalyticsMeasurementID = "G-XFEEFZ85LQ";
 
 // https://astro.build/config
 export default defineConfig({
+  markdown: {
+    rehypePlugins: [
+      [rehypeMermaid, { strategy: "img-svg" }],
+      rehypeCenterMermaidGraphs,
+    ],
+  },
   adapter: node({
     mode: "standalone",
   }),
@@ -33,7 +41,7 @@ export default defineConfig({
         {
           tag: "script",
           attrs: {
-            defer:true,
+            defer: true,
             src: "https://umami.console.diploi.com/script.js",
             "data-website-id": "0845061e-d7dd-43ea-afa4-3cdf948fe08b",
           },
@@ -80,16 +88,31 @@ export default defineConfig({
           ],
         },
         {
-          label: "Concepts",
-          autogenerate: { directory: "concepts" },
+          label: "Deploying",
+          items: [
+            'deploying/creating-a-project',
+            'deploying/creating-a-deployment',
+            'deploying/custom-domain',
+            {
+              label: "Project Types",
+              items: [
+                'deploying/project-types/production-project',
+                'deploying/project-types/temporary-project'
+              ]
+            },
+          ],
+        },
+        {
+          label: "Building",
+          autogenerate: { directory: "building" },
         },
         // {
         //   label: "Tutorials",
         //   autogenerate: { directory: "tutorials" },
         // },
         {
-          label: "Guides",
-          autogenerate: { directory: "guides" },
+          label: "Reference",
+          autogenerate: { directory: "reference" },
         },
         // {
         //   label: 'Templates',

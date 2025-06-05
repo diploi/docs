@@ -1,0 +1,76 @@
+---
+title: Using Remote Development
+description: How to develop remotely with Diploi.
+---
+
+import ImageToPNG from "../../../components/ImageToPNG.astro"
+import DeploymentOverviewDevelopment from '../../../assets/DeploymentOverviewDevelopment.png'
+import DevelopmentLocalIde from '../../../assets/DevelopmentLocalIde.png'
+
+At the heart of Diploi lies remote development, allowing you to easily work on any of your projects without the need for software installation or maintenance on your local machine, or dealing with containers. With a single click, you can begin your work without local installation hassle.
+
+## Getting Started
+
+Diploi is designed to make remote development as seamless as possible. You can start developing on any of your deployments with just a few clicks.
+
+All you need is to create a development deployment in your project, which will provide you with a remote environment.
+
+You can access development environments through the browser IDE, or connect to them using your favorite IDE via SSH.
+
+<ImageToPNG src={DeploymentOverviewDevelopment} alt="Browser IDE"/>
+
+### Using Diploi's Browser IDE
+
+Diploi offers a built-in browser IDE that allows you to start coding immediately without any setup. This is ideal for quick edits or when you need to make changes on the go.
+
+To access the browser IDE, navigate to your deployment's "Overview" tab, found at:
+
+`https://console.diploi.com/<your account>/project/<project id>/deployment/<deployment id>`
+
+From there, you can click on the "Code in the browser" button, which will open the browser IDE in a new tab.
+
+### Using Your Local IDE
+
+To connect to your remote development environment using your own IDE, you need to add your public SSH key, which you can do by following the instructions in our [SSH guide](/building/add-ssh-key/).
+
+Diploi officially supports:
+- <a href="https://code.visualstudio.com/" target="_blank" rel='nofollow' >VS Code</a> with the <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack" target="_blank" rel='nofollow' >Remote Development extension</a>
+
+- <a href="https://www.cursor.com/" target="_blank" rel='nofollow' >Cursor</a>
+
+#### Connecting you IDE
+
+If it is the first time you are connecting to a deployment, you will need to add your IDE to the "Develop" section of your deployment, by clicking on the plus icon next to the "Code in the Browser" button.
+
+<ImageToPNG src={DevelopmentLocalIde} alt="Add IDE to deployment"/>
+
+<div class='w-full not-content'>
+    <iframe class='block mx-auto' width="560" height="315" src="https://www.youtube.com/embed/gHeJ-gwCtlg?si=1KroAeD_epe538wF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+
+:::note
+You can pin your preferred IDE to the top of the list of available IDEs by clicking on the pin icon next to the IDE name.
+:::
+
+:::caution
+If you are developing on a Windows machine with WSL enabled, please note that
+a Windows VS Code install uses SSH keys on your **Windows** user by default.
+:::
+
+#### Configuration
+
+Your local VS Code configuration will be used for all remote environments, but certain features (like extensions) need to be configured on a per-deployment basis.
+
+### Other IDEs
+
+:::caution
+Diploi currently has built-in persistent configuration for VS Code only. This
+means that you will have to configure/install your other IDE again after a
+deployment upgrade.
+:::
+
+Diploi supports any IDE capable of connecting to a remote machine via SSH. This includes terminal-based IDEs like Vim.
+
+#### Terminal Based IDEs
+
+Simply open an SSH connection to your deployment, and install your favorite IDE.
