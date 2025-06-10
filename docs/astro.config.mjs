@@ -2,17 +2,11 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import tailwind from "@astrojs/tailwind";
 import node from "@astrojs/node";
-import rehypeMermaid from "rehype-mermaid";
-import rehypeCenterMermaidGraphs from "./rehypeUtils";
 const googleAnalyticsMeasurementID = "G-XFEEFZ85LQ";
 
 // https://astro.build/config
 export default defineConfig({
   markdown: {
-    rehypePlugins: [
-      [rehypeMermaid, { strategy: "img-svg" }],
-      rehypeCenterMermaidGraphs,
-    ],
   },
   adapter: node({
     mode: "standalone",

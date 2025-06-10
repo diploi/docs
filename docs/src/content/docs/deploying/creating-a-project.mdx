@@ -5,27 +5,22 @@ sidebar:
     order: 1
 ---
 
+import { Image } from 'astro:assets';
 import ImageToPNG from  "../../../components/ImageToPNG.astro"
 import CreateProjectComponents from '../../../assets/CreateProjectComponents.png'
 import CreateProjectAddons from '../../../assets/CreateProjectAddons.png'
 import CreateProjectPreview from '../../../assets/CreateProjectPreview.png'
 import CreateProjectEditNames from '../../../assets/CreateProjectEditNames.png'
 import CreateProjectRepo from '../../../assets/CreateProjectRepo.png'
+import CreateProjectDiagram from '../../../assets/CreateProjectDiagram.svg'
 
 In Diploi, the process to host a new application online, starts by creating a new Project, which will let you the stack of the application you want to deploy, and then launching a Deployment which will run the application online.
 
 The overall process to launch a new application is as follows:
 
-```mermaid
-graph TD;
-    A[Create a Project] --> B[Choose app stack]
-    B --> C@{ shape: diamond, label: "Is your app intended for production?" }
-    C -->|Yes| D[choose 'Create a Repository']
-    C -->|No| E[choose 'Quick Launch']
-    E --> F[Launch a Deployment]
-    D --> F
-    F --> G[Your app is online!]
-```
+<div class={'w-full flex justify-center items-center'}>
+  <Image src={CreateProjectDiagram} alt='Create a project diagram'/>
+</div>
 
 ## Create a Project
 
