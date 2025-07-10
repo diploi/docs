@@ -70,14 +70,6 @@ export default defineConfig({
               label: "Get Started",
               link: "/get-started/",
             },
-            // {
-            //   label: 'Tutorial',
-            //   link: '/tutorial/',
-            // },
-            // {
-            //   label: 'Roadmap',
-            //   link: '/roadmap/',
-            // },
           ],
         },
         {
@@ -96,12 +88,7 @@ export default defineConfig({
             'building/add-ssh-key',
             'building/remote-development',
           ],
-          // autogenerate: { directory: "building" },
         },
-        // {
-        //   label: "Tutorials",
-        //   autogenerate: { directory: "tutorials" },
-        // },
         {
           label: "Reference",
           items: [
@@ -123,12 +110,7 @@ export default defineConfig({
               ],
             },
           ],
-          // autogenerate: { directory: "reference" },
         },
-        // {
-        //   label: 'Templates',
-        //   autogenerate: { directory: 'templates' },
-        // },
       ],
       customCss: ["./src/styles/custom.css"],
     }),
