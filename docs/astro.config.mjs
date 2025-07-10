@@ -75,8 +75,8 @@ export default defineConfig({
         {
           label: "Deploying",
           items: [
-            "deploying/creating-a-deployment",
             "deploying/creating-a-project",
+            "deploying/creating-a-deployment",
             "deploying/custom-domain",
           ],
         },
@@ -96,17 +96,17 @@ export default defineConfig({
             "reference/architecture",
             "reference/diploi-yaml",
             {
-              label: "Deployments",
-              items: [
-                "reference/deployments/deployment",
-                "reference/deployments/deployment-lifecycle",
-              ],
-            },
-            {
               label: "Projects",
               items: [
                 "reference/projects/project",
                 "reference/projects/project-lifecycle",
+              ],
+            },
+            {
+              label: "Deployments",
+              items: [
+                "reference/deployments/deployment",
+                "reference/deployments/deployment-lifecycle",
               ],
             },
           ],
