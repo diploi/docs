@@ -1,28 +1,18 @@
 ---
-title: Projects Explained
-description: A project contains the deployments of your application.
-sidebar:
-  order: 3
+title: Project Lifecycle
+description: How projects are created, managed and deleted.
 ---
 
-import CreateProjectPreview from '../../../assets/CreateProjectPreview.png';
-import CreateProjectEditNames from '../../../assets/CreateProjectEditNames.png';
-import ProjectHomePage from '../../../assets/ProjectHomePage.png';
-import ProjectOptionsGeneral from '../../../assets/ProjectOptionsGeneral.png';
-import ProjectOptionsDomain from '../../../assets/ProjectOptionsDomain.png';
-import ProjectOptionsComponentsAndAddons from '../../../assets/ProjectOptionsComponentsAndAddons.png';
-import DeleteProject from '../../../assets/DeleteProject.png';
-import ComponentList from  "../../../components/ComponentList.astro"
-import ImageToPNG from  "../../../components/ImageToPNG.astro"
-import AddonList from  "../../../components/AddonList.astro"
-
-## What is a Diploi Project?
-
-A Diploi project contains the deployments of your application. A typical setup could be one deployment for production, one for staging and perhaps one development instance per active developer.
-
-A project is defined by components and add-ons. A project also connects to a GitHub repository and contains common settings and environment variables.
-
-***
+import CreateProjectPreview from '../../../../assets/CreateProjectPreview.png';
+import CreateProjectEditNames from '../../../../assets/CreateProjectEditNames.png';
+import ProjectHomePage from '../../../../assets/ProjectHomePage.png';
+import ProjectOptionsGeneral from '../../../../assets/ProjectOptionsGeneral.png';
+import ProjectOptionsDomain from '../../../../assets/ProjectOptionsDomain.png';
+import ProjectOptionsComponentsAndAddons from '../../../../assets/ProjectOptionsComponentsAndAddons.png';
+import DeleteProject from '../../../../assets/DeleteProject.png';
+import ComponentList from  "../../../../components/ComponentList.astro"
+import ImageToPNG from  "../../../../components/ImageToPNG.astro"
+import AddonList from  "../../../../components/AddonList.astro"
 
 ## Creating a Project
 
@@ -86,7 +76,7 @@ After creating a project, you will be able to create new deployments and modify 
 
 ### Project Deployments
 
-You will be able to create deployments. Each deployment represents a virtual machine that serves your application online. For a deeper dive on deployments, check the article about [Deployments](/reference/deployment/).
+You will be able to create deployments. Each deployment represents a virtual machine that serves your application online. For a deeper dive on deployments, check the article about [Deployments](/reference/deployments/deployment).
 
 ### Project Options
 
@@ -113,7 +103,7 @@ By default, Diploi generates a domain for your application. The basic structure 
 <ImageToPNG src={ProjectOptionsDomain} alt='Project options parent domain'/>
 
 :::tip
-If you want to set up a custom domain, you can do it from each deployment. For more information, click here [Guides / custom-domain](/guides/custom-domain/)
+If you want to set up a custom domain, you can do it from each deployment. For more information, click here [Deploying / custom-domain](/deploying/custom-domain/)
 :::
 
 #### Component and Add-on Settings
@@ -126,7 +116,7 @@ You can view component specific settings and add-on configuration in this sectio
 Not all components and add-ons have editable or visible settings in this section.
 :::
 
-#### Deleting a Project
+## Deleting a Project
 
 When you no longer need a Project you can delete it by first deleting all deployments within the project and the going to the "options" tab of your projects and look for the actions sections, to delete the project click on the "delete project" button.
 

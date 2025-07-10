@@ -6,8 +6,7 @@ const googleAnalyticsMeasurementID = "G-XFEEFZ85LQ";
 
 // https://astro.build/config
 export default defineConfig({
-  markdown: {
-  },
+  markdown: {},
   adapter: node({
     mode: "standalone",
   }),
@@ -71,47 +70,47 @@ export default defineConfig({
               label: "Get Started",
               link: "/get-started/",
             },
-            // {
-            //   label: 'Tutorial',
-            //   link: '/tutorial/',
-            // },
-            // {
-            //   label: 'Roadmap',
-            //   link: '/roadmap/',
-            // },
           ],
         },
         {
           label: "Deploying",
           items: [
-            'deploying/creating-a-project',
-            'deploying/creating-a-deployment',
-            'deploying/custom-domain',
-            {
-              label: "Project Types",
-              items: [
-                'deploying/project-types/production-project',
-                'deploying/project-types/temporary-project'
-              ]
-            },
+            "deploying/creating-a-deployment",
+            "deploying/creating-a-project",
+            "deploying/custom-domain",
           ],
         },
         {
           label: "Building",
-          autogenerate: { directory: "building" },
+          items: [
+            'building/components',
+            'building/add-ons',
+            'building/add-ssh-key',
+            'building/remote-development',
+          ],
         },
-        // {
-        //   label: "Tutorials",
-        //   autogenerate: { directory: "tutorials" },
-        // },
         {
           label: "Reference",
-          autogenerate: { directory: "reference" },
+          items: [
+            "reference/technical-deep-dive",
+            "reference/architecture",
+            "reference/diploi-yaml",
+            {
+              label: "Deployments",
+              items: [
+                "reference/deployments/deployment",
+                "reference/deployments/deployment-lifecycle",
+              ],
+            },
+            {
+              label: "Projects",
+              items: [
+                "reference/projects/project",
+                "reference/projects/project-lifecycle",
+              ],
+            },
+          ],
         },
-        // {
-        //   label: 'Templates',
-        //   autogenerate: { directory: 'templates' },
-        // },
       ],
       customCss: ["./src/styles/custom.css"],
     }),
