@@ -1,1 +1,2 @@
-export type DiploiElement = { owner: string; name:string, repo: string, released:Boolean }
+export type DiploiElement = { name:string, type:string, url: string}
+export type DiploiInstance = {name:string, vCpu:string, memoryGiB:string, price:number}
