@@ -10,9 +10,9 @@ import ProjectOptionsGeneral from '../../../../assets/ProjectOptionsGeneral.png'
 import ProjectOptionsDomain from '../../../../assets/ProjectOptionsDomain.png';
 import ProjectOptionsComponentsAndAddons from '../../../../assets/ProjectOptionsComponentsAndAddons.png';
 import DeleteProject from '../../../../assets/DeleteProject.png';
-import ComponentList from  "../../../../components/ComponentList.astro"
-import ImageToPNG from  "../../../../components/ImageToPNG.astro"
-import AddonList from  "../../../../components/AddonList.astro"
+import ComponentList from "../../../../components/ComponentList.astro"
+import ImageToPNG from "../../../../components/ImageToPNG.astro"
+import AddonList from "../../../../components/AddonList.astro"
 
 ## Creating a Project
 
@@ -52,11 +52,11 @@ From the preview, you can rename the folders that contain your components and th
 <ImageToPNG src={CreateProjectEditNames} alt='Edit component or add-on name'/>
 :::
 
-### Choosing Between Creating a Production Project or a Temporary Project
+### Choosing Between Creating a Project with Repository or a Quick Launch
 
-A Production Project (also called Repository Launch) is the easiest way to set up a project is to let Diploi bootstrap a new GitHub repository for you. This will ensure that the repository contains the right files to make the project run.
+A **Repository Launch** is the easiest way to set up a project is to let Diploi bootstrap a new GitHub repository for you. This will ensure that the repository contains the right files to make the project run.
 
-A Temporary Project (also called Quick launck) is the fatest way to launch a VM in seconds and it can be used when you need to run a simple script online or just want to test drive Diploi. With a Quick Launch, you create an project without a repository attached to it.
+A **Quick launck** is the fatest way to launch a VM in seconds and it can be used when you need to run a simple script online or just want to test drive Diploi. With a Quick Launch, you create an project without a repository attached to it.
 
 :::caution
 Once you choose between using a new repository or quick launching without a repository, you will not be able to change the repository or add a repository.
@@ -76,7 +76,7 @@ After creating a project, you will be able to create new deployments and modify 
 
 ### Project Deployments
 
-You will be able to create deployments. Each deployment represents a virtual machine that serves your application online. For a deeper dive on deployments, check the article about [Deployments](/reference/deployments/deployment).
+You will be able to create deployments. Each deployment represents a cluster that serves your application online. For a deeper dive on deployments, check the article about [Deployments](/reference/deployments/deployment).
 
 ### Project Options
 
@@ -104,16 +104,6 @@ By default, Diploi generates a domain for your application. The basic structure 
 
 :::tip
 If you want to set up a custom domain, you can do it from each deployment. For more information, click here [Deploying / custom-domain](/deploying/custom-domain/)
-:::
-
-#### Component and Add-on Settings
-
-You can view component specific settings and add-on configuration in this section.
-
-<ImageToPNG src={ProjectOptionsComponentsAndAddons} alt='Project options components and add-ons'/>
-
-:::note
-Not all components and add-ons have editable or visible settings in this section.
 :::
 
 ## Deleting a Project

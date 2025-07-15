@@ -1,6 +1,4 @@
 ---
-import { Badge } from "@astrojs/starlight/components";
-import { Image } from "astro:assets";
 import type { DiploiElement } from "./types";
 
 interface Props {
@@ -11,15 +9,12 @@ const { element } = Astro.props;
 ---
 
 <div class="flex gap-2">
-  <Image
-    src={`https://diploi.b-cdn.net/component/${element.owner}/${element.repo}/icon.svg?ref=main`}
-    alt={element.repo}
+  <img
+    src={`${element.url}/blob/main/.diploi/icon.svg?raw=true`}
+    alt={element.name}
     class="element-icon"
     width={28}
     height={28}
   />
-  <strong class={`${!element.released && "text-gray-400"}`}
-    >{element.name}</strong
-  >
-  {!element.released && <Badge text="soon!" variant="tip" class="self-start" />}
+  <strong>{element.name}</strong>
 </div>

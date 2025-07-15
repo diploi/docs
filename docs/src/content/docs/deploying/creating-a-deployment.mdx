@@ -6,7 +6,7 @@ sidebar:
 ---
 
 import ImageToPNG from  "../../../components/ImageToPNG.astro"
-import DeploymentSizesAvailable from  "../../../components/DeploymentSizesAvailable.mdx"
+import DeploymentSizesAndPricing from  "../../../components/DeploymentSizesAndPricing.astro"
 import CreateDeploymentSize from '../../../assets/CreateDeploymentSize.png'
 import CreateDeploymentConnect from '../../../assets/CreateDeploymentConnect.png'
 import DisableDeploymentCard from '../../../assets/DisableDeploymentCard.png'
@@ -45,7 +45,7 @@ When you create a new development deployment, it will be active for 12 hours, af
 
 Once you choose the type of deployment you need, choose the size that the deployment should have. The available deployment sizes include:
 
-<DeploymentSizesAvailable/>
+<DeploymentSizesAndPricing/>
 
 <ImageToPNG src={CreateDeploymentSize} alt="Deployment size"/>
 
@@ -56,6 +56,10 @@ Once you have configured the type and size of your deployment, you can click on 
 If you need to connect via SSH to your deployment, you can do it by getting the SSH connection string from the "Components" and "Add-ons" sections found at the bottom of the "Overview" tab of your deployment, found at:
 
 `https://console.diploi.com/<your account>/project/<project id>/deployment/<deployment id>`
+
+:::note
+Your development environment and, each component and add-on of your app's stack are running on independent containers.
+:::
 
 From there, you can copy the SSH connection string for the component or add-on you want to connect to by clicking on the "Connect +" button next to the component or add-on.
 

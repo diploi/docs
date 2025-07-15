@@ -26,7 +26,7 @@ import ResourceView from '../../../../assets/ResourceView.png';
 import CreateDeploymentConnect from '../../../../assets/CreateDeploymentConnect.png';
 import DevelopmentLocalIde from '../../../../assets/DevelopmentLocalIde.png'
 import StatusTree from '../../../../assets/StatusTree.png'
-import DeploymentSizesAvailable from "../../../../components/DeploymentSizesAvailable.mdx"
+import DeploymentSizesAndPricing from "../../../../components/DeploymentSizesAndPricing.astro"
 import ImageToPNG from "../../../../components/ImageToPNG.astro"
 
 ## Creating a Deployment
@@ -45,7 +45,7 @@ Within the general settings of your new deployment, you can define the name of t
 The stage for your deployment will define if your environment is a dynamic or a build deployment.
 :::
 
-#### Project Name
+#### Deployment Name
 
 This will identify the internal name of your deployment within your Diploi project. You can change the name of a deployment at any time. Changes to the project name will not affect your deployment, project, repository or dependencies. 
 
@@ -55,13 +55,13 @@ In Diploi, you have three stages that you can assign to your deployments:
 
 <div class=' rounded-md border-l-2 p-4'>
    ##### Development
-   Development deployments enable remote development and let your application be served online for debugging. It offers a browser IDE that can be used for remote development and also allows you to SSH into the environment using VSCode.
+   Development deployments enable remote development and let your application be served online development. It offers a browser IDE that can be used for remote development and also allows you to SSH into the environment using VSCode.
    
    Development deployments often utilize hot module reloading (HMR) or similar techniques to enable quick code updates without server restarts. When using this stage, your code is cloned directly from GitHub without going through the build process.
 </div>
 <div class=' rounded-md border-l-2 p-4'>
    ##### Staging
-   Staging deployments are used for testing and quality assurance purposes. They closely resemble the production environment but are separate from the live application. Staging deployments use built images of your application and allow you to test changes before deploying them to production.
+   Staging deployments are used for testing and quality assurance purposes. They run a build version of your application, exactly as your Production deployments do but as an independent deployment that would not affect your Production deployment.
 </div>
 <div class=' rounded-md border-l-2 p-4'>
    ##### Production
@@ -73,7 +73,7 @@ In Diploi, you have three stages that you can assign to your deployments:
 
 You must choose the appropriate size for your application. You can update the size of your deployment directly from the Options tab of your deployment.
 
-<DeploymentSizesAvailable/>
+<DeploymentSizesAndPricing/>
 
 ### Repository
 
