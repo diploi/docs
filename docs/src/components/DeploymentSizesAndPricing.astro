@@ -1,24 +1,31 @@
 ---
 import type { DiploiInstance } from "./types";
 
-const { pricing } = await fetch('https://console.diploi.com/api/business/pricing').then((response) => response.json());
+const { pricing } = await fetch(
+  "https://console.diploi.com/api/business/pricing"
+).then((response) => response.json());
 if (!pricing) {
   throw new Error(`Failed to load pricing (${pricing.status})`);
 }
-const formatterLong = new Intl.NumberFormat('fi-FI', {
-    style: 'currency',
-    currency: 'EUR',
-    minimumFractionDigits: 3,
-  });
+const formatterLong = new Intl.NumberFormat("fi-FI", {
+  style: "currency",
+  currency: "EUR",
+  minimumFractionDigits: 3,
+});
 
-const coreInstanceList = pricing.coreInstancePrice as DiploiInstance [];
-
+const coreInstanceList = pricing.coreInstancePrice as DiploiInstance[];
 ---
 
-{coreInstanceList.map(instance => {
+{
+  coreInstanceList.map((instance) => {
     return (
-        <div>
-            <p>- <strong>{instance.name}</strong> - {instance.vCpu} vCPUs and {instance.memoryGiB} GB of ram - <strong>{formatterLong.format(instance.price)}/hour</strong></p>
-        </div>
-    )
-})}
+      <div>
+        <p>
+          - <strong>{instance.name}</strong> - {instance.vCpu} vCPUs and{" "}
+          {instance.memoryGiB} GB of ram -{" "}
+          <strong>{formatterLong.format(instance.price)}/hour</strong>
+        </p>
+      </div>
+    );
+  })
+}

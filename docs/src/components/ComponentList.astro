@@ -1,24 +1,27 @@
 ---
 import ElementCard from "./ElementCard.astro";
-import type {DiploiElement} from "./types"
+import type { DiploiElement } from "./types";
 
 const {
   result: { data },
-} = await fetch(`${import.meta.env.CANARY_API_URL}/api/trpc/stack.listPreviewComponents`).then((response) => response.json());
-if (!data || data.status !== 'ok') {
+} = await fetch(
+  `${import.meta.env.CANARY_API_URL}/api/trpc/stack.listPreviewComponents`
+).then((response) => response.json());
+if (!data || data.status !== "ok") {
   throw new Error(`Failed to load pricing (${data})`);
 }
 
-const componentList = data.components as DiploiElement [];
-
+const componentList = data.components as DiploiElement[];
 ---
 
 <h4>Components available</h4>
 
 <div class="flex gap-8 items-baseline flex-wrap">
-    {componentList.map(component => {
-      if (component.type ==='component') {
-        return <ElementCard element={component}/>
+  {
+    componentList.map((component) => {
+      if (component.type === "component") {
+        return <ElementCard element={component} />;
       }
-    })}
+    })
+  }
 </div>
