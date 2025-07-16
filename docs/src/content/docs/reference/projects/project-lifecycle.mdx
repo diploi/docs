@@ -1,28 +1,18 @@
 ---
-title: Projects
-description: A project contains the deployments of your application.
-sidebar:
-  order: 3
+title: Project Lifecycle
+description: How projects are created, managed and deleted.
 ---
 
-import CreateProjectPreview from '../../../assets/CreateProjectPreview.png';
-import CreateProjectEditNames from '../../../assets/CreateProjectEditNames.png';
-import ProjectHomePage from '../../../assets/ProjectHomePage.png';
-import ProjectOptionsGeneral from '../../../assets/ProjectOptionsGeneral.png';
-import ProjectOptionsDomain from '../../../assets/ProjectOptionsDomain.png';
-import ProjectOptionsComponentsAndAddons from '../../../assets/ProjectOptionsComponentsAndAddons.png';
-import DeleteProject from '../../../assets/DeleteProject.png';
-import ComponentList from  "../../../components/ComponentList.astro"
-import ImageToPNG from  "../../../components/ImageToPNG.astro"
-import AddonList from  "../../../components/AddonList.astro"
-
-## What is a Diploi Project?
-
-A Diploi project contains the deployments of your application. A typical setup could be one deployment for production, one for staging and perhaps one development instance per active developer.
-
-A project is defined by components and add-ons. A project also connects to a GitHub repository and contains common settings and environment variables.
-
-***
+import CreateProjectPreview from '../../../../assets/CreateProjectPreview.png';
+import CreateProjectEditNames from '../../../../assets/CreateProjectEditNames.png';
+import ProjectHomePage from '../../../../assets/ProjectHomePage.png';
+import ProjectOptionsGeneral from '../../../../assets/ProjectOptionsGeneral.png';
+import ProjectOptionsDomain from '../../../../assets/ProjectOptionsDomain.png';
+import ProjectOptionsComponentsAndAddons from '../../../../assets/ProjectOptionsComponentsAndAddons.png';
+import DeleteProject from '../../../../assets/DeleteProject.png';
+import ComponentList from "../../../../components/ComponentList.astro"
+import ImageToPNG from "../../../../components/ImageToPNG.astro"
+import AddonList from "../../../../components/AddonList.astro"
 
 ## Creating a Project
 
@@ -62,18 +52,18 @@ From the preview, you can rename the folders that contain your components and th
 <ImageToPNG src={CreateProjectEditNames} alt='Edit component or add-on name'/>
 :::
 
-### Choosing Between Creating a Repository Launch  or Quick Launch
+### Choosing Between Creating a Project with Repository or a Quick Launch
 
-Repository Launch is the easiest way to set up a project is to let Diploi bootstrap a new GitHub repository for you. This will ensure that the repository contains the right files to make the project run.
+A **Repository Launch** is the easiest way to set up a project is to let Diploi bootstrap a new GitHub repository for you. This will ensure that the repository contains the right files to make the project run.
 
-Quick launck is the fatest way to launch a VM in seconds and it can be used when you need to run a simple script online or just want to test drive Diploi. With a Quick Launch, you create an project without a repository attached to it.
+A **Quick launck** is the fatest way to launch a VM in seconds and it can be used when you need to run a simple script online or just want to test drive Diploi. With a Quick Launch, you create an project without a repository attached to it.
 
 :::caution
 Once you choose between using a new repository or quick launching without a repository, you will not be able to change the repository or add a repository.
 :::
 
 :::note
-**Using an existing repository and importing an application to Diploi** is not yet an automagically process, but it is possible. If you would like to bring your existing application to Diploi, contact us on [Discord](https://discord.gg/vvgQxVjC8G) or [via email](mailto:hello@diploi.com).
+**Using an existing repository and importing an application to Diploi** is not yet an automagically process, but it is possible. If you would like to bring your existing application to Diploi, contact us on <a href="https://discord.gg/vvgQxVjC8G" target="_blank">Discord</a> or [via email](mailto:hello@diploi.com).
 :::
 
 ***
@@ -86,7 +76,7 @@ After creating a project, you will be able to create new deployments and modify 
 
 ### Project Deployments
 
-You will be able to create deployments. Each deployment represents a virtual machine that serves your application online. For a deeper dive on deployments, check [Concepts / Deployment](/concepts/deployment/).
+You will be able to create deployments. Each deployment represents a cluster that serves your application online. For a deeper dive on deployments, check the article about [Deployments](/reference/deployments/deployment).
 
 ### Project Options
 
@@ -97,7 +87,6 @@ In this tab you can view and edit properties of your project.
 From here you can update the project's name inside Diploi. When you launch new deployments, the new deployment's name will start by using the project's name.
 
 <ImageToPNG src={ProjectOptionsGeneral} alt='Project options general'/>
-![Project options general](../../../assets/ProjectOptionsGeneral.png)
 
 :::note
 If you update the name of your project, it won't affect the repository's name.
@@ -114,20 +103,10 @@ By default, Diploi generates a domain for your application. The basic structure 
 <ImageToPNG src={ProjectOptionsDomain} alt='Project options parent domain'/>
 
 :::tip
-If you want to set up a custom domain, you can do it from each deployment. For more information, click here [Guides / custom-domain](/guides/custom-domain/)
+If you want to set up a custom domain, you can do it from each deployment. For more information, click here [Deploying / custom-domain](/deploying/custom-domain/)
 :::
 
-#### Component and Add-on Settings
-
-You can view component specific settings and add-on configuration in this section.
-
-<ImageToPNG src={ProjectOptionsComponentsAndAddons} alt='Project options components and add-ons'/>
-
-:::note
-Not all components and add-ons have editable or visible settings in this section.
-:::
-
-#### Deleting a Project
+## Deleting a Project
 
 When you no longer need a Project you can delete it by first deleting all deployments within the project and the going to the "options" tab of your projects and look for the actions sections, to delete the project click on the "delete project" button.
 

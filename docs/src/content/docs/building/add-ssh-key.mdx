@@ -7,8 +7,7 @@ import AddSSHKey from  "../../../assets/AddSSHKey.png"
 import ImageToPNG from  "../../../components/ImageToPNG.astro"
 
 
-Diploi utilizes SSH keys for user authentication when establishing SSH connections to deployments.
-This authentication method is commonly employed for remote development connections, such as those established through VS Code.
+Diploi utilizes SSH keys for user authentication when establishing SSH connections to deployments. This authentication method is commonly employed for remote development connections, such as those established through VS Code.
 
 To add an SSH key to your Diploi profile, you must:
 
@@ -25,8 +24,8 @@ Let's go through each step in detail.
 <Tabs syncKey="os">
   <TabItem label="Linux">
    <Steps>
-   1. Open a terminal and run: `ssh-keygen` which generates by default an ed25519 key pair
-   2. You will get a message, asking you to assign a name for the key pair
+   1. Open a terminal and run: `ssh-keygen` which generates by default an ed25519 key pair.
+   2. You will get a message, asking you to assign a name for the key pair.
       ```bash
       Generating public/private ed25519 key pair.
       Enter file in which to save the key (/home/<your_username>/.ssh/id_ed25519): 
@@ -59,8 +58,8 @@ Let's go through each step in detail.
   </TabItem>
   <TabItem label="Windows">
    <Steps>
-   1. Using Git Bash, Terminal or WSL run: `ssh-keygen` which generates by default an ed25519 key pair
-   2. You will get a message, asking you to assign a name for the key pair
+   1. Using Git Bash, Terminal or WSL run: `ssh-keygen` which generates by default an ed25519 key pair.
+   2. You will get a message, asking you to assign a name for the key pair.
       ```bash
       Generating public/private ed25519 key pair.
       Enter file in which to save the key (/home/<your_username>/.ssh/id_ed25519): 
@@ -93,8 +92,8 @@ Let's go through each step in detail.
   </TabItem>
   <TabItem label="Mac">
    <Steps>
-   1. Open Terminal and run: `ssh-keygen` which generates by default an ed25519 key pair
-   2. You will get a message, asking you to assign a name for the key pair
+   1. Open Terminal and run: `ssh-keygen` which generates by default an ed25519 key pair.
+   2. You will get a message, asking you to assign a name for the key pair.
       ```bash
       Generating public/private ed25519 key pair.
       Enter file in which to save the key (/home/<your_username>/.ssh/id_ed25519): 
@@ -178,14 +177,14 @@ Alternatively, you can use an existing SSH key.
 </Tabs>
 
 :::note
-Having trouble finding your public key? Check this thread from StackOverflow about [how to find the public key](https://stackoverflow.com/questions/3828164/how-do-i-access-my-ssh-public-key/3828169#3828169)
+Having trouble finding your public key? Check this thread from StackOverflow about [how to find the public key](https://stackoverflow.com/questions/3828164/how-do-i-access-my-ssh-public-key/3828169#3828169).
 :::
 
 ## Add your public key in Diploi
 
 Now that you copied the contents of your public key, you need to add it to your Diploi profile:
 <Steps>
-   1. Go to [your profile settings](https://console.diploi.com/settings)
+   1. Go to <a href="https://console.diploi.com/settings" target="_blank">your profile settings</a>.
    2. Select "Add new SSH key".
    3. Provide a description for your key, such as "Work MacBook," to help you remember its origin or purpose.
    4. Paste your SSH "public key" into the designated field.
@@ -198,4 +197,4 @@ Never share your SSH private key with anyone! This key grants access to any
 deployment you have privileges for, allowing others to authenticate as you.
 :::
 
-That's it! Now you can access your deployments using SSH
+That's it! Now you can access your deployments using SSH.

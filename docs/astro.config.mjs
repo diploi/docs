@@ -6,6 +6,7 @@ const googleAnalyticsMeasurementID = "G-XFEEFZ85LQ";
 
 // https://astro.build/config
 export default defineConfig({
+  markdown: {},
   adapter: node({
     mode: "standalone",
   }),
@@ -33,7 +34,7 @@ export default defineConfig({
         {
           tag: "script",
           attrs: {
-            defer:true,
+            defer: true,
             src: "https://umami.console.diploi.com/script.js",
             "data-website-id": "0845061e-d7dd-43ea-afa4-3cdf948fe08b",
           },
@@ -69,32 +70,47 @@ export default defineConfig({
               label: "Get Started",
               link: "/get-started/",
             },
-            // {
-            //   label: 'Tutorial',
-            //   link: '/tutorial/',
-            // },
-            // {
-            //   label: 'Roadmap',
-            //   link: '/roadmap/',
-            // },
           ],
         },
         {
-          label: "Concepts",
-          autogenerate: { directory: "concepts" },
+          label: "Deploying",
+          items: [
+            "deploying/creating-a-project",
+            "deploying/creating-a-deployment",
+            "deploying/custom-domain",
+          ],
         },
-        // {
-        //   label: "Tutorials",
-        //   autogenerate: { directory: "tutorials" },
-        // },
         {
-          label: "Guides",
-          autogenerate: { directory: "guides" },
+          label: "Building",
+          items: [
+            'building/components',
+            'building/add-ons',
+            'building/add-ssh-key',
+            'building/remote-development',
+          ],
         },
-        // {
-        //   label: 'Templates',
-        //   autogenerate: { directory: 'templates' },
-        // },
+        {
+          label: "Reference",
+          items: [
+            "reference/technical-deep-dive",
+            "reference/architecture",
+            "reference/diploi-yaml",
+            {
+              label: "Projects",
+              items: [
+                "reference/projects/project",
+                "reference/projects/project-lifecycle",
+              ],
+            },
+            {
+              label: "Deployments",
+              items: [
+                "reference/deployments/deployment",
+                "reference/deployments/deployment-lifecycle",
+              ],
+            },
+          ],
+        },
       ],
       customCss: ["./src/styles/custom.css"],
     }),

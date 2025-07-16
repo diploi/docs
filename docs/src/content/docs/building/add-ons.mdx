@@ -1,0 +1,80 @@
+---
+title: Using Add-ons
+description: Add-ons are used to host services and databases for projects.
+---
+
+import CreateProjectPreview from '../../../assets/CreateProjectPreview.png';
+import CreateProjectEditNames from '../../../assets/CreateProjectEditNames.png';
+import ProjectHomePage from '../../../assets/ProjectHomePage.png';
+import ProjectOptionsGeneral from '../../../assets/ProjectOptionsGeneral.png';
+import ProjectOptionsDomain from '../../../assets/ProjectOptionsDomain.png';
+import ProjectOptionsComponentsAndAddons from '../../../assets/ProjectOptionsComponentsAndAddons.png';
+import DeleteProject from '../../../assets/DeleteProject.png';
+import ComponentList from "../../../components/ComponentList.astro"
+import ImageToPNG from "../../../components/ImageToPNG.astro"
+import AddonList from "../../../components/AddonList.astro"
+import { LinkButton } from '@astrojs/starlight/components';
+
+### Add-ons
+
+Add-ons provide services used by your application. In general, add-ons in Diploi are services that do not require direct development work, which can be services like databases, analytics services, CMS dashboards, etc.
+
+<AddonList/>
+
+:::note
+Services are not exposed publicly by default. They can only be accessed by the components in your project.
+:::
+
+***
+
+### PostgreSQL
+The open-source relational database system known for reliability, feature robustness, and performance, ideal for handling complex queries and transactions.
+
+<LinkButton target="_blank" href="https://github.com/diploi/addon-postgres" variant="secondary">
+  To the add-on's repository
+</LinkButton>
+
+<LinkButton target="_blank" href="https://www.postgresql.org/docs/" variant="secondary">
+  Official documentation for PostgreSQL
+</LinkButton>
+
+***
+
+### Redis
+An in-memory data structure store used as a database, cache, and message broker, known for its high speed and support for various data structures.
+
+<LinkButton target="_blank" href="https://github.com/diploi/addon-redis" variant="secondary">
+  To the add-on's repository
+</LinkButton>
+
+<LinkButton target="_blank" href="https://redis.io/docs/latest/" variant="secondary">
+  Official documentation for Redis
+</LinkButton>
+
+***
+
+### Mongo
+
+A popular NoSQL document database that stores data in flexible, JSON-like documents, enabling rapid development and scalability.
+
+<LinkButton target="_blank" href="https://github.com/diploi/addon-mongo" variant="secondary">
+  To the add-on's repository
+</LinkButton>
+
+<LinkButton target="_blank" href="https://www.mongodb.com/docs/manual/" variant="secondary">
+  Official documentation for Mongo
+</LinkButton>
+
+***
+
+### MariaDB
+
+An open-source relational database forked from MySQL, offering compatibility with MySQL and additional features and performance improvements.
+
+<LinkButton target="_blank" href="https://github.com/diploi/addon-mariadb" variant="secondary">
+  To the add-on's repository
+</LinkButton>
+
+<LinkButton target="_blank" href="https://mariadb.com/docs/" variant="secondary">
+  Official documentation for MariaDB
+</LinkButton>
