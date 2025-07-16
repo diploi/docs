@@ -3,11 +3,29 @@ title: Introduction
 description: Diploi is a platform and workflow to make you and your development team both happy and efficient.
 ---
 import ComponentList from '../../components/ComponentList.astro'
-import AddonList from  "../../components/AddonList.astro"
+import AddonList from "../../components/AddonList.astro"
 
 ## What is Diploi?
 
 Diploi is a platform and workflow for managing and hosting your full application from zero using some of the most popular frameworks and databases, without having to setup virtual machines, worrying about deployment pipelines, struggling with SSL certificates, configuring load balancers and other DevOps pains. No more context switching, local dependencies or configuration hell.
+
+Check this introduction video to learn about Diploi in 60 seconds:
+
+<div class='w-full not-content'>
+    <iframe class='block mx-auto' width="560" height="315" src="https://www.youtube.com/embed/X-olQzRPZMY?si=Y67U-pGv4bJQB7w-" title="Diploi features explained in 60 seconds - Streamline how you launch applications online" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+
+***
+
+### Supported Frameworks and Databases
+
+Diploi supports a wide range of frameworks and databases, including:
+
+<ComponentList/>
+
+<AddonList/>
+
+***
 
 ## Key Features
 
@@ -20,7 +38,7 @@ Diploi is a platform and workflow for managing and hosting your full application
 :::note
 Diploi is currently best used as the starting point to launch new applications, but you can host an existing project with Diploi.
 
-We currently do not offer out-of-the-box support for launching an existing applications, but it is already possible, if you want to host an existing project with Diploi, contact us on [Discord](https://discord.gg/vvgQxVjC8G) or [via email](mailto:hello@diploi.com).
+We currently do not offer out-of-the-box support for launching an existing applications, but it is already possible, if you want to host an existing project with Diploi, contact us on <a href="https://discord.gg/vvgQxVjC8G" target="_blank">Discord</a> or [via email](mailto:hello@diploi.com).
 :::
 
 ***
@@ -28,18 +46,6 @@ We currently do not offer out-of-the-box support for launching an existing appli
 ## How it Works
 
 Diploi uses a component-driven architecture to build your application. You choose your stack from a constantly growing list of components and add-ons. The selection is stored in a file in your project, so modifying the stack is as easy as editing a file.
-
-### Components
-
-**Components** are the basic building blocks in Diploi, a component is defined by a server/framework and the concern they handle, like frontend, backend or fullstack. You can combine multiple components in a single deployment, which Diploi configures as a monolith application for you.
-
-<ComponentList/>
-
-### Add-ons
-
-**Add-ons** are additional services that your application will be using like a database, cache server or a message broker.
-
-<AddonList/>
 
 
 ## Quickstart

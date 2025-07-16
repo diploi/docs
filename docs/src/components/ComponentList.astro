@@ -1,33 +1,27 @@
 ---
-import { Image } from "astro:assets";
+import ElementCard from "./ElementCard.astro";
+import type { DiploiElement } from "./types";
 
-type Component = { owner: string; name:string, repo: string }
+const {
+  result: { data },
+} = await fetch(
+  `${import.meta.env.API_URL||'https://console.diploi.com'}/api/trpc/stack.listPreviewComponents`
+).then((response) => response.json());
+if (!data || data.status !== "ok") {
+  throw new Error(`Failed to load pricing (${data})`);
+}
 
-const componentList: Component[] = [
-  { owner: "diploi", name:"Next.js",repo: "component-nextjs" },
-  { owner: "diploi", name:"React + Vite",repo: "component-react-vite" },
-  { owner: "diploi", name:"Node.js",repo: "component-nodejs" },
-  { owner: "diploi", name:"Bun",repo: "component-bun" },
-  { owner: "diploi", name:"Astro",repo: "component-astro" },
-  { owner: "diploi", name:"SvelteKit",repo: "component-sveltekit" },
-  { owner: "diploi", name:"Nue",repo: "component-nue" },
-];
-
+const componentList = data.components as DiploiElement[];
 ---
 
 <h4>Components available</h4>
 
 <div class="flex gap-8 items-baseline flex-wrap">
-    {componentList.map(component => (
-        <div class="flex gap-2">
-          <Image
-            src={`https://diploi.b-cdn.net/component/${component.owner}/${component.repo}/icon.svg?ref=main`}
-            alt={component.repo}
-            class="icon"
-            width={28}
-            height={28}
-          />
-          <strong>{component.name}</strong>
-        </div>
-    ))}
+  {
+    componentList.map((component) => {
+      if (component.type === "component") {
+        return <ElementCard element={component} />;
+      }
+    })
+  }
 </div>

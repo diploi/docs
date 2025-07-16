@@ -1,0 +1,279 @@
+---
+title: Deployment Lifecycle
+description: A deployment is a full instance of your application.
+---
+
+import GetStartedStatusFull from '../../../../assets/GetStartedStatusFull.png';
+import CreateDeploymentGeneral from '../../../../assets/CreateDeploymentGeneral.png';
+import CreateDeploymentRepository from '../../../../assets/CreateDeploymentRepository.png';
+import ProjectOptionsComponentsAndAddons from '../../../../assets/ProjectOptionsComponentsAndAddons.png';
+import DeploymentHomePage from '../../../../assets/DeploymentHomePage.png';
+import DeploymentOverviewStack from '../../../../assets/DeploymentOverviewStack.png';
+import DeploymentOverviewDevelopment from '../../../../assets/DeploymentOverviewDevelopment.png';
+import DeploymentOverviewInternal from '../../../../assets/DeploymentOverviewInternal.png';
+import DeploymentResourceUsage from '../../../../assets/DeploymentResourceUsage.png';
+import DeploymentOverviewStackPreview from '../../../../assets/DeploymentOverviewStackPreview.png';
+import DeploymentOverviewLogs from '../../../../assets/DeploymentOverviewLogs.png';
+import DeploymentRepoSettings from '../../../../assets/DeploymentRepoSettings.png';
+import DeploymentOptionName from '../../../../assets/DeploymentOptionName.png';
+import DeploymentOptionSize from '../../../../assets/DeploymentOptionSize.png';
+import DeploymentOptionEndpoints from '../../../../assets/DeploymentOptionEndpoints.png';
+import GodaddyCustomDomainExample from '../../../../assets/GodaddyCustomDomainExample.png';
+import ContainerLog from '../../../../assets/ContainerLog.png';
+import DeploymentOptionEnvironment from '../../../../assets/DeploymentOptionEnvironment.png';
+import DeploymentOptionDelete from '../../../../assets/DeploymentOptionDelete.png';
+import ResourceView from '../../../../assets/ResourceView.png';
+import CreateDeploymentConnect from '../../../../assets/CreateDeploymentConnect.png';
+import DevelopmentLocalIde from '../../../../assets/DevelopmentLocalIde.png'
+import StatusTree from '../../../../assets/StatusTree.png'
+import DeploymentSizesAndPricing from "../../../../components/DeploymentSizesAndPricing.astro"
+import ImageToPNG from "../../../../components/ImageToPNG.astro"
+
+## Creating a Deployment
+
+To start creating a deployment, you must first [create a project](/deploying/creating-a-deployment/). Once you have a project, you can start creating new deployments.
+
+In the next steps, we will walkthrough all the properties that can be set up when creating a deployment.
+
+### General
+
+Within the general settings of your new deployment, you can define the name of the deployment and its stage.
+
+<ImageToPNG src={CreateDeploymentGeneral} alt='Deployment general settings'/>
+
+:::note
+The stage for your deployment will define if your environment is a dynamic or a build deployment.
+:::
+
+#### Deployment Name
+
+This will identify the internal name of your deployment within your Diploi project. You can change the name of a deployment at any time. Changes to the project name will not affect your deployment, project, repository or dependencies. 
+
+#### Deployment Stage
+
+In Diploi, you have three stages that you can assign to your deployments:
+
+<div class=' rounded-md border-l-2 p-4'>
+   ##### Development
+   Development deployments enable remote development and let your application be served online development. It offers a browser IDE that can be used for remote development and also allows you to SSH into the environment using VSCode.
+   
+   Development deployments often utilize hot module reloading (HMR) or similar techniques to enable quick code updates without server restarts. When using this stage, your code is cloned directly from GitHub without going through the build process.
+</div>
+<div class=' rounded-md border-l-2 p-4'>
+   ##### Staging
+   Staging deployments are used for testing and quality assurance purposes. They run a build version of your application, exactly as your Production deployments do but as an independent deployment that would not affect your Production deployment.
+</div>
+<div class=' rounded-md border-l-2 p-4'>
+   ##### Production
+   Production deployments host the build version of your application and it is intended to be the version of your application that your users will have access to.
+</div>
+
+
+### Size
+
+You must choose the appropriate size for your application. You can update the size of your deployment directly from the Options tab of your deployment.
+
+<DeploymentSizesAndPricing/>
+
+### Repository
+
+In this section you will be able to define the branch that your deployment will use. You can change the branch source for your deployment from the _**Repository & Git**_ tab of your deployment.
+
+<ImageToPNG src={CreateDeploymentRepository} alt='Deployment repository branch'/>
+
+:::note
+The Repository section is only available for projects that are started with a new repository, while Quick launch projects do not have a way to attach a repository at the moment.
+:::
+
+### Component and Add-on Settings
+
+Depending on your project's components and add-ons, you might be able to make changes to the configuration, changes in this section will not affect other deployments or your project's default configuration. 
+
+<ImageToPNG src={ProjectOptionsComponentsAndAddons} alt='Project options components and add-ons'/>
+
+:::note
+Not all components and add-ons have editable settings in this section.
+:::
+
+## Managing a Deployment
+
+Once you have created a deployment inside a project, you can access your deployment's settings from the project page.
+
+<ImageToPNG src={DeploymentHomePage} alt='Deployment home page'/>
+
+:::note
+Depending on the deployment stage of your deployment, the overview page will show different information. **For Development deployments**, the overview will show an additional entry _**Development**_, which allows you to access the remote development environment using our browser IDE or VS code.
+:::
+
+### Overview
+
+From the overview tab, you can see the status of your deployment, view the logs for each component and add-on running and resources used.
+
+The overview tab is divided in three core sections:
+
+<div class=' rounded-md border-l-2 p-4'>
+#### Develop Section
+<sup>Only available on Development deployments</sup>
+
+In this section, you can get the SSH connection string to your development environment and access to the remote IDE environment.
+
+<ImageToPNG src={DevelopmentLocalIde} alt="Add IDE to deployment"/>
+
+:::note
+For deployments that are not for development, you can still access the deployment with SSH [by going to the containers section in the overview page](#ssh-containers).
+:::
+
+##### Remote Development
+
+Diploi supports remote development by using the remote development capabilities of eg. Visual Studio 
+Code, but any editor that supports editing using an SSH connection will work.
+
+For more details, please see the [Remote Development](/building/remote-development/) guide.
+
+##### Connecting using SSH
+
+Once you have created a deployment, look for the "Connect via SSH" command on the "Overview" tab.
+This command can be copied to your terminal of choice to open an SSH connection to the deployment.
+
+:::note
+You will need to add an SSH key to your profile in order to authenticate via
+SSH. Please see the [Add SSH Key](/building/add-ssh-key/) guide for more
+information.
+:::
+
+</div>
+
+***
+
+<div class=' rounded-md border-l-2 p-4'>
+#### Status tree
+
+Where you can see the resources your deployment is using and the status of containers that are part of your deployment, logs, SSH connections for each container and their endpoints of all components and add-ons available on your application.
+
+<ImageToPNG src={StatusTree} alt='Status and resources view'/>
+
+All public facing URL endpoints that your applications expose have SSL encryption by default.
+
+:::note
+All add-ons by default are only accesible locally by your applications and are not exposed to the wider internet.
+:::
+
+##### Deployment Setup Status
+
+In this section you can visualize the status of each component and add-on that defines your deployment. 
+
+##### Status
+
+After a deployment is started you can check its status from the Deployments Overview page. Diploi assigns a color to indicate the overall state of the deployment components
+
+* **Green** –  the deployment is working correctly
+* **Yellow** – there is some issue but the deployment still runs
+* **Red** – there is some bigger issue that needs to be addressed 
+
+##### Logs
+
+For each container used by your components and add-ons, you can review the logs by clicking on the "logs" button.
+
+<ImageToPNG src={ContainerLog} alt='Container logs'/>
+
+</div>
+
+***
+
+<div class='rounded-md border-l-2 p-4'>
+#### Deployment resources
+
+Here you can view how your application is using the resources available to the deployment.
+
+<ImageToPNG src={ResourceView} alt='Stack preview and logs'/>
+
+Here you can visualize the overall resource usage of your deployment. You can adjust the timeframe to show 1 minute, 1 hour or 1 day.
+
+</div>
+
+***
+
+<div id='ssh-containers'/>
+
+:::tip
+You can connect directly to each container part of your deployment via SSH. To get the SSH connection string to each container, click on the _**Connect +**_ button next to each container and this will copy the connection string to your clipboard.
+
+<ImageToPNG src={CreateDeploymentConnect} alt='Conntect to container'/>
+:::
+
+***
+
+### Repository & Git
+<sup>Only available on project deployments that are linked to a repository</sup>
+
+From this tab, you can choose the branch that your deployment will be using as its source.
+
+When you push new changes to your selected branch, a GitHub action will be run in your repository, which creates an updated build of your application and it then updates the environment of your deployment.
+
+In this tab, you can also change the attribution of updates to the environment, which by default is attributed to the GitHub account that created the project.
+
+<ImageToPNG src={DeploymentRepoSettings} alt='Deployment repository settings'/>
+
+### Deployment Options
+
+From here you can update the deployment's name, change the size of your deployment, assign a custom domain to the public endpoints exposed by your deployment, update the environment variables used by each component and add-on in your deployment or delete your deployment.
+
+#### Updating the Name
+
+You can update the deployment's name used inside of your project.
+
+<ImageToPNG src={DeploymentOptionName} alt='Project options general'/>
+
+:::note
+If you update the name of your deployment, it won't affect the repository's name or alter your application's behavior.
+:::
+
+#### Machine Size
+
+You can change the size of the deployment machine that your deployment uses, by first disabling the deployment and then choosing a different size.
+
+<ImageToPNG src={DeploymentOptionSize} alt='Project options size'/>
+
+#### Endpoint Settings
+
+Diploi will by default create a public endpoint for your application and generate
+SSL certificates for the public endpoints. You can customize the auto-generated domains or if you prefer, you can assign a custom domain.
+
+For a more detailed explanation, check the [custom domain guide](/deploying/custom-domain/).
+
+<ImageToPNG src={DeploymentOptionEndpoints} alt='Deployment endpoints'/>
+
+##### Using a Custom Domain
+
+If you want to use a custom domain all you need to do is:
+
+1. Access your domain's DNS records in your domain host.
+2. Create a new CNAME record, pointing to `edge.diploi.com`
+3. Make sure to assign a specific name in the CNAME record, as wildcard domains are not fully supported yet.
+
+For example, if you use GoDaddy domains, if you want to use a subdomain like `custom.mydomain.com` your DNS configuration would look like this:
+
+<ImageToPNG src={GodaddyCustomDomainExample} alt='Godaddy domain example'/>
+
+:::note
+When you first assign a new domain for your application, it can take up to 30 minutes for the new SSL certificate to become valid.
+:::
+
+#### Managing Environment Variables
+
+You can customize the environment variables that each of your components and add-ons use. Some variables are automatically generated from your add-ons into your components.
+
+<ImageToPNG src={DeploymentOptionEnvironment} alt='Deployment environment'/>
+
+## Deleting a Deployment
+
+When you don't need a deployment anymore, you can delete it by looking for the button _**Delete deployment**_ at the bottom of the Options tab. Be aware that this will permanently 
+delete all data stored (such as code, databases etc.) associated with 
+the instance.
+
+<ImageToPNG src={DeploymentOptionDelete} alt='Delete deployment'/>
+
+:::note
+If you want to delete an entire project, you must first delete all deployments that belong to the project first.
+:::
+

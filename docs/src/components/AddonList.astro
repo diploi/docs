@@ -1,30 +1,27 @@
 ---
-import { Image } from "astro:assets";
+import ElementCard from "./ElementCard.astro";
+import type { DiploiElement } from "./types";
 
-type Addon = { owner: string; name:string, repo: string }
+const {
+  result: { data },
+} = await fetch(
+  `${import.meta.env.API_URL||'https://console.diploi.com'}/api/trpc/stack.listPreviewComponents`
+).then((response) => response.json());
+if (!data || data.status !== "ok") {
+  throw new Error(`Failed to load pricing (${data})`);
+}
 
-const addonList: Addon[] = [
-  { owner: "diploi", name:"Postgres",repo: "addon-postgres" },
-  { owner: "diploi", name:"Redis",repo: "addon-redis" },
-  { owner: "diploi", name:"Mongo",repo: "addon-mongo" },
-  { owner: "diploi", name:"MariaDB",repo: "addon-mariadb" },
-];
-
+const addonList = data.components as DiploiElement[];
 ---
 
 <h4>Add-ons available</h4>
 
 <div class="flex gap-8 items-baseline flex-wrap">
-    {addonList.map(addon => (
-        <div class="flex gap-2">
-          <Image
-            src={`https://diploi.b-cdn.net/component/${addon.owner}/${addon.repo}/icon.svg?ref=main`}
-            alt={addon.repo}
-            class="icon"
-            width={28}
-            height={28}
-          />
-          <strong>{addon.name}</strong>
-        </div>
-    ))}
+  {
+    addonList.map((addon) => {
+      if (addon.type === "addon") {
+        return <ElementCard element={addon} />;
+      }
+    })
+  }
 </div>

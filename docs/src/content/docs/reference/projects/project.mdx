@@ -1,0 +1,72 @@
+---
+title: Projects Explained
+description: A project contains the deployments of your application.
+---
+
+import ImageToPNG from  "../../../../components/ImageToPNG.astro"
+import CreateDeploymentRepository from '../../../../assets/CreateDeploymentRepository.png'
+import ContactInfo from  "../../../../components/ContactInfo.mdx"
+import QuickStartBuilder from '../../../../assets/QuickStartBuilder.png'
+import QuickLaunchLoading from '../../../../assets/QuickLaunchLoading.png'
+import QuickLaunchHome from '../../../../assets/QuickLaunchHome.png'
+import CreateProjectRepo from '../../../../assets/CreateProjectRepo.png'
+
+## What is a Diploi Project?
+
+A Diploi project contains the deployments of your application. A typical setup could be one deployment for production, one for staging and perhaps one development instance per active developer.
+
+A project is defined by components and add-ons. A project also connects to a GitHub repository and contains common settings and environment variables.
+
+***
+
+## Project types
+
+### Project with Repository
+
+When you choose to create a new project with a new repository, you will be able to launch a new deployments from different branches of your repository, allowing you to have different environments online at the same time without having to configure servers manually.
+
+<ImageToPNG src={CreateDeploymentRepository} alt="Selecting a branch to launch a new deployment"/>
+
+By default, when you create a new project, a development deployment will be started, which you can use to start developing your application right away and will be active for 12 hours. This development deployment will use your repository's default branch main branch as its source.
+
+:::note
+If you want to create a new project with a repository, you can do so by following the steps in our [Creating a Project](/deploying/creating-a-project) guide.
+:::
+
+### Quick Launch
+
+With a Quick Launch project, you get a ready-to-use development deployment that you can use to test new technologies, frameworks, or just to try out Diploi without the need to create a repository.
+
+You can create a Quick Launch project by choosing the "**Quick Launch**" repository option when creating a new project or from the homepage. 
+
+#### Quick Launch from the Homepage
+
+Quick Launch is the fastest way to get started with Diploi. It allows you to quickly launch a new application online without the need to create a repository or configure anything. You can start a deployment right away from <a href="https://diploi.com/#StackBuilder" target="_blank">our homepage</a>.
+
+:::tip
+No registration or credit card needed to get started!
+:::
+
+<ImageToPNG src={QuickStartBuilder} alt="Quick launch builder"/>
+
+In the stack builder, you can can choose the components and add-ons you want to have in your deployment, and that's it!
+
+You can click "**Launch stack**" and your deployment will be ready in about 30 seconds.
+
+<ImageToPNG src={QuickLaunchLoading} alt="Quick launch loading"/>
+
+Once the launch is complete, you will be able to connect to the remote server and your deployment will be accessible online with https.
+
+<ImageToPNG src={QuickLaunchHome} alt="Quick launch home"/>
+
+:::note
+Quick Launch is intended to quickly try things out. To save your work in a repository you need to sign up.
+:::
+
+#### Quick Launch from Project Creation
+
+You can also create a Quick Launch project from the project creation page, all you need to do is choose the "**Quick Launch**" option from the repository options when creating a new project.
+
+<ImageToPNG src={CreateProjectRepo} alt="Create Quick Launch Project"/>
+
+<ContactInfo/>

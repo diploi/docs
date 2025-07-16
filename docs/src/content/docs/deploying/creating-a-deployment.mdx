@@ -1,0 +1,88 @@
+---
+title: Creating a Deployment
+description: How to create a new deployment for a project
+sidebar:
+    order: 2
+---
+
+import ImageToPNG from  "../../../components/ImageToPNG.astro"
+import DeploymentSizesAndPricing from  "../../../components/DeploymentSizesAndPricing.astro"
+import CreateDeploymentSize from '../../../assets/CreateDeploymentSize.png'
+import CreateDeploymentConnect from '../../../assets/CreateDeploymentConnect.png'
+import DisableDeploymentCard from '../../../assets/DisableDeploymentCard.png'
+import DisableDeploymentSwitch from '../../../assets/DisableDeploymentSwitch.png'
+import EnableDeployment from '../../../assets/EnableDeployment.png'
+
+After you create a Project, a development deployment is automatically created for you, and you can create additional deployments for staging and production environments, or other development environments as needed.
+
+***
+
+## Launching a New Deployment
+
+To launch a new deployment, go to the **Deployments** tab inside of your Project:
+
+`https://console.diploi.com/<your account>/project/<project Id>`
+
+And there, you can click on the **Create Deployment** button to launch the deployment creation wizard.
+
+<div class='w-full not-content'>
+    <iframe class='block mx-auto' width="560" height="315" src="https://www.youtube.com/embed/Xu96kVVzgqY?si=Gceaf_vBGXOhcb_x" title="The easiest way to start Remote Development Environments and code without local install using Diploi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+
+### Deployment Types
+
+To start a deployment, you have three different options:
+
+- **Development** which allows you to start a server on which you can start a remote development environment using VSCode or our browser IDE, or connect directly to the server via SSH. For more about remote development, check out our [Remote Development guide](/building/remote-development/).
+- **Staging** to test your application and ensure stability before launching changes in your application to production.
+- **Production** to launch your application when it is ready to be used by your end users.
+
+:::note
+When you create a new development deployment, it will be active for 12 hours, after which it will be automatically shut down to avoid unnecessary costs. For staging and production deployments are not started with a time limit, and will remain active until you shut them down manually.
+:::
+
+### Choosing a Deployment Size
+
+Once you choose the type of deployment you need, choose the size that the deployment should have. The available deployment sizes include:
+
+<DeploymentSizesAndPricing/>
+
+<ImageToPNG src={CreateDeploymentSize} alt="Deployment size"/>
+
+Once you have configured the type and size of your deployment, you can click on the **Create Deployment** button to start your deployment.
+
+## Connecting via SSH to a Deployment
+
+If you need to connect via SSH to your deployment, you can do it by getting the SSH connection string from the "Components" and "Add-ons" sections found at the bottom of the "Overview" tab of your deployment, found at:
+
+`https://console.diploi.com/<your account>/project/<project id>/deployment/<deployment id>`
+
+:::note
+Your development environment and, each component and add-on of your app's stack are running on independent containers.
+:::
+
+From there, you can copy the SSH connection string for the component or add-on you want to connect to by clicking on the "Connect +" button next to the component or add-on.
+
+For more information on how to connect to your deployment via SSH, check out our [SSH guide](/building/add-ssh-key/).
+
+<ImageToPNG src={CreateDeploymentConnect} alt="Connect to deployment with SSH"/>
+
+***
+
+## Shutting Down a Deployment
+
+If you want to stop a deployment from running, all you need to do is click on the "enabled" switch from the **Deployments** tab inside of your Project.
+
+<ImageToPNG src={DisableDeploymentCard} alt="Shutdown deployment"/>
+
+Alternatively, you can also shutdown a deployment by clicking on the "enabled" switch found at the top of your Deployment's status page.
+
+<ImageToPNG src={DisableDeploymentSwitch} alt="Shutdown switch"/>
+
+You can restart your Deployment at any time by clicking on the same switch you used for shutdown. When you click on the switch, a dropdown will appear allowing you to choose the amount of time you want the deployment to be active for.
+
+<ImageToPNG src={EnableDeployment} alt="Restart deployment"/>
+
+:::note
+When you shutdown a deployment, it will not generate any costs, you are only charged for the time that your deployment is active.
+:::
