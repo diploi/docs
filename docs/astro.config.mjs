@@ -3,9 +3,11 @@ import starlight from "@astrojs/starlight";
 import tailwind from "@astrojs/tailwind";
 import node from "@astrojs/node";
 const googleAnalyticsMeasurementID = "G-XFEEFZ85LQ";
+import starlightLlmsTxt from 'starlight-llms-txt'
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://docs.diploi.com/',
   markdown: {},
   adapter: node({
     mode: "standalone",
@@ -113,6 +115,7 @@ export default defineConfig({
         },
       ],
       customCss: ["./src/styles/custom.css"],
+      plugins: [starlightLlmsTxt()],
     }),
     tailwind(),
   ],
