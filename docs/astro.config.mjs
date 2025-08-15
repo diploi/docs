@@ -3,9 +3,11 @@ import starlight from "@astrojs/starlight";
 import tailwind from "@astrojs/tailwind";
 import node from "@astrojs/node";
 const googleAnalyticsMeasurementID = "G-XFEEFZ85LQ";
+import starlightLlmsTxt from "starlight-llms-txt";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://docs.diploi.com/",
   markdown: {},
   adapter: node({
     mode: "standalone",
@@ -83,10 +85,10 @@ export default defineConfig({
         {
           label: "Building",
           items: [
-            'building/components',
-            'building/add-ons',
-            'building/add-ssh-key',
-            'building/remote-development',
+            "building/components",
+            "building/add-ons",
+            "building/add-ssh-key",
+            "building/remote-development",
           ],
         },
         {
@@ -113,6 +115,35 @@ export default defineConfig({
         },
       ],
       customCss: ["./src/styles/custom.css"],
+      plugins: [
+        starlightLlmsTxt({
+          customSets: [
+            {
+              label: "Get started",
+              description:
+                "Quick guide explaining the essentials to get an application created and hosted on Diploi",
+              paths: ["get-started"],
+            },
+            {
+              label: "Deploying",
+              description:
+                "How to deploy an application on Diploi",
+              paths: ["deploying/**"],
+            },
+            {
+              label: "Building",
+              description:
+                "How to start building an application on Diploi",
+              paths: ["building/**"],
+            },
+            {
+              label: "Reference",
+              description: "Explanations about how Diploi works and how its architecture is defined",
+              paths: ["reference/**"],
+            },
+          ],
+        }),
+      ],
     }),
     tailwind(),
   ],
