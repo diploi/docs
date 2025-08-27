@@ -10,10 +10,11 @@ import ProjectOptionsGeneral from '../../../assets/ProjectOptionsGeneral.png';
 import ProjectOptionsDomain from '../../../assets/ProjectOptionsDomain.png';
 import ProjectOptionsComponentsAndAddons from '../../../assets/ProjectOptionsComponentsAndAddons.png';
 import DeleteProject from '../../../assets/DeleteProject.png';
-import ComponentList from  "../../../components/ComponentList.astro"
-import ImageToPNG from  "../../../components/ImageToPNG.astro"
-import AddonList from  "../../../components/AddonList.astro"
-import { LinkButton } from '@astrojs/starlight/components';
+import ComponentList from "../../../components/ComponentList.astro"
+import ImageToPNG from "../../../components/ImageToPNG.astro"
+import AddonList from "../../../components/AddonList.astro"
+import { LinkCard, CardGrid, Badge } from '@astrojs/starlight/components';
+
 
 ## Components
 
@@ -23,121 +24,111 @@ You can think of components as the application layer of your project. In Diploi 
 
 ***
 
+### Ghost
+A modern, open-source content management system designed for publishing and managing blogs, online publications or website, offering a smooth writing experience and with many ways to customize.
+
+<CardGrid>
+  <LinkCard title="To the tutorial" href="https://diploi.com/blog/hosting_a_ghost_blog" />
+  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-ghost" />
+  <LinkCard title="Official documentation for Ghost" href="https://ghost.org/help/manual/" />
+</CardGrid>
+
+***
+
 ### Next.js
 A framework that enables server-side rendering and static site generation, providing an optimized development experience for building web applications.
 
-<LinkButton target="_blank" href="https://github.com/diploi/component-nextjs" variant="secondary">
-  To the component's repository
-</LinkButton>
-
-<LinkButton target="_blank" href="https://nextjs.org/docs" variant="secondary">
-  Official documentation for Next.js
-</LinkButton>
+<CardGrid>
+  <LinkCard title="To the tutorial" href="https://diploi.com/blog/hosting_nextjs_apps" />
+  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-nextjs" />
+  <LinkCard title="Official documentation for Next.js" href="https://nextjs.org/docs" />
+</CardGrid>
 
 ***
 
 ### React + Vite
 Mixes Vite's bundling capabilities and React's frontend development capabilities, in a component that requires no configuration and provides instant hot module reload.
 
-<LinkButton target="_blank" href="https://github.com/diploi/component-react-vite" variant="secondary">
-  To the component's repository
-</LinkButton>
-
-<LinkButton target="_blank" href="https://vite.dev/guide/" variant="secondary">
-  Official documentation for Vite
-</LinkButton>
-
-<LinkButton target="_blank" href="https://react.dev/reference/react" variant="secondary">
-  Official documentation for React
-</LinkButton>
+<CardGrid>
+  <LinkCard title="To the tutorial" href="https://diploi.com/blog/hosting_react_apps" />
+  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-react-vite" />
+  <LinkCard title="Official documentation for Vite" href="https://vite.dev/guide/" />
+  <LinkCard title="Official documentation for React" href="https://react.dev/reference/react" />
+</CardGrid>
 
 ***
 
 ### Node.js
 A versatile JavaScript runtime built on Chrome's V8 engine, enabling scalable backend applications and APIs with high performance.
 
-<LinkButton target="_blank" href="https://github.com/diploi/component-nodejs" variant="secondary">
-  To the component's repository
-</LinkButton>
-
-<LinkButton target="_blank" href="https://nodejs.org/docs/latest/api/" variant="secondary">
-  Official documentation for Node.js
-</LinkButton>
+<CardGrid>
+  <LinkCard title="To the tutorial" href="https://diploi.com/blog/hosting_node_apps" />
+  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-nodejs" />
+  <LinkCard title="Official documentation for Node.js" href="https://nodejs.org/docs/latest/api/" />
+</CardGrid>
 
 ***
 
 ### Bun
 An all-in-one JavaScript runtime designed to be faster than Node.js, with native bundling, transpiling, and package management support.
 
-<LinkButton target="_blank" href="https://github.com/diploi/component-bun" variant="secondary">
-  To the component's repository
-</LinkButton>
-
-<LinkButton target="_blank" href="https://bun.sh/docs" variant="secondary">
-  Official documentation for Bun
-</LinkButton>
+<CardGrid>
+  <LinkCard title="To the tutorial" href="https://diploi.com/blog/hosting_bun_apps" />
+  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-bun" />
+  <LinkCard title="Official documentation for Bun" href="https://bun.sh/docs" />
+</CardGrid>
 
 ***
 
 ### Astro
 A modern static site builder that lets you write components with your favorite frameworks while optimizing for minimal client-side JavaScript.
 
-<LinkButton target="_blank" href="https://github.com/diploi/component-astro" variant="secondary">
-  To the component's repository
-</LinkButton>
-
-<LinkButton target="_blank" href="https://docs.astro.build/en/getting-started/" variant="secondary">
-  Official documentation for Astro
-</LinkButton>
+<CardGrid>
+  <LinkCard title="To the tutorial" href="https://diploi.com/blog/hosting_astro_apps" />
+  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-astro" />
+  <LinkCard title="Official documentation for Astro" href="https://docs.astro.build/en/getting-started/" />
+</CardGrid>
 
 ***
 
 ### SvelteKit
 A framework for building performant web applications with Svelte, offering server-side rendering and a simple syntax.
 
-<LinkButton target="_blank" href="https://github.com/diploi/component-sveltekit" variant="secondary">
-  To the component's repository
-</LinkButton>
-
-<LinkButton target="_blank" href="https://svelte.dev/docs/kit/introduction" variant="secondary">
-  Official documentation for SvelteKit
-</LinkButton>
+<CardGrid>
+  <LinkCard title="To the tutorial" href="https://diploi.com/blog/hosting_svelte_apps" />
+  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-sveltekit" />
+  <LinkCard title="Official documentation for SvelteKit" href="https://svelte.dev/docs/kit/introduction" />
+</CardGrid>
 
 ***
 
 ### Nue.js
 A framework focused on building efficient, modular web applications with simplicity and developer productivity.
 
-<LinkButton target="_blank" href="https://github.com/diploi/component-nue" variant="secondary">
-  To the component's repository
-</LinkButton>
-
-<LinkButton target="_blank" href="https://nuejs.org/docs/" variant="secondary">
-  Official documentation for Nue.js
-</LinkButton>
+<CardGrid>
+  <LinkCard title="To the tutorial" href="https://diploi.com/blog/hosting_nuejs_apps" />
+  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-nue" />
+  <LinkCard title="Official documentation for Nue.js" href="https://nuejs.org/docs/" />
+</CardGrid>
 
 ***
 
 ### Django
 A high-level Python web framework that promotes rapid development, clean design, and robust, secure web applications.
 
-<LinkButton target="_blank" href="https://github.com/diploi/component-django" variant="secondary">
-  To the component's repository
-</LinkButton>
-
-<LinkButton target="_blank" href="https://docs.djangoproject.com/en/5.2/" variant="secondary">
-  Official documentation for Django
-</LinkButton>
+<CardGrid>
+  <LinkCard title="To the tutorial" href="https://diploi.com/blog/hosting_django_apps" />
+  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-django" />
+  <LinkCard title="Official documentation for Django" href="https://docs.djangoproject.com/en/5.2/" />
+</CardGrid>
 
 ***
 
 ### Hono
 A small, ultra-fast web framework tailored for the edge, designed for building low-overhead APIs and applications.
 
-<LinkButton target="_blank" href="https://github.com/diploi/component-hono" variant="secondary">
-  To the component's repository
-</LinkButton>
-
-<LinkButton target="_blank" href="https://hono.dev/docs/" variant="secondary">
-  Official documentation for Hono
-</LinkButton>
+<CardGrid>
+  <LinkCard title="To the tutorial" href="https://diploi.com/blog/hosting_hono_apps" />
+  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-hono" />
+  <LinkCard title="Official documentation for Hono" href="https://hono.dev/docs/" />
+</CardGrid>
