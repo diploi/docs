@@ -1,5 +1,6 @@
 ---
 import type { DiploiElement } from "./types";
+import { Badge } from '@astrojs/starlight/components';
 
 interface Props {
   element: DiploiElement;
@@ -8,7 +9,7 @@ interface Props {
 const { element } = Astro.props;
 ---
 
-<div class="flex gap-2">
+<div class="flex items-center gap-2">
   <img
     src={`${element.url}/blob/main/.diploi/icon.svg?raw=true`}
     alt={element.name}
@@ -17,4 +18,5 @@ const { element } = Astro.props;
     height={28}
   />
   <strong>{element.name}</strong>
+  { element.badge && (<Badge class="" text=`${element.badge}` variant="note"/>)}
 </div>
