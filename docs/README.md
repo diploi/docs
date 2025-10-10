@@ -1,4 +1,4 @@
-<img alt="icon" src="docs/src/assets/logo-text.svg" width="32">
+<img alt="icon" src="src/assets/logo-text.svg" width="32">
 
 # Diploi Documentation
 
