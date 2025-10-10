@@ -1,12 +1,10 @@
-<img alt="icon" src="src/assets/logo-text.svg" width="32">
+<img alt="icon" src="public/icon.svg" width="32">
 
 # Diploi Documentation
 
 Welcome to the source of [**Diploi Documentation**](https://docs.diploi.com), the home for everything related to developing, deploying, and scaling with **Diploi**.
 
 Our docs are built using [Astro Starlight](https://starlight.astro.build), designed for speed, clarity, and easy contributions.
-
----
 
 ## 💡 About
 
@@ -15,9 +13,8 @@ This repository powers all the public documentation for [**Diploi**](https://dip
 If you spot something unclear, outdated, or missing — please help us improve it!  
 Every pull request helps make Diploi easier to use for everyone.
 
----
 
-## 🧑‍💻 Contributing
+## Contributing
 
 We ❤️ contributions! Here’s how to get started:
 
@@ -32,6 +29,7 @@ If you don’t have pnpm yet:
 npm install -g pnpm
 ```
 
+
 ### 2. Setup and run locally
 
 Clone the repo and start the local dev server:
@@ -45,9 +43,8 @@ pnpm run dev
 
 Then visit [http://localhost:4321](http://localhost:4321) — your local Diploi Docs will be running there
 
----
 
-## 🧠 Structure
+## Structure
 
 | Path | Description |
 |------|--------------|
@@ -56,21 +53,18 @@ Then visit [http://localhost:4321](http://localhost:4321) — your local Diploi 
 | `public/` | Static assets (images, icons, etc.) |
 | `.github/` | GitHub Actions for CI/CD and deployment |
 
----
 
-## 🚀 Deployment
+## Deployment
 
 Docs are automatically deployed when changes are merged into `main`.  
 The site is hosted directly on Diploi’s infrastructure — so edits will go live within minutes.
 
----
 
-## 🧩 Useful Links
+## Useful Links
 
 - 🌐 [Diploi.com](https://diploi.com)
 - 📖 [Live Docs](https://docs.diploi.com)
 - 🐞 [Report an Issue](https://github.com/diploi/docs/issues)
 
----
 
 [![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
