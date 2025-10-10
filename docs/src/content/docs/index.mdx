@@ -1,59 +1,66 @@
 ---
 title: Introduction
-description: Diploi is a platform and workflow to make you and your development team both happy and efficient.
+description: Diploi is a platform and workflow to boost development team's efficiency
 ---
 import ComponentList from '../../components/ComponentList.astro'
 import AddonList from "../../components/AddonList.astro"
 
 ## What is Diploi?
 
-Diploi is a platform and workflow for managing and hosting your full application from zero using some of the most popular frameworks and databases, without having to setup virtual machines, worrying about deployment pipelines, struggling with SSL certificates, configuring load balancers and other DevOps pains. No more context switching, local dependencies or configuration hell.
+Diploi is a platform and workflow for developing and hosting your full application supporting 
+popular frameworks and databases.
 
-Check this introduction video to learn about Diploi in 60 seconds:
+Use Diploi for
 
-<div class='w-full not-content'>
-    <iframe class='block mx-auto' width="560" height="315" src="https://www.youtube.com/embed/X-olQzRPZMY?si=Y67U-pGv4bJQB7w-" title="Diploi features explained in 60 seconds - Streamline how you launch applications online" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</div>
+- Developing, testing and hosting just about any kind of web application
+- Quick prototyping of new products
+- Trying out new technology stacks with close to zero setup time
 
-***
+If you started your project on a vibe-coding platform and need better team support, version support and possibility to code using Cursor etc. Diploi could be what you are looking for.
+
+
+## Key Features
+
+- Launch consistent staging, development and production deployments with only a few clicks
+- Develop without installing or keeping anything locally. 
+- Onboard new team members in only a few clicks
+- Supports a wide range of projects - from a simple website to a complex service with databases and microservices
+
+
 
 ### Supported Frameworks and Databases
 
-Diploi supports a wide range of frameworks and databases, including:
+Diploi supports a wide (and growing) range of frameworks and databases, including:
 
 <ComponentList/>
 
 <AddonList/>
 
-***
-
-## Key Features
-
-- Launch consistent staging, development and production deployments with only a few clicks
-- Run stateful as well as stateless projects
-- Onboard new team members with only a few clicks
-- Develop without installing or keeping anything locally
-- Super easy way of trying out different software stacks
-
-:::note
-Diploi is currently best used as the starting point to launch new applications, but you can host an existing project with Diploi.
-
-We currently do not offer out-of-the-box support for launching an existing applications, but it is already possible, if you want to host an existing project with Diploi, contact us on <a href="https://discord.gg/vvgQxVjC8G" target="_blank">Discord</a> or [via email](mailto:hello@diploi.com).
-:::
 
 ***
+
+## Prerequisites
+
+The only thing you need to use Diploi is a **GitHub account** and a **Web Browser**.
+
+Many prefer to use their locally-installed VSCode or Cursor IDE instead of the browser-based IDE. 
+In that case you need to add your SSH key to Diploi in order for remote access to work.
 
 ## How it Works
 
-Diploi uses a component-driven architecture to build your application. You choose your stack from a constantly growing list of components and add-ons. The selection is stored in a file in your project, so modifying the stack is as easy as editing a file.
+Diploi uses a configuration-in-code approach to spin up every deployment as a separate single-node Kubernetes cluster 
+(Don't worry, you need zero Kubernetes knowledge to use Diploi). Diploi takes care of hostnames, SSL certificates, 
+building and updating Docker images for each service and making it easy to code right on the cluster, aiming for
+the best possible DX.
+
+Diploi works best when you set up your project as a monorepo, where the code for every component lives in a
+ separate folder. If you are interested in more details and reasons for these choices, please see [Technical Deep Dive](/reference/technical-deep-dive/)
 
 
-## Quickstart
+## Get started
 
-The easiest way to learn Diploi is by launching a new application.
-
-For a quick walkthrough [Get Started](/get-started/)  here, no registration neeed.
+The easiest way to learn Diploi is by launching a new application. For a quick walkthrough [Get Started](/get-started/) here, no registration needed.
 
 :::note
-When you create an register you get 50€ in credits so you can get the full Diploi experience at no cost. **No credit card required**.
+When you create and register you get 50€ in credits so you can get the full Diploi experience at no cost for 14 days. **No credit card required**. After the trial you are charged based on used resources, see [pricing](https://diploi.com/pricing).
 :::
