@@ -1,0 +1,100 @@
+---
+title: The Diploi Way
+description: The philosophy behind Diploi - Own your Stack, Infrastructure as Code and Remote Development
+---
+
+
+Diploi is based on the three simple principles
+
+
+#### 1. Own your Stack
+
+**Keep as much of your project's tech stack inside Diploi as possible so development matches production.**
+
+<details>
+<summary><strong>Why?</strong></summary>
+
+In the beginning it's tempting to add third-party services to your solution (cloud databases, caching, 
+object-storage, analytics). As teams members and environments (dev, test, staging, prod)
+multiply, you will need to address how these tools integrate to different deployments. You will need 
+to create instances of the services for each deployment, or leave out or share the data between 
+instances, possibly causing issues. Centralizing common components in Diploi keeps environments
+repeatable and disposable.
+
+###### Benefits
+
+1. **Environment parity** - All deployments behave the same, 
+   fever "works on my machine" issues.
+2. **Clonable environments** - Spin up a new environment by cloning another (eg. prod), including 
+   databases and other components.
+3. **Cost control** - Stop environments when not in use to reduce costs. No need to run test 
+   environments 24/7, just start them when needed.
+4. **Less DevOps** needed to bring up and down complete environments in seconds
+
+###### When to deviate
+- A specialized external service is worth the integration overhead.  
+- Diploi doesn't (yet) support a component you need.  
+- You require scale/features beyond what Diploi currently offers.
+
+</details>
+
+
+
+#### 2. Infrastructure as Code
+
+**Keep all your code in one place, structure your project as a monorepo. Keep the tech stack 
+configuration as part of your project.**
+
+<details>
+<summary><strong>Why?</strong></summary>
+
+Keeping the infrastructure configuration of a project together with other source code is 
+a good way of having the complete solution under one single roof. Architecture changes will 
+happen automatically, along with code changes as code is committed. In Diploi the building
+blocks of your solution is stored inside `diploi.yaml` (think “`package.json` for infra”).
+
+While preferences differ, many now prefer to structure their code as a monorepo. 
+Diploi encourages this and uses a default setup where the code for each infra component 
+by default lives in a separate folder.
+
+###### Benefits
+
+1. **Visibility & collaboration** - The whole system is versioned and reviewable alongside the app.
+2. **Atomic updates** - One PR can change app code, services, and config together. 
+3. **Easy DevOps** - Modifying the tech stack is easy, just add a few lines to `diploi.yaml`, press save and 
+   in a few seconds you'll have eg. a new database attached to you service. Hot reload for architecture 🤩.
+
+</details>
+
+#### 3. Remote Development
+
+**Develop in the cloud, with zero local setup.**
+
+<details>
+<summary><strong>Why?</strong></summary>
+
+Local environments drift, especially across multiple projects. Cloud development gives every 
+contributor a fresh, project-correct toolchain and data snapshot. No more 
+"which Node/Postgres/CLI do I need for this repo?"
+
+In Diploi you either develop using our in-browser editor or using your local IDE, 
+but over SSH (Cursor, VSCode, Windsurf, Zed, etc.). You will be able to use all your 
+AI tools and vibe-coding tricks just like you are used to.
+
+###### Upside
+
+1. **Correct by default** - Everyone always have the tools and version for the project you 
+   are working on.
+2. **No setup time** - Skip local installs, SDKs, and data seeding. New developers are productive in minutes.
+3. **Consistent debugging** - Same environment as preview/staging reduces “works locally” issues.
+
+###### Trade-offs
+
+- **Connectivity:** Unreliable or no internet is a blocker. Most IDEs handle flaky connections well, but fully offline work isn't possible
+- **Ergonomics:** If you once in a while need fully local coding, you can of course still clone locally.
+
+</details>
+
+
+
+

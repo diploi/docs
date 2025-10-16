@@ -72,6 +72,10 @@ export default defineConfig({
               label: "Get Started",
               link: "/get-started/",
             },
+            {
+              label: "The Diploi Way",
+              link: "/the-diploi-way/",
+            },
           ],
         },
         {
@@ -112,6 +116,14 @@ export default defineConfig({
               ],
             },
           ],
+        },
+        {
+          label: "FAQ",
+          link: "/faq/"
+        },
+        {
+          label: "Roadmap",
+          link: "/roadmap/"
         },
       ],
       customCss: ["./src/styles/custom.css"],

@@ -1,0 +1,241 @@
+---
+title: FAQ
+description: Frequently asked questions about Diploi
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+
+
+
+## Getting Started
+
+<details>
+<summary><strong>Can I use Diploi for production applications?</strong></summary>
+
+Yes! Diploi supports production deployments with proper resource allocation, custom domains, and SSL certificates. 
+We provide enterprise-grade infrastructure suitable for production workloads. 
+
+However, our single-node kubernetes version does not scale infinitely so to support very busy sites Diploi might not 
+yet be the perfect solution. We are hard at work on a more scalable version. See the [roadmap](/roadmap/) for more details.
+
+</details>
+
+<details>
+<summary><strong>How much does Diploi cost?</strong></summary>
+
+Check our [pricing page](https://diploi.com/pricing) for current pricing information. We offer different 
+tiers to suit various needs, including 100% free trial of the full Diploi experience.
+
+Generally speaking Diploi is very affordable when used for development (4€/deployment/month and upward), 
+since you only run the clusters while you are working. A typical production cluster starts from around 
+20€/month, when you consider that the same cluster can run both your frontend, backend and database we 
+think it can be considered very affordable.
+
+</details>
+
+<details>
+<summary><strong>Do I need a GitHub account?</strong></summary>
+
+Yes, Diploi requires GitHub integration because it creates repositories for your projects and handles CI/CD builds 
+through GitHub actions. This ensures version control and seamless collaboration.
+
+</details>
+
+<details>
+<summary><strong>Can I try Diploi without registering?</strong></summary>
+
+Yes! You can use launch a trial without registration. Visit [diploi.com/#StackBuilder](https://diploi.com/#StackBuilder) 
+to start a deployment in seconds. Deployments launched without registration expire after 12 hours 
+but you can claim the account and continue working.
+
+</details>
+
+
+## Features & Capabilities
+
+<details>
+<summary><strong>What frameworks and databases are supported?</strong></summary>
+
+See our [components documentation](/building/components/) for a complete list of supported 
+frameworks and databases. We support popular technologies like React, Next.js, Node.js, 
+Python, PostgreSQL, MongoDB, and many more.
+
+</details>
+
+<details>
+<summary><strong>Can I migrate an existing project to Diploi?</strong></summary>
+
+While Diploi is optimized for new projects, you can import existing projects into diploi.
+Currently we have decent support for Node and Lovable projects, but we are hard at work at
+improving this.
+
+</details>
+
+<details>
+<summary><strong>Can I use custom domains?</strong></summary>
+
+Yes, Diploi supports custom domains with automatic SSL certificate management. 
+See our [custom domain guide](/deploying/custom-domain/) for setup instructions.
+
+</details>
+
+<details>
+<summary><strong>How do I update my application?</strong></summary>
+
+For projects with repositories, simply push changes to your connected branch. 
+Diploi will automatically rebuild and redeploy your application to the deployments
+following that branch. It will also consider changes in infrastructure by looking at 
+`Diploi.yaml`
+
+Please note that development deployments will only update in part, because you maintain
+the code part through the editor.
+
+</details>
+
+<details>
+<summary><strong>Can I have multiple environments?</strong></summary>
+
+Yes! You can create development, staging, and production deployments for the same project, each with different configurations and resource allocations.
+
+</details>
+
+<details>
+<summary><strong>What happens if I exceed my limits?</strong></summary>
+
+You'll be notified before reaching limits. Some features may be temporarily restricted until you upgrade or reduce usage. Check your dashboard for current usage statistics.
+
+</details>
+
+## Pricing & Plans
+
+<details>
+<summary><strong>Is there a free tier?</strong></summary>
+
+Yes, we offer free development deployments with basic resources. These are perfect for testing and learning.
+
+</details>
+
+<details>
+<summary><strong>How does billing work?</strong></summary>
+
+Billing is based on resource usage and deployment duration. You only pay for what you use, with transparent pricing.
+
+</details>
+
+<details>
+<summary><strong>Can I cancel anytime?</strong></summary>
+
+Yes, you can cancel your subscription at any time. Your deployments will stop running if you cancel your subscription.
+
+</details>
+
+
+## Security & Data
+
+<details>
+<summary><strong>Is my data secure?</strong></summary>
+
+Diploi follows industry best practices for security, including:
+- Encrypted data transmission (HTTPS/TLS)
+- Secure infrastructure with regular security updates
+- Isolated deployments
+
+Currently you are required to take care of backups of your data yourself. We can provide regular backups of 
+your data upon request, we are working on adding configuration options for this feature.
+
+</details>
+
+<details>
+<summary><strong>Can I export my data?</strong></summary>
+
+Yes, you can export your data and configurations. Contact support for assistance with data export.
+
+</details>
+
+<details>
+<summary><strong>Where is my data stored?</strong></summary>
+
+Your data is stored in AWS datacenters, Ireland, Europe. We are working on multiregion support.
+
+</details>
+
+<details>
+<summary><strong>Do you have compliance certifications?</strong></summary>
+
+We're working on obtaining relevant compliance certifications. Contact us for specific compliance requirements.
+
+</details>
+
+## Technical Questions
+
+<details>
+<summary><strong>What's the difference between components and add-ons?</strong></summary>
+
+- **Components**: Application layers (frontend, backend, full-stack) that users can access
+- **Add-ons**: Services (databases, cache, etc.) that are only accessible to your components
+
+</details>
+
+<details>
+<summary><strong>How does the deployment process work?</strong></summary>
+
+1. You create a project with your chosen stack
+2. Diploi creates a GitHub repository with starter code
+3. You can edit code via browser IDE or locally
+4. Changes are automatically deployed when you push to GitHub
+
+</details>
+
+<details>
+<summary><strong>Can I use my own Docker images?</strong></summary>
+
+Currently, we use pre-configured components, but the Dockerfile for running them is 
+included in your project, so feel free to modify them as you wish, However
+different component have different requirements to work well.
+
+</details>
+
+<details>
+<summary><strong>What ports does my application need to listen on?</strong></summary>
+
+Most applications should listen on port 3000 or 8080. Check the specific component documentation for exact requirements.
+
+</details>
+
+## Support & Community
+
+<details>
+<summary><strong>How can I get help?</strong></summary>
+
+- **Discord**: Join our [Discord community](https://discord.gg/vvgQxVjC8G)
+- **Email**: Contact us at [hello@diploi.com](mailto:hello@diploi.com)
+- **GitHub**: Open an issue in our [documentation repository](https://github.com/diploi/docs)
+
+</details>
+
+<details>
+<summary><strong>Do you offer priority support?</strong></summary>
+
+Yes, priority support is available for enterprise customers. Contact our sales team for more information.
+
+</details>
+
+<details>
+<summary><strong>Can I request new features?</strong></summary>
+
+Absolutely! We love hearing from our community:
+- Share ideas on [Discord](https://discord.gg/vvgQxVjC8G)
+- Email suggestions to [hello@diploi.com](mailto:hello@diploi.com)
+- Open issues on [GitHub](https://github.com/diploi/docs)
+
+</details>
+
+## Still Have Questions?
+
+If you didn't find the answer you're looking for:
+
+- **Join our [Discord community](https://discord.gg/vvgQxVjC8G)** for real-time help
+- **Contact us directly** at [hello@diploi.com](mailto:hello@diploi.com)
+
+We're here to help and always appreciate feedback on how we can improve our documentation!
