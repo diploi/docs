@@ -1,0 +1,45 @@
+---
+title: Astro
+description: Ship Astro sites with Diploi-managed builds and hosting.
+---
+
+Astro is a modern static site builder focused on shipping minimal JavaScript to the browser. Choose this component when you are delivering content-heavy marketing sites, blogs, or documentation that benefit from fast page loads. Diploi handles the SSR build pipeline and pushes assets where they need to run.
+
+## Add to your project
+
+Paste this entry into the `components` list in `diploi.yaml` to add Astro to your project.
+
+```yaml
+components:
+  - name: Astro
+    identifier: astro
+    package: https://github.com/diploi/component-astro#main
+    # Optional:
+    # env:
+    #   include:
+    #     - postgres.*
+```
+
+:::note
+- identifier must match the folder name you use for this component in your repo.
+- You can import ENV from add-ons into components using env.include, depending on the db your project uses.
+
+Example:
+
+```yaml
+env:
+  include:
+    - mariadb.*
+    - minio.*
+    - mongo.*
+    - postgres.*
+    - redis.*
+```
+:::
+
+## See also
+
+- [Using Components](/building/components)
+- [Astro component repository](https://github.com/diploi/component-astro)
+- [Astro docs](https://docs.astro.build/)
+- [Learn more about the `diploi.yaml` file](reference/diploi-yaml)

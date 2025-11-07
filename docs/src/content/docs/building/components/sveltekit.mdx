@@ -1,0 +1,41 @@
+---
+title: SvelteKit
+description: Deploy full-stack SvelteKit apps through Diploi.
+---
+
+SvelteKit combines Svelte's component model with server-side rendering, routing, and adapters. Use this component when you need a fast Svelte frontend that can fetch data server-side or run API endpoints. Diploi runs the build and deployment steps so your project ships with predictable infrastructure.
+
+## Add to your project
+
+Paste this entry into the `components` list in `diploi.yaml` to add SvelteKit to your project.
+
+```yaml
+components:
+  - name: SvelteKit
+    identifier: sveltekit
+    package: https://github.com/diploi/component-sveltekit#main
+    # Optional:
+    # env:
+    #   include:
+    #     - postgres.*
+```
+
+:::note
+- identifier must match the folder name you use for this component in your repo.
+- You can import ENV from add-ons into components using env.include.
+
+Example:
+
+```yaml
+env:
+  include:
+    - postgres.*
+```
+:::
+
+## See also
+
+- [Using Components](/building/components)
+- [SvelteKit component repository](https://github.com/diploi/component-sveltekit)
+- [SvelteKit docs](https://kit.svelte.dev/docs)
+- [Learn more about the `diploi.yaml` file](reference/diploi-yaml)

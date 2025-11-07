@@ -1,0 +1,42 @@
+---
+title: React + Vite
+description: Bundle React apps quickly with the React + Vite component.
+---
+
+The React + Vite component pairs Vite's fast bundler with a ready-to-serve React runtime. Use it when you need quick rebuilds, hot module reload, and a lightweight deployment target for frontend projects. Diploi handles the build pipeline so you can focus on UI work.
+
+## Add to your project
+
+Paste this entry into the `components` list in `diploi.yaml` to add React + Vite to your project.
+
+```yaml
+components:
+  - name: React + Vite
+    identifier: react-vite
+    package: https://github.com/diploi/component-react-vite#main
+    # Optional:
+    # env:
+    #   include:
+    #     - postgres.*
+```
+
+:::note
+- identifier must match the folder name you use for this component in your repo.
+- You can import ENV from add-ons into components using env.include.
+
+Example:
+
+```yaml
+env:
+  include:
+    - mongo.*
+```
+:::
+
+## See also
+
+- [Using Components](/building/components)
+- [React + Vite component repository](https://github.com/diploi/component-react-vite)
+- [React docs](https://react.dev/learn)
+- [Vite docs](https://vitejs.dev/guide/)
+- [Learn more about the `diploi.yaml` file](reference/diploi-yaml)

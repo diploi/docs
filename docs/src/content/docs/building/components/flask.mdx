@@ -1,0 +1,41 @@
+---
+title: Flask
+description: Deploy lightweight Flask services on Diploi without custom infra.
+---
+
+Flask is a minimalist Python framework for APIs, dashboards, and microservices. Use this component when you want Diploi to handle the build steps, gunicorn/uvicorn configuration, and deployments while you focus on routes and extensions.
+
+## Add to your project
+
+Paste this entry into the `components` list in `diploi.yaml` to add Flask to your project.
+
+```yaml
+components:
+  - name: Flask
+    identifier: flask
+    package: https://github.com/diploi/component-flask#main
+    # Optional:
+    # env:
+    #   include:
+    #     - postgres.*
+```
+
+:::note
+- identifier must match the folder name you use for this component in your repo.
+- You can import ENV from add-ons into components using env.include.
+
+Example:
+
+```yaml
+env:
+  include:
+    - redis.*
+```
+:::
+
+## See also
+
+- [Using Components](/building/components)
+- [Flask component repository](https://github.com/diploi/component-flask)
+- [Flask docs](https://flask.palletsprojects.com/)
+- [Learn more about the `diploi.yaml` file](reference/diploi-yaml)

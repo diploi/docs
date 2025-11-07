@@ -1,0 +1,54 @@
+---
+title: n8n
+description: Automate workflows with the n8n component managed by Diploi.
+---
+
+n8n is a workflow automation platform for connecting APIs, services, and custom logic. Use this component when you need Diploi to build and deploy n8n so you can focus on building workflows, not configuring runtime environments.
+
+## Add to your project
+
+Paste this entry into the `components` list in `diploi.yaml` to add n8n to your project.
+
+```yaml
+components:
+  - name: n8n
+    identifier: n8n
+    package: https://github.com/diploi/component-n8n#v1.112.4
+    env:
+      include:
+        - postgres.POSTGRES_HOST:DB_POSTGRESDB_HOST
+        - postgres.POSTGRES_PORT:DB_POSTGRESDB_PORT
+        - postgres.POSTGRES_USER:DB_POSTGRESDB_USER
+        - postgres.POSTGRES_PASSWORD:DB_POSTGRESDB_PASSWORD
+addons:
+  - name: PostgreSQL
+    identifier: postgres
+    package: https://github.com/diploi/addon-postgres#v17.2
+
+```
+
+:::note
+- In Diploi, n8n uses Postgres for database, so you need to add a Postgres db if your deployment doesn't have one available.
+- identifier must match the folder name you use for this component in your repo.
+- You can import ENV from add-ons into components using env.include:
+
+```yaml
+env:
+  include:
+    - postgres.POSTGRES_HOST:DB_POSTGRESDB_HOST
+    - postgres.POSTGRES_PORT:DB_POSTGRESDB_PORT
+    - postgres.POSTGRES_USER:DB_POSTGRESDB_USER
+    - postgres.POSTGRES_PASSWORD:DB_POSTGRESDB_PASSWORD
+```
+:::
+
+:::caution
+In n8n, you must use the environment variable names defined by their documentation. For more information check: https://docs.n8n.io/hosting/configuration/environment-variables/database/#postgresql
+:::
+
+## See also
+
+- [Using Components](/building/components)
+- [n8n component repository](https://github.com/diploi/component-n8n)
+- [n8n docs](https://docs.n8n.io/)
+- [Learn more about the `diploi.yaml` file](reference/diploi-yaml)

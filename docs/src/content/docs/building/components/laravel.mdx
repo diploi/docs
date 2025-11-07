@@ -1,0 +1,41 @@
+---
+title: Laravel
+description: Deploy Laravel applications on Diploi with managed builds and releases.
+---
+
+Laravel is a modern PHP framework with expressive routing, ORM, queues, and first-class testing utilities. Use this component when you want Diploi to run the build pipeline, publish assets, and keep your Laravel workloads updated without manually scripting servers.
+
+## Add to your project
+
+Paste this entry into the `components` list in `diploi.yaml` to add Laravel to your project.
+
+```yaml
+components:
+  - name: Laravel
+    identifier: laravel
+    package: https://github.com/diploi/component-laravel#main
+    # Optional:
+    # env:
+    #   include:
+    #     - mariadb.*
+```
+
+:::note
+- identifier must match the folder name you use for this component in your repo.
+- You can import ENV from add-ons into components using env.include.
+
+Example:
+
+```yaml
+env:
+  include:
+    - mariadb.*
+```
+:::
+
+## See also
+
+- [Using Components](/building/components)
+- [Laravel component repository](https://github.com/diploi/component-laravel)
+- [Laravel docs](https://laravel.com/docs)
+- [Learn more about the `diploi.yaml` file](reference/diploi-yaml)

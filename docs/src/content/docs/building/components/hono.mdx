@@ -1,0 +1,42 @@
+---
+title: Hono
+description: Deploy lightweight Hono APIs across Diploi’s infrastructure.
+---
+
+Hono is a tiny, high-performance web framework tuned for edge and serverless workloads. Choose this component when you need fast APIs or request handlers with minimal overhead. Diploi takes care of packaging and deploying so you can focus on routing and middleware logic.
+
+## Add to your project
+
+Paste this entry into the `components` list in `diploi.yaml` to add Hono to your project.
+
+```yaml
+components:
+  - name: Hono
+    identifier: hono
+    package: https://github.com/diploi/component-hono#main
+    # Optional:
+    # env:
+    #   include:
+    #     - postgres.*
+```
+
+:::note
+- identifier must match the folder name you use for this component in your repo.
+- You can import ENV from add-ons into components using env.include.
+
+Example:
+
+```yaml
+env:
+  include:
+    - postgres.*
+    - redis.*
+```
+:::
+
+## See also
+
+- [Using Components](/building/components)
+- [Hono component repository](https://github.com/diploi/component-hono)
+- [Hono docs](https://hono.dev/docs)
+- [Learn more about the `diploi.yaml` file](reference/diploi-yaml)
