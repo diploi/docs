@@ -34,7 +34,7 @@ All you need to do is:
 
 <Steps>
     1. Access your domain DNS records.
-    2. Create a new CNAME record, pointing to `edge.diploi.com` and using for name, the subdomain you want to use.
+    2. Create a new CNAME record, pointing to `edge.diploi.me` and using for name, the subdomain you want to use.
     3. Add your custom domain in your Project or Deployment.
         <ImageToPNG src={ProjectOptionsDomain} alt='Applying a custom domain'/>
 
@@ -50,19 +50,19 @@ Depending on your domain hosting service, the configuration above might use diff
 e.g. `example.com`
 
 Root domains (also called apex or base domains) do not officially support CNAME records, which Diploi needs.
-Many DNS providers offer similar functionality with custom records types like ALIAS or ANAME.   
+Many DNS providers offer similar functionality with custom record types like ALIAS or ANAME.   
 To point an apex domain to Diploi, you should refer to your DNS providers own instructions.   
 We have created a table which lists the recommended records to use with some of the most popular DNS providers:
 
-| Provider      | Record  | Value             |
-| ------------- | ------- | ----------------- |
-| Cloudflare    | CNAME   | `edge.diploi.com` |
-| Namecheap     | ALIAS   | `edge.diploi.com` |
-| easyDNS       | ANAME   | `edge.diploi.com` |
-| PointDNS      | ALIAS   | `edge.diploi.com` |
-| DNS Made Easy | ANAME   | `edge.diploi.com` |
-| DNSimple      | ALIAS   | `edge.diploi.com` |
-| DreamHost     | ALIAS   | `edge.diploi.com` |
+| Provider      | Record  | Value            |
+| ------------- | ------- | ---------------- |
+| Cloudflare    | CNAME   | `edge.diploi.me` |
+| Namecheap     | ALIAS   | `edge.diploi.me` |
+| easyDNS       | ANAME   | `edge.diploi.me` |
+| PointDNS      | ALIAS   | `edge.diploi.me` |
+| DNS Made Easy | ANAME   | `edge.diploi.me` |
+| DNSimple      | ALIAS   | `edge.diploi.me` |
+| DreamHost     | ALIAS   | `edge.diploi.me` |
 
 :::note
 Depending on the DNS provider, an empty or `@` value usually identifies the root domain.
