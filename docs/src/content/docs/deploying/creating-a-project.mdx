@@ -27,7 +27,7 @@ The overall process to launch a new application is as follows:
 In Diploi, a project refers to a combination of **components** and **add-ons** (also called **services**) that form the **stack** that will make up your application.
 
 :::note
-After you create a Project, you can change the stack of your project by editing the `diploi.yaml` in your project's repository. For more information on how to do this, check out the [Diploi YAML documentation](/reference/diploiyaml/)
+After you create a Project, you can change the stack of your project by editing the `diploi.yaml` in your project's repository. For more information on how to do this, check out the [Diploi YAML documentation](/reference/diploi-yaml/)
 :::
 
 To create a project for your app click **Create Project** from your dashboard:
@@ -56,13 +56,13 @@ In the preview you can edit the identifier for each component and add-on you hav
 
 <ImageToPNG src={CreateProjectEditNames} alt="Create a project example"/>
 
-### Choosing the type of project
+### Choosing a GitHub Repository
 
 The last step before launching your project is to configure how your new application's code will be stored.
 
 You have two options available:
 
-- **Quick Launch** where you can launch a project without a repository to store your code. This is ideal for testing quick, where you will run simple scripts or applications which must be accessible online. Learn more about [Quick Launch](/reference/projects/project#quick-launch).
+- **Launch Without a Repository** where you can launch a project without a repository to store your code. This is ideal for testing, where you can run simple scripts or applications which must be accessible online. Learn more about [Launch Without a Repository](/reference/projects/project#launch-without-a-repository).
 
 - **Create Repository** where a new repository will be created for your project. Ideal for launching new application intended for production. By creating a new repository for your project, you automagically enable Diploi's push-to-deployment pipeline, where changes in your repository's will update the state of your deployment. Learn more about [Create Repository](/reference/projects/project#project-with-repository).
 
@@ -71,7 +71,3 @@ You have two options available:
 Now that you have selected your preferred stack and the configuration of your project, you can complete the creation of the project by clicking **Launch Stack**.
 
 For both types of projects, when you finish creating a new project, a new development deployment will be started for your project, which you can use to start developing your application right away.
-
-:::caution
-**Quick Launch** projects are **not intended for production**, as your code will only exist on the deployment launched, and changes will not be persisted to other deployments you launch within the project.
-:::

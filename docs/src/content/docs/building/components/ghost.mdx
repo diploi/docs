@@ -1,0 +1,42 @@
+---
+title: Ghost
+description: Host Ghost to publish blogs and newsletters with Diploi.
+---
+
+Ghost is an open-source content platform for publishing blogs, newsletters, and membership sites. Use this component when you want Diploi to manage builds and deployments for a Ghost site. It keeps your content workflow together with the infrastructure that serves it.
+
+## Add to your project
+
+Paste this entry into the `components` list in `diploi.yaml` to add Ghost to your project.
+
+```yaml
+components:
+  - name: Ghost
+    identifier: ghost
+    package: https://github.com/diploi/component-ghost#main
+    env:
+      include:
+        - mariadb.MARIADB_HOST:database__connection__host
+        - mariadb.MARIADB_USER:database__connection__user
+        - mariadb.MARIADB_PASSWORD:database__connection__password
+```
+
+:::note
+- identifier must match the folder name you use for this component in your repo.
+- In Diploi, Ghost uses MariaDB for storage, so you need to add a MariaDB to your deployment and use the environment variables as defined here:
+
+```yaml
+env:
+  include:
+    - mariadb.MARIADB_HOST:database__connection__host
+    - mariadb.MARIADB_USER:database__connection__user
+    - mariadb.MARIADB_PASSWORD:database__connection__password
+```
+:::
+
+## See also
+
+- [Using Components](/building/components)
+- [Ghost component repository](https://github.com/diploi/component-ghost)
+- [Ghost docs](https://ghost.org/docs/)
+- [Learn more about the `diploi.yaml` file](reference/diploi-yaml)

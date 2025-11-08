@@ -1,0 +1,41 @@
+---
+title: Supabase
+description: Deploy Supabase edge functions and services using Diploi components.
+---
+
+Supabase bundles Postgres, real-time listeners, storage, and auth with edge functions. Use this component when you want Diploi to manage Supabase deployments alongside the rest of your stack so you can ship a unified backend without wiring infrastructure by hand.
+
+## Add to your project
+
+Paste this entry into the `components` list in `diploi.yaml` to add Supabase to your project.
+
+```yaml
+components:
+  - name: Supabase
+    identifier: supabase
+    package: https://github.com/diploi/component-supabase#main
+    # Optional:
+    # env:
+    #   include:
+    #     - postgres.*
+```
+
+:::note
+- identifier must match the folder name you use for this component in your repo.
+- You can import ENV from add-ons into components using env.include.
+
+Example:
+
+```yaml
+env:
+  include:
+    - redis.*
+```
+:::
+
+## See also
+
+- [Using Components](/building/components)
+- [Supabase component repository](https://github.com/diploi/component-supabase)
+- [Supabase docs](https://supabase.com/docs)
+- [Learn more about the `diploi.yaml` file](reference/diploi-yaml)

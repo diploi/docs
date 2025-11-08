@@ -3,11 +3,11 @@ import starlight from "@astrojs/starlight";
 import tailwind from "@astrojs/tailwind";
 import node from "@astrojs/node";
 const googleAnalyticsMeasurementID = "G-XFEEFZ85LQ";
-import starlightLlmsTxt from 'starlight-llms-txt'
+import starlightLlmsTxt from "starlight-llms-txt";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://docs.diploi.com/',
+  site: "https://docs.diploi.com/",
   markdown: {},
   adapter: node({
     mode: "standalone",
@@ -72,6 +72,10 @@ export default defineConfig({
               label: "Get Started",
               link: "/get-started/",
             },
+            {
+              label: "The Diploi Way",
+              link: "/the-diploi-way/",
+            },
           ],
         },
         {
@@ -85,10 +89,43 @@ export default defineConfig({
         {
           label: "Building",
           items: [
-            'building/components',
-            'building/add-ons',
-            'building/add-ssh-key',
-            'building/remote-development',
+            "building/components",
+            {
+              label: "Components supported",
+              collapsed: true,
+              items: [
+                "building/components/astro",
+                "building/components/bun",
+                "building/components/deno",
+                "building/components/django",
+                "building/components/fastapi",
+                "building/components/flask",
+                "building/components/ghost",
+                "building/components/hono",
+                "building/components/laravel",
+                "building/components/n8n",
+                "building/components/nextjs",
+                "building/components/nodejs",
+                "building/components/nue",
+                "building/components/react-vite",
+                "building/components/supabase",
+                "building/components/sveltekit",
+              ],
+            },
+            "building/add-ons",
+            {
+              label: "Add-ons supported",
+              collapsed:true,
+              items: [
+                "building/add-ons/mariadb",
+                "building/add-ons/minio",
+                "building/add-ons/mongo",
+                "building/add-ons/postgres",
+                "building/add-ons/redis",
+              ],
+            },
+            "building/add-ssh-key",
+            "building/remote-development",
           ],
         },
         {
@@ -113,9 +150,45 @@ export default defineConfig({
             },
           ],
         },
+        {
+          label: "FAQ",
+          link: "/faq/"
+        },
+        {
+          label: "Roadmap",
+          link: "/roadmap/"
+        },
       ],
       customCss: ["./src/styles/custom.css"],
-      plugins: [starlightLlmsTxt()],
+      plugins: [
+        starlightLlmsTxt({
+          customSets: [
+            {
+              label: "Get started",
+              description:
+                "Quick guide explaining the essentials to get an application created and hosted on Diploi",
+              paths: ["get-started"],
+            },
+            {
+              label: "Deploying",
+              description:
+                "How to deploy an application on Diploi",
+              paths: ["deploying/**"],
+            },
+            {
+              label: "Building",
+              description:
+                "How to start building an application on Diploi",
+              paths: ["building/**"],
+            },
+            {
+              label: "Reference",
+              description: "Explanations about how Diploi works and how its architecture is defined",
+              paths: ["reference/**"],
+            },
+          ],
+        }),
+      ],
     }),
     tailwind(),
   ],

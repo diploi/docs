@@ -2,6 +2,10 @@
 title: Get Started
 description: How to set up a server with components and add-ons.
 ---
+import QuickStartBuilder from '../../assets/QuickStartBuilder.png'
+import QuickLaunchLoading from '../../assets/QuickLaunchLoading.png'
+import QuickLaunchHome from '../../assets/QuickLaunchHome.png'
+import ImageToPNG from "../../components/ImageToPNG.astro"
 
 ## Using Diploi
 
@@ -19,7 +23,31 @@ When you register, you get access to <a href="https://console.diploi.com" target
 
 ### Test-driving Diploi
 
-You can try out Diploi without registering, by using the **Quick Launch** feature from the homepage, which allows you to start a deployment in seconds, which you can access directly using our browser IDE. Start a Quick Launch deployment by visiting <a href="https://diploi.com/#StackBuilder" target="_blank">diploi.com/#StackBuilder</a>.
+You can try out Diploi without registering, by starting a trial from our homepage, visit <a href="https://diploi.com/#StackBuilder" target="_blank">diploi.com/#StackBuilder</a>, select the stack you want to test out and click launch. This will start a trial environment where you can try most features that Diploi has to offer in a development deployment. This deployment stays active for 1 hour and can be claimed by registering an account.
+
+#### Starting a trial from the Homepage
+
+Quick Launch is the fastest way to get started with Diploi. It allows you to quickly launch a new application online without the need to create a repository or configure anything. You can start a deployment right away from <a href="https://diploi.com/#StackBuilder" target="_blank">our homepage</a>.
+
+:::tip
+No registration or credit card needed to get started!
+:::
+
+<ImageToPNG src={QuickStartBuilder} alt="Quick launch builder"/>
+
+In the stack builder, you can can choose the components and add-ons you want to have in your deployment, and that's it!
+
+You can click "**Launch stack**" and your deployment will be ready in about 30 seconds.
+
+<ImageToPNG src={QuickLaunchLoading} alt="Quick launch loading"/>
+
+Once the launch is complete, you will be able to connect to the remote server and your deployment will be accessible online with https.
+
+<ImageToPNG src={QuickLaunchHome} alt="Quick launch home"/>
+
+:::note
+Quick Launch is intended to quickly try things out. To save your work in a repository you need to sign up.
+:::
 
 ### Using Diploi for Production
 

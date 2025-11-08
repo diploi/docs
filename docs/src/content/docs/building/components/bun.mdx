@@ -1,0 +1,42 @@
+---
+title: Bun
+description: Deploy Bun apps and tooling with Diploi.
+---
+
+Bun is a high-performance JavaScript runtime that includes a bundler, test runner, and package manager. Use this component when you want Bun's fast startup times and all-in-one tooling for web services or utilities. Diploi handles the deployment so you can take advantage of Bun without custom infrastructure.
+
+## Add to your project
+
+Paste this entry into the `components` list in `diploi.yaml` to add Bun to your project.
+
+```yaml
+components:
+  - name: Bun
+    identifier: bun
+    package: https://github.com/diploi/component-bun#main
+    # Optional:
+    # env:
+    #   include:
+    #     - postgres.*
+```
+
+:::note
+- identifier must match the folder name you use for this component in your repo.
+- You can import ENV from add-ons into components using env.include.
+
+Example:
+
+```yaml
+env:
+  include:
+    - postgres.*
+    - redis.*
+```
+:::
+
+## See also
+
+- [Using Components](/building/components)
+- [Bun component repository](https://github.com/diploi/component-bun)
+- [Bun docs](https://bun.sh/docs)
+- [Learn more about the `diploi.yaml` file](reference/diploi-yaml)
