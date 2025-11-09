@@ -1,0 +1,38 @@
+---
+title: Next.js
+description: Deploy production-ready Next.js apps with server rendering on Diploi.
+---
+
+Next.js is a React framework for building server-rendered and statically generated applications. Choose this component when you want Diploi to handle optimized builds, routing, and image processing without extra configuration. It works well for SaaS dashboards, marketing pages, and any React project that needs reliable hosting.
+
+## Add to your project
+
+Paste this entry into the `components` list in `diploi.yaml` to add Next.js to your project.
+
+```yaml
+components:
+  - name: Next.js
+    identifier: nextjs
+    package: https://github.com/diploi/component-nextjs#main
+    
+```
+
+:::note
+- identifier must match the folder name you use for this component in your repo.
+- You can import ENV from add-ons into components using env.include.
+
+Example:
+
+```yaml
+env:
+  include:
+    - postgres.*
+```
+:::
+
+## See also
+
+- [Using Components](/building/components)
+- [Next.js component repository](https://github.com/diploi/component-nextjs)
+- [Next.js docs](https://nextjs.org/docs)
+- [Learn more about the `diploi.yaml` file](reference/diploi-yaml)

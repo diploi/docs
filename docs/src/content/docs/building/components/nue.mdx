@@ -1,0 +1,38 @@
+---
+title: Nue.js
+description: Deploy Nue.js apps with Diploi handling builds and deploys.
+---
+
+Nue.js is a minimal framework for composing modular web applications with fast SSR. Pick this component when you want Nue's lean runtime while keeping deployment automation simple. Diploi runs the build and serves the output so you can focus on your UI modules.
+
+## Add to your project
+
+Paste this entry into the `components` list in `diploi.yaml` to add Nue.js to your project.
+
+```yaml
+components:
+  - name: Nue.js
+    identifier: nue
+    package: https://github.com/diploi/component-nue#main
+    
+```
+
+:::note
+- identifier must match the folder name you use for this component in your repo.
+- You can import ENV from add-ons into components using env.include.
+
+Example:
+
+```yaml
+env:
+  include:
+    - mariadb.*
+```
+:::
+
+## See also
+
+- [Using Components](/building/components)
+- [Nue.js component repository](https://github.com/diploi/component-nue)
+- [Nue.js docs](https://nuejs.org/docs/)
+- [Learn more about the `diploi.yaml` file](reference/diploi-yaml)

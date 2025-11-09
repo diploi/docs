@@ -1,0 +1,445 @@
+---
+title: diploi.yaml Explained
+description: A deployment is a full instance of your application.
+---
+
+This glossary clarifies the common terms you’ll find while reviewing our docs, managing deployments, and operating production services on Diploi.
+
+[A](#a) · [B](#b) · [C](#c) · [D](#d) · [E](#e) · [F](#f) · [G](#g) · [H](#h) · [I](#i) · [J](#j) · [K](#k) · [L](#l) · [M](#m) · [N](#n) · [O](#o) · [P](#p) · [Q](#q) · [R](#r) · [S](#s) · [T](#t) · [U](#u) · [V](#v) · [W](#w) · [X](#x) · [Y](#y) · [Z](#z)
+
+## A
+
+### Add-on
+A managed service your application relies on without embedding its code, such as a database, cache, or broker.
+_In Diploi:_ Diploi provisions add-ons inside each project's private network and exposes credentials to components through the console.
+_See also:_ [/building/add-ons/](/building/add-ons/), [Component](#component)
+
+### Access Token
+A short-lived credential that grants programmatic access to APIs or CLIs without sharing a human password.
+_In Diploi:_ Diploi issues access tokens for automation tasks and scopes them to project roles.
+_See also:_ [Project](#project), [User Role](#user-role)
+
+### Astro
+A static-first web framework built for content-driven sites with selective hydration.
+_In Diploi:_ Diploi offers Astro as a component.
+_See also:_ [/building/components/](/building/components/), [Component](#component)
+
+### Audit Log
+A chronological record of operational and security events across your systems.
+_In Diploi:_ Diploi records project configuration, deployments, and access events in an immutable audit log for owners and maintainers.
+_See also:_ [Project](#project), [Owner Role](#owner-role)
+
+## B
+
+### Backup Policy
+A set of rules defining how and when data snapshots are retained.
+_In Diploi:_ Diploi applies backup policies per add-on service and surfaces restoration points in the console.
+_See also:_ [Add-on](#add-on), [Failover Plan](#failover-plan)
+
+### Base Image
+A foundational filesystem layer used to build container images.
+_In Diploi:_ Diploi supplies maintained base images for components to ensure consistent runtimes.
+_See also:_ [Container Image](#container-image)
+
+### Build Pipeline
+An automated sequence that compiles, tests, and packages your code.
+_In Diploi:_ Diploi kicks off build pipelines through GitHub Actions whenever repository launch workflows run.
+_See also:_ [CI/CD](#ci-cd), [GitHub Actions](#github-actions)
+
+### Branch Protection
+Repository rules that restrict who can push or merge into specific branches.
+_In Diploi:_ Diploi honors existing GitHub branch protection when promoting code through deployment stages.
+_See also:_ [Repository Launch](#repository-launch), [Deployment Stage (Development/Staging/Production)](#deployment-stage-developmentstagingproduction)
+
+## C
+
+### Component
+A deployable code service that forms part of a project’s stack.
+_In Diploi:_ Diploi provisions each component as its own workload with independent builds, environments, and endpoints.
+_See also:_ [/building/components/](/building/components/), [Stack](#stack)
+
+### Container Image
+An immutable package containing application code, runtime, and dependencies.
+_In Diploi:_ Diploi builds container images via GitHub Actions and stores them in the configured image registry.
+_See also:_ [Image Registry](#image-registry), [GitHub Actions](#github-actions)
+
+### CI/CD
+Continuous integration and delivery practices that automate testing and deployment.
+_In Diploi:_ Diploi wires default CI/CD workflows that run on GitHub Actions and deploy to each stage.
+_See also:_ [/reference/deployments/deployment-lifecycle/](/reference/deployments/deployment-lifecycle/), [Deployment Stage (Development/Staging/Production)](#deployment-stage-developmentstagingproduction)
+
+### CNAME
+A DNS record that aliases one domain name to another host.
+_In Diploi:_ Custom domains use a CNAME pointing to `edge.diploi.com` for Diploi-managed endpoints.
+_See also:_ [/deploying/custom-domain/](/deploying/custom-domain/), [DNS](#dns)
+
+### Custom Domain
+A human-friendly address that you configure to serve your application.
+_In Diploi:_ Diploi provisions certificates and routing once you map a custom domain to the deployment’s endpoint.
+_See also:_ [CNAME](#cname), [SSL/TLS](#ssltls)
+
+### Cluster
+A coordinated set of compute resources managed by Kubernetes.
+_In Diploi:_ Each deployment runs on its own single-node Kubernetes cluster managed by Diploi.
+_See also:_ [Kubernetes](#kubernetes), [Single-node Kubernetes Cluster](#single-node-kubernetes-cluster)
+
+## D
+
+### Deployment
+A released instance of your application that users can access.
+_In Diploi:_ A deployment contains every component, add-on, and environment for a project stage.
+_See also:_ [/reference/deployments/deployment-lifecycle/](/reference/deployments/deployment-lifecycle/), [Status Tree](#status-tree)
+
+### Deployment Stage (Development/Staging/Production)
+A lifecycle progression that separates code promotion into Development, Staging, and Production environments.
+_In Diploi:_ Diploi links stages to GitHub branches and requires explicit approvals before promoting to Production.
+_See also:_ [Deployment](#deployment), [Repository Launch](#repository-launch)
+
+### `diploi.yaml`
+A declarative manifest that defines project components, add-ons, environments, and automation.
+_In Diploi:_ `diploi.yaml` drives provisioning, stack composition, and env import rules for every deployment.
+_See also:_ [/reference/diploi-yaml/](/reference/diploi-yaml/), [Stack](#stack)
+
+### DNS
+The system that translates domain names into IP addresses.
+_In Diploi:_ Diploi manages DNS targets for default endpoints and guides CNAME configuration for custom domains.
+_See also:_ [CNAME](#cname), [Endpoint](#endpoint)
+
+### Drift Detection
+The process of spotting differences between declared infrastructure and the actual runtime state.
+_In Diploi:_ Diploi surfaces drift through the status tree so you can reconcile deployments quickly.
+_See also:_ [Status Tree](#status-tree), [Deployment](#deployment)
+
+## E
+
+### Endpoint
+A network-accessible URL or socket where a service listens for requests.
+_In Diploi:_ Diploi assigns endpoints per component and stage, with optional custom domains.
+_See also:_ [Deployment Stage (Development/Staging/Production)](#deployment-stage-developmentstagingproduction), [Custom Domain](#custom-domain)
+
+### Environment Variable Import
+A configuration pattern that pulls environment values from an external source into your application.
+_In Diploi:_ Use the `env import` keys in `diploi.yaml` to copy secrets or configs across components with wildcard support.
+_See also:_ [/reference/diploi-yaml/](/reference/diploi-yaml/), [Secrets Manager](#secrets-manager)
+
+### Error Budget
+The acceptable amount of downtime or failures within a service-level objective.
+_In Diploi:_ Diploi reports deployment status and alerts when errors consume your budget faster than expected.
+_See also:_ [Metric](#metric), [Status Tree](#status-tree)
+
+## F
+
+### Feature Flag
+A runtime switch that toggles features on or off without redeploying.
+_In Diploi:_ Define feature flags through stage-specific environment variables or config sections in `diploi.yaml`.
+_See also:_ [Environment Variable Import](#environment-variable-import), [Deployment Stage (Development/Staging/Production)](#deployment-stage-developmentstagingproduction)
+
+### Failover Plan
+A documented strategy for restoring service after infrastructure failure.
+_In Diploi:_ Diploi encourages teams to script failover steps because single-node clusters do not provide automatic redundancy.
+_See also:_ [Single-node Kubernetes Cluster](#single-node-kubernetes-cluster), [Zero Downtime](#zero-downtime)
+
+### Front-end Component
+A component dedicated to serving web assets or UI logic.
+_In Diploi:_ Front-end components supported include frameworks like Astro, React and SvelteKit.
+_See also:_ [Component](#component)
+
+## G
+
+### GitHub Actions
+GitHub’s automation platform for running workflows triggered by repository events.
+_In Diploi:_ Diploi seeds GitHub Actions workflows for builds, tests, and deployments across stages.
+_See also:_ [CI/CD](#ci-cd), [Repository Launch](#repository-launch)
+
+### Git Repository
+A version-controlled store containing your project's source history.
+_In Diploi:_ Each project links to a Git repository that triggers builds and deployments on push.
+_See also:_ [Project](#project), [GitHub Actions](#github-actions)
+
+### Global Configuration
+Shared settings applied across multiple components or environments.
+_In Diploi:_ Global configuration lives in `diploi.yaml` and merges into every stage unless overridden.
+_See also:_ [/reference/diploi-yaml/](/reference/diploi-yaml/), [Stack](#stack)
+
+## H
+
+### Helm Chart
+A templated bundle of Kubernetes manifests used to install applications.
+_In Diploi:_ Diploi installs workloads through Helm charts to codify each deployment's desired state.
+_See also:_ [/reference/technical-deep-dive/](/reference/technical-deep-dive/), [Kubernetes](#kubernetes)
+
+### Health Check
+A probe that tests whether a service instance is ready or alive.
+_In Diploi:_ Configure health checks per component so Diploi can restart pods and report status accurately.
+_See also:_ [Component](#component), [Status Tree](#status-tree)
+
+### High Availability
+An architecture that tolerates failures without noticeable downtime.
+_In Diploi:_ Diploi's default single-node cluster means high availability requires external redundancy strategies.
+_See also:_ [Single-node Kubernetes Cluster](#single-node-kubernetes-cluster), [Failover Plan](#failover-plan)
+
+## I
+
+### Identifier
+A unique, stable value used to reference a resource or configuration entry.
+_In Diploi:_ Identifiers in `diploi.yaml` name components, add-ons, and environments for automation.
+_See also:_ [Stack](#stack), [/reference/diploi-yaml/](/reference/diploi-yaml/)
+
+### Image Registry
+A service that stores and distributes container images.
+_In Diploi:_ Diploi pushes build artifacts to the project's configured image registry before deploying.
+_See also:_ [Container Image](#container-image), [CI/CD](#ci-cd)
+
+### Infrastructure Secret
+Sensitive credentials required to provision or connect infrastructure.
+_In Diploi:_ Store infrastructure secrets via environment imports so Diploi can inject them at deploy time.
+_See also:_ [Environment Variable Import](#environment-variable-import), [Secrets Manager](#secrets-manager)
+
+## J
+
+### Job Runner
+A worker process designed for asynchronous or scheduled tasks.
+_In Diploi:_ Create background job runners as separate components with tailored scaling and schedules.
+_See also:_ [Component](#component), [Stack](#stack)
+
+### JSON Schema
+A specification describing the structure and validation rules for JSON documents.
+_In Diploi:_ Diploi validates `diploi.yaml` against its JSON schema to prevent misconfiguration.
+_See also:_ [diploi.yaml](#diploiyaml), [/reference/diploi-yaml/](/reference/diploi-yaml/)
+
+## K
+
+### Kubernetes
+An orchestration platform for deploying and managing containerized workloads.
+_In Diploi:_ Diploi provisions dedicated Kubernetes clusters per deployment and manages them on your behalf.
+_See also:_ [/reference/technical-deep-dive/](/reference/technical-deep-dive/), [Helm Chart](#helm-chart)
+
+### Kubeconfig
+A configuration file that stores cluster access credentials and contexts.
+_In Diploi:_ Diploi provides read-only kubeconfig downloads for advanced debugging when enabled.
+_See also:_ [Kubernetes](#kubernetes), [User Role](#user-role)
+
+### Key Rotation
+Regularly replacing secrets or cryptographic keys to reduce compromise risk.
+_In Diploi:_ Rotate keys by updating source secrets and re-running environment variable imports.
+_See also:_ [Infrastructure Secret](#infrastructure-secret), [Environment Variable Import](#environment-variable-import)
+
+## L
+
+### Load Balancer
+A network component that distributes traffic across service instances.
+_In Diploi:_ Diploi's managed ingress layer load balances requests across pods within the deployment cluster.
+_See also:_ [Endpoint](#endpoint), [Kubernetes](#kubernetes)
+
+### Log Stream
+A continuous feed of application or system logs.
+_In Diploi:_ Access log streams per component from the Diploi console or CLI for debugging.
+_See also:_ [Component](#component), [Remote Development](#remote-development)
+
+### Lifecycle Hook
+A script or automation triggered at a specific phase in the deployment lifecycle.
+_In Diploi:_ Customize lifecycle hooks via GitHub Actions workflows to run migrations or smoke tests.
+_See also:_ [GitHub Actions](#github-actions), [Deployment Stage (Development/Staging/Production)](#deployment-stage-developmentstagingproduction)
+
+## M
+
+### Monorepo
+A repository that stores multiple services or libraries in a single codebase.
+_In Diploi:_ Diploi scaffolds projects as monorepos so components share tooling while deploying independently.
+_See also:_ [Project](#project), [Component](#component)
+
+### Managed Service
+An infrastructure capability operated by a provider instead of your team.
+_In Diploi:_ Diploi-managed services include cluster provisioning, certificates, and add-on lifecycle.
+_See also:_ [Add-on](#add-on), [Single-node Kubernetes Cluster](#single-node-kubernetes-cluster)
+
+### Metric
+A measurable value that helps observe system performance.
+_In Diploi:_ Diploi surfaces CPU, memory, and deployment metrics alongside status tree signals.
+_See also:_ [Status Tree](#status-tree), [Observability Stack](#observability-stack)
+
+## N
+
+### Namespace
+A Kubernetes partition that scopes resources within a cluster.
+_In Diploi:_ Each project deployment lives in its own namespace to isolate workloads and add-ons.
+_See also:_ [Kubernetes](#kubernetes), [Project](#project)
+
+### Network Policy
+Rules that control how pods communicate within a cluster.
+_In Diploi:_ Diploi applies restrictive network policies so only authorized components reach add-ons.
+_See also:_ [Add-on](#add-on), [Component](#component)
+
+### Node
+A compute instance that runs Kubernetes pods.
+_In Diploi:_ Every deployment node runs all workloads because Diploi operates single-node clusters.
+_See also:_ [Single-node Kubernetes Cluster](#single-node-kubernetes-cluster), [Kubernetes](#kubernetes)
+
+## O
+
+### Observability Stack
+The tooling used to collect logs, metrics, and traces.
+_In Diploi:_ Diploi integrates with third-party observability stacks via add-ons and environment variables.
+_See also:_ [Metric](#metric), [Add-on](#add-on)
+
+### Owner Role
+A permission level with full administrative control over a project.
+_In Diploi:_ Owners can manage billing, repositories, deployments, and access within the Diploi console.
+_See also:_ [Project](#project), [User Role](#user-role)
+
+## P
+
+### Package (Component Package URL)
+A reference to a component’s template package hosted at a URL.
+_In Diploi:_ Set the `package` key in `diploi.yaml` to pull scaffolding from the Diploi package registry.
+_See also:_ [/reference/diploi-yaml/](/reference/diploi-yaml/), [Component](#component)
+
+### Parent Domain
+The apex domain under which subdomains are delegated.
+_In Diploi:_ Configure the parent domain before attaching custom domains so Diploi can validate DNS ownership.
+_See also:_ [Custom Domain](#custom-domain), [DNS](#dns)
+
+### Project
+The top-level grouping of components, add-ons, and environments for an application.
+_In Diploi:_ A project governs repositories, deployments, permissions, and billing across all stages.
+_See also:_ [/reference/projects/project-lifecycle/](/reference/projects/project-lifecycle/), [Stack](#stack)
+
+### Pod
+The smallest deployable unit in Kubernetes containing one or more containers.
+_In Diploi:_ Diploi schedules each component as pods managed by Helm releases inside the deployment cluster.
+_See also:_ [Kubernetes](#kubernetes), [Helm Chart](#helm-chart)
+
+## Q
+
+### Queue Worker
+A service dedicated to processing asynchronous tasks from a queue.
+_In Diploi:_ Model queue workers as standalone components so they scale independently from web workloads.
+_See also:_ [Component](#component), [Job Runner](#job-runner)
+
+## R
+
+### Remote Development
+Developing against cloud-hosted environments instead of a full local setup.
+_In Diploi:_ Diploi exposes staging endpoints and synced environments to support remote development workflows.
+_See also:_ [Deployment Stage (Development/Staging/Production)](#deployment-stage-developmentstagingproduction), [Endpoint](#endpoint)
+
+### Repository Launch
+The process of connecting a repository and enabling automated deployments for it.
+_In Diploi:_ Repository launch configures GitHub Actions, secrets, and stage mappings for the project.
+_See also:_ [Project](#project), [CI/CD](#ci-cd)
+
+### Resource Quota
+Limits that cap CPU, memory, or storage usage for workloads.
+_In Diploi:_ Diploi enforces resource quotas per component to keep single-node clusters healthy.
+_See also:_ [Component](#component), [Single-node Kubernetes Cluster](#single-node-kubernetes-cluster)
+
+### Rollback
+Restoring a system to a previous known-good state.
+_In Diploi:_ Diploi can redeploy prior container images via Helm to roll back failed releases.
+_See also:_ [Container Image](#container-image), [Deployment](#deployment)
+
+## S
+
+### Stack
+A set of components and add-ons that are part of a project.
+_In Diploi:_ users select the components and add-ons, which generates a `diploi.yaml` file to define how an application is built.
+_See also:_ [Project](#project), [Component](#component)
+
+### Secrets Manager
+A system for securely storing and distributing sensitive values.
+_In Diploi:_ Diploi syncs secrets from external managers through environment variable imports.
+_See also:_ [Environment Variable Import](#environment-variable-import), [Infrastructure Secret](#infrastructure-secret)
+
+### Service Account
+A machine identity used by services to authenticate with APIs.
+_In Diploi:_ Create service accounts as secrets and map them into components via `diploi.yaml`.
+_See also:_ [Environment Variable Import](#environment-variable-import), [Identifier](#identifier)
+
+### Single-node Kubernetes Cluster
+A Kubernetes environment where control plane and workloads run on one node.
+_In Diploi:_ Every deployment operates on its own single-node Kubernetes cluster maintained by Diploi.
+_See also:_ [Cluster](#cluster), [/reference/technical-deep-dive/](/reference/technical-deep-dive/)
+
+### SSL/TLS
+Protocols that encrypt data in transit between clients and servers.
+_In Diploi:_ Diploi issues and renews SSL/TLS certificates for default and custom endpoints.
+_See also:_ [Custom Domain](#custom-domain), [Endpoint](#endpoint)
+
+### Status Tree
+A hierarchical view that summarizes the health of related resources.
+_In Diploi:_ Diploi's status tree traces from deployment down to pods to highlight failures.
+_See also:_ [Deployment](#deployment), [Metric](#metric)
+
+## T
+
+### Template Project
+A preconfigured project layout that accelerates new application setups.
+_In Diploi:_ Template projects underpin quick launch flows and mirror best-practice stacks.
+_See also:_ [Package (Component Package URL)](#package-component-package-url)
+
+### Test Pipeline
+Automated checks that validate code before deployment.
+_In Diploi:_ Diploi includes stage-specific test pipelines inside the generated GitHub Actions workflows.
+_See also:_ [Build Pipeline](#build-pipeline), [CI/CD](#ci-cd)
+
+## U
+
+### Upgrade Window
+A scheduled period reserved for applying updates.
+_In Diploi:_ Plan upgrades within maintenance windows to restart single-node clusters with minimal impact.
+_See also:_ [Failover Plan](#failover-plan), [Zero Downtime](#zero-downtime)
+
+### User Role
+A permission level that defines what actions a user can perform.
+_In Diploi:_ User roles such as Owner, Maintainer, and Viewer control access to projects and deployments.
+_See also:_ [Owner Role](#owner-role), [Project](#project)
+
+## V
+
+### Version Pinning
+Locking dependencies or images to specific versions.
+_In Diploi:_ Pin versions in `diploi.yaml` so rebuilds use consistent component packages and base images.
+_See also:_ [Package (Component Package URL)](#package-component-package-url), [Base Image](#base-image)
+
+### Volume
+Persistent or shared storage mounted into containers.
+_In Diploi:_ Diploi provisions volumes through Helm values to persist add-on data or component state.
+_See also:_ [Helm Chart](#helm-chart), [Component](#component)
+
+## W
+
+### Workspace
+The collaborative area where teams plan, build, and deploy applications.
+_In Diploi:_ A workspace groups multiple projects and members under one organizational umbrella.
+_See also:_ [Project](#project), [User Role](#user-role)
+
+### Webhook
+An HTTP callback triggered by events to notify external systems.
+_In Diploi:_ Configure GitHub or third-party webhooks to react to deployment lifecycle events.
+_See also:_ [Repository Launch](#repository-launch), [Deployment](#deployment)
+
+## X
+
+### X-Forwarded-For Header
+A proxy header that preserves the original client IP address.
+_In Diploi:_ Diploi's edge layer sets `X-Forwarded-For` so applications can log user IPs correctly.
+_See also:_ [Endpoint](#endpoint), [Load Balancer](#load-balancer)
+
+## Y
+
+### YAML Key
+A field name within a YAML document.
+_In Diploi:_ Use descriptive YAML keys in `diploi.yaml` so automation scripts remain readable.
+_See also:_ [diploi.yaml](#diploiyaml), [Identifier](#identifier)
+
+### YAML Schema
+Rules that describe the allowed structure of YAML files.
+_In Diploi:_ Diploi validates configuration updates against its YAML schema before applying changes.
+_See also:_ [JSON Schema](#json-schema), [/reference/diploi-yaml/](/reference/diploi-yaml/)
+
+## Z
+
+### Zero Downtime
+Deployments that avoid noticeable service interruption.
+_In Diploi:_ Diploi sequences Helm upgrades to minimize restarts, but single-node clusters may incur brief pauses.
+_See also:_ [Helm Chart](#helm-chart), [Failover Plan](#failover-plan)

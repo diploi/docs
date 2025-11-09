@@ -1,0 +1,38 @@
+---
+title: Node.js
+description: Run general-purpose Node.js services on Diploi.
+---
+
+The Node.js component gives you a standard runtime for JavaScript or TypeScript backends. Reach for it when you need an API, webhook processor, or background worker built with the Node ecosystem. Diploi builds and deploys your code while keeping environment variables and dependencies managed.
+
+## Add to your project
+
+Paste this entry into the `components` list in `diploi.yaml` to add Node.js to your project.
+
+```yaml
+components:
+  - name: Node.js
+    identifier: nodejs
+    package: https://github.com/diploi/component-nodejs#main
+    
+```
+
+:::note
+- identifier must match the folder name you use for this component in your repo.
+- You can import ENV from add-ons into components using env.include.
+
+Example:
+
+```yaml
+env:
+  include:
+    - postgres.*
+```
+:::
+
+## See also
+
+- [Using Components](/building/components)
+- [Node.js component repository](https://github.com/diploi/component-nodejs)
+- [Node.js docs](https://nodejs.org/en/docs)
+- [Learn more about the `diploi.yaml` file](reference/diploi-yaml)

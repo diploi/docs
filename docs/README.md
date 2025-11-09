@@ -8,9 +8,9 @@ Our docs are built using [Astro Starlight](https://starlight.astro.build), desig
 
 ## 💡 About
 
-This repository powers all the public documentation for [**Diploi**](https://diploi.com) — a next-generation SaaS platform for developing and hosting your applications with zero friction.
+This repository powers all the public documentation for [**Diploi**](https://diploi.com) - a next-generation SaaS platform for developing and hosting your applications with zero friction.
 
-If you spot something unclear, outdated, or missing — please help us improve it!  
+If you spot something unclear, outdated, or missing - please help us improve it!  
 Every pull request helps make Diploi easier to use for everyone.
 
 
@@ -41,7 +41,7 @@ pnpm install
 pnpm run dev
 ```
 
-Then visit [http://localhost:4321](http://localhost:4321) — your local Diploi Docs will be running there
+Then visit [http://localhost:4321](http://localhost:4321) - your local Diploi Docs will be running there
 
 
 ## Structure
@@ -57,7 +57,7 @@ Then visit [http://localhost:4321](http://localhost:4321) — your local Diploi 
 ## Deployment
 
 Docs are automatically deployed when changes are merged into `main`.  
-The site is hosted directly on Diploi’s infrastructure — so edits will go live within minutes.
+The site is hosted directly on Diploi’s infrastructure - so edits will go live within minutes.
 
 
 ## Useful Links

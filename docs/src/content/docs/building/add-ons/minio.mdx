@@ -1,0 +1,39 @@
+---
+title: MinIO
+description: Provision MinIO as an S3-compatible Diploi add-on.
+---
+
+MinIO is an open-source, S3-compatible, object storage system that you can run in Diploi. Use this add-on when your components need to store uploads, backups, or other binary data without relying on an external cloud bucket.
+
+## Add to your project
+
+Paste this entry into the `addons` list in `diploi.yaml` to add MinIO to your project.
+
+```yaml
+addons:
+  - name: MinIO
+    identifier: minio
+    package: https://github.com/diploi/addon-minio#main
+```
+
+:::note
+- identifier must match the folder name you use for this add-on in your repo.
+- Components can import ENV from this add-on using env.include. For example, an Astro component can expose the MinIO credentials like this:
+
+```yaml
+components:
+  - name: Astro
+    identifier: astro
+    package: https://github.com/diploi/component-astro#main
+    env:
+      include:
+        - minio.*
+```
+:::
+
+## See also
+
+- [Using Add-ons](/building/add-ons)
+- [MinIO add-on repository](https://github.com/diploi/addon-minio)
+- [MinIO docs](https://docs.min.io/enterprise/aistor-object-store/)
+- [Learn more about the `diploi.yaml` file](reference/diploi-yaml)
