@@ -134,6 +134,7 @@ export default defineConfig({
             "reference/technical-deep-dive",
             "reference/architecture",
             "reference/diploi-yaml",
+            "reference/glossary",
             {
               label: "Projects",
               items: [
