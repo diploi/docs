@@ -23,6 +23,7 @@ components:
 
 :::note
 - identifier must match the folder name you use for this component in your repo.
+- Your project must have a MariaDB instance, [click here for more info](/building/add-ons/mariadb).
 - In Diploi, Ghost uses MariaDB for storage, so you need to add a MariaDB to your deployment and use the environment variables as defined here:
 
 ```yaml
@@ -32,6 +33,7 @@ env:
     - mariadb.MARIADB_USER:database__connection__user
     - mariadb.MARIADB_PASSWORD:database__connection__password
 ```
+
 :::
 
 ## See also
