@@ -115,7 +115,7 @@ export default defineConfig({
             "building/add-ons",
             {
               label: "Add-ons supported",
-              collapsed:true,
+              collapsed: true,
               items: [
                 "building/add-ons/mariadb",
                 "building/add-ons/minio",
@@ -158,6 +158,15 @@ export default defineConfig({
         {
           label: "Roadmap",
           link: "/roadmap/"
+        },
+        {
+          label: "LLMs",
+          collapsed: true,
+          items: [
+            { label: 'llms.txt', link: "/llms.txt" },
+            { label: 'llms-small.txt', link: "/llms-small.txt" },
+            { label: 'llms-full.txt', link: "/llms-full.txt" }
+          ],
         },
       ],
       customCss: ["./src/styles/custom.css"],
