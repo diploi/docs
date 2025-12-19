@@ -1,0 +1,42 @@
+---
+title: Blazor
+description: Launching apps powered by Blazor.
+---
+
+Blazor is a .NET web UI framework for building interactive web apps using C# and Razor components instead of JavaScript. Choose this component when you’re building dashboards, internal tools, or full-featured web apps where you want to stay in the .NET ecosystem and share code across client and server. Diploi builds your Blazor project and deploys it with the runtime and assets it needs to run.
+
+## Add to your project
+
+Paste this entry into the `components` list in `diploi.yaml` to add Blazor to your project.
+
+```yaml
+components:
+  - name: Blazor
+    identifier: blazor
+    package: https://github.com/diploi/component-blazor#main
+    
+```
+
+:::note
+- identifier must match the folder name you use for this component in your repo.
+- You can import ENV from add-ons into components using env.include, depending on the db your project uses.
+
+Example:
+
+```yaml
+env:
+  include:
+    - mariadb.*
+    - minio.*
+    - mongo.*
+    - postgres.*
+    - redis.*
+```
+:::
+
+## See also
+
+- [Using Components](/building/components)
+- [Blazor component repository](https://github.com/diploi/component-blazor)
+- [Blazor docs](https://learn.microsoft.com/en-us/aspnet/core/blazor/)
+- [Learn more about the `diploi.yaml` file](/reference/diploi-yaml)

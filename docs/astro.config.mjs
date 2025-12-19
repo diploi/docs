@@ -95,6 +95,8 @@ export default defineConfig({
               collapsed: true,
               items: [
                 "building/components/astro",
+                "building/components/asp",
+                "building/components/blazor",
                 "building/components/bun",
                 "building/components/deno",
                 "building/components/django",
@@ -154,6 +156,10 @@ export default defineConfig({
         {
           label: "FAQ",
           link: "/faq/"
+        },
+        {
+          label: "Troubleshooting",
+          link: "/troubleshooting/",
         },
         {
           label: "Roadmap",
