@@ -35,7 +35,10 @@ Most issues are commonly caused by runtime errors, which can be found by checkin
 
 ***
 
+<details>
+<summary>
 ## First-aid checklist
+</summary>
 
 The fastest path from “something is broken” to a clear root cause. Try these steps first. They solve most issues in minutes.
 
@@ -68,6 +71,7 @@ The fastest path from “something is broken” to a clear root cause. Try these
 - Restart the affected service/deployment
 - Stop and start the deployment again
 - If you updated a domain or DNS settings, you need to wait up to 30 minutes for the changes to propagate
+</details>
 
 ***
 
@@ -85,8 +89,10 @@ Each troubleshooting section follows the same pattern:
 4. **If still stuck (collect this)**: a copy/paste checklist for support
 
 ***
-
+<details>
+<summary>
 ## SSH and Remote Development
+</summary>
 
 For issues related to remote access via SSH to development environments or app containers, via Browser IDE, VS Code, Cursor, Zed, or from a terminal.
 
@@ -138,10 +144,13 @@ Ensure:
 - Your OS and IDE (VS Code/Cursor) version
 - Whether Browser IDE works
 - [Contact us](#where-to-ask)
+</details>
 
 ***
-
+<details>
+<summary>
 ## Git and GitHub issues
+</summary>
 
 For issues related to GitHub auth, push/pull failures, and repository access problems in Diploi deployments.
 
@@ -182,10 +191,13 @@ If you started a project without a repository, and you use git init or clone a r
 - Whether this is a Development deployment or a Staging/Production stage
 - Whether the deployment has an assigned user
 - [Contact us](#where-to-ask)
+</details>
 
 ***
-
+<details>
+<summary>
 ## Builds and Deployments
+</summary>
 
 Troubleshoot failed builds, stuck rollouts, wrong version running, and unhealthy services.
 
@@ -247,10 +259,13 @@ If your project's GitHub Action didn’t run or at least one of the builds faile
 - Logs from the failing service (include startup section)
 - What changed (code/config/add-ons)
 - [Contact us](#where-to-ask)
+</details>
 
 ***
-
+<details>
+<summary>
 ## Custom domains and SSL
+</summary>
 
 For issues linked to DNS records, propagation, and SSL provisioning issues for custom and Diploi domains.
 
@@ -296,10 +311,13 @@ Diploi supports domains at both project and deployment levels. Verify you added 
 - Which DNS provider do you use
 - Whether it’s project-level or deployment-level domain
 - Timestamp when you updated DNS
+</details>
 
 ***
-
+<details>
+<summary>
 ## Databases and add-ons
+</summary>
 
 Fixing connection issues, missing env vars, and common configuration mistakes with add-ons like Postgres/Redis/Mongo/MariaDB/MinIO.
 
@@ -341,10 +359,13 @@ If the DB is reachable but your app still errors, check whether migrations ran a
 - Failing error message and stack trace
 - Add-on logs around startup
 - [Contact us](#where-to-ask)
+</details>
 
 ***
-
+<details>
+<summary>
 ## Performance and limits
+</summary>
 
 Issues related to slow apps, out-of-memory(OOM) states, and deployment crashes due to high resource load and usage.
 
@@ -404,6 +425,7 @@ The main point to note is that cold-start delays might be unavoidable for some c
 - CPU/RAM utilization
 - Logs from the components and/or add-ons where timeouts and out-of-memory events happened
 - [Contact us](#where-to-ask)
+</details>
 
 ***
 
