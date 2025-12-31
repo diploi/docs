@@ -180,6 +180,12 @@ export default defineConfig({
         starlightLlmsTxt({
           customSets: [
             {
+              label: "Welcome to Diploi",
+              description:
+                "An introduction to what is Diploi, who is it for and what it does",
+              paths: ["index"],
+            },
+            {
               label: "Get started",
               description:
                 "Quick guide explaining the essentials to get an application created and hosted on Diploi",
@@ -201,6 +207,30 @@ export default defineConfig({
               label: "Reference",
               description: "Explanations about how Diploi works and how its architecture is defined",
               paths: ["reference/**"],
+            },
+            {
+              label: "FAQ",
+              description:
+                "Responses to common questions about Diploi",
+              paths: ["faq"],
+            },
+            {
+              label: "The Diploi Way",
+              description:
+              "The philosophy behind Diploi and our vision",
+              paths: ["the-diploi-way"],
+            },
+            {
+              label: "Roadmap",
+              description:
+              "Our future plans",
+              paths: ["roadmap"],
+            },
+            {
+              label: "Troubleshooting",
+              description:
+              "Solutions to common problems in Diploi",
+              paths: ["troubleshooting"],
             },
           ],
         }),
