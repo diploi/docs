@@ -1,0 +1,34 @@
+---
+title: The Diploi CLI
+description: A CLI to help you debug your applications via terminal interface.
+---
+import { Steps } from '@astrojs/starlight/components';
+import ImageToPNG from  "../../../components/ImageToPNG.astro"
+import CLIRunning from  "../../../assets/CLIRunning.png"
+import CLILogs from  "../../../assets/CLILogs.png"
+
+Diploi's development environments come with a CLI, from which you can access the logs of any component or add-on in your deployment, execute commands inside of a running container, and view the current status of a deployment.
+
+<ImageToPNG src={CLILogs} alt='CLI logs'/>
+
+:::note
+Using the CLI is currently under development, which is why some of the features mentioned here are not yet available for all users.
+:::
+
+## How to use
+
+You can access the CLI by opening a terminal from any development environment in Diploi. To view if the CLI is installed in your environment, you can try running the command `diploi`, and it should show the following output:
+
+<ImageToPNG src={CLIRunning} alt='CLI running correctly'/>
+
+
+## CLI commands
+
+Command | Description | Example | Availability
+| --- | --- | --- | --- |
+`diploi` | Shows a brief introduction about what you can do with the CLI and lists the commands available | `diploi` | All users
+`diploi help [command]` | Shows the help article for a command | `diploi help exec` | All users
+`diploi logs [component or add-on]` or `diploi log [component or add-on]` | Streams logs from a running component | `diploi logs next` | All users
+`diploi status` | Shows the current status of the deployment from which the command is being run | `diploi status` | Testers only
+`diploi exec [component or add-on] "command"` | Executes a command inside of a component or add-on | `diploi exec next "echo 'test'"` | Testers only
+

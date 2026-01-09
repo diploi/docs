@@ -22,6 +22,7 @@ components:
         - *
   - name: Bun
     identifier: bun
+    folder: /api #Optional
     package: https://github.com/diploi/component-bun#main
     env:
       include:
@@ -48,11 +49,24 @@ The display name for a component.
 
 ### `identifier`
 
-An internal identifier for a component. **This has to be unique.**   
+An internal identifier for a component. **This has to be unique.**
+
 The identifier is used as the internal hostname for a component, and as the folder name where the component files are located.
 
 :::caution
-  The component identifier has to match the folder name it is stored in. If you change one, make sure to change the other too.
+If the `folder` parameter is not defined, Diploi will use the component identifier as the folder name where the files for your component will be stored.
+:::
+
+### `folder`
+
+Indicates to Diploi where to store the files necessary for a component, and is meant to be used when you import an existing application that already has a functioning app running in a specific folder inside your repository.
+
+If a component has a `folder` parameter assigned that already exists, Diploi will not generate any new files, and instead it will try to run the component using the files in the directory you are pointing to.
+
+:::note
+If you plan to run staging and production stages for your project in Diploi or you need to customize how a component is run at startup, you will need to add a Dockerfile (used by staging and production deployments) and a Dockerfile.dev (used by development deployments) files to the folder you are pointing to.
+
+You can get all of our officially supported Dockerfiles for all components [in our GitHub repositories](https://github.com/orgs/diploi/repositories).
 :::
 
 ### `package`

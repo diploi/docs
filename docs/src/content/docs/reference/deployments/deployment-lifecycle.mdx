@@ -26,6 +26,12 @@ import ResourceView from '../../../../assets/ResourceView.png';
 import CreateDeploymentConnect from '../../../../assets/CreateDeploymentConnect.png';
 import DevelopmentLocalIde from '../../../../assets/DevelopmentLocalIde.png'
 import StatusTree from '../../../../assets/StatusTree.png'
+import PodStatus from '../../../../assets/PodStatus.png';
+import PodStatusHighlight from '../../../../assets/PodStatusHighlight.png';
+import PodLogs from '../../../../assets/PodLogs.png';
+import PodRestart from '../../../../assets/PodRestart.png';
+import PodDescribe from '../../../../assets/PodDescribe.png';
+import PodDescribeOpen from '../../../../assets/PodDescribeOpen.png';
 import DeploymentSizesAndPricing from "../../../../components/DeploymentSizesAndPricing.astro"
 import ImageToPNG from "../../../../components/ImageToPNG.astro"
 
@@ -35,7 +41,7 @@ To start creating a deployment, you must first [create a project](/deploying/cre
 
 In the next steps, we will walkthrough all the properties that can be set up when creating a deployment.
 
-### General
+### General Settings
 
 Within the general settings of your new deployment, you can define the name of the deployment and its stage.
 
@@ -77,7 +83,7 @@ You must choose the appropriate size for your application. You can update the si
 
 ### Repository
 
-In this section you will be able to define the branch that your deployment will use. You can change the branch source for your deployment from the _**Repository & Git**_ tab of your deployment.
+In this section, you will be able to define the branch that your deployment will use. You can change the branch source for your deployment from the **Repository & Git** tab of your deployment.
 
 <ImageToPNG src={CreateDeploymentRepository} alt='Deployment repository branch'/>
 
@@ -95,6 +101,14 @@ Depending on your project's components and add-ons, you might be able to make ch
 Not all components and add-ons have editable settings in this section.
 :::
 
+## Cloning a Deployment
+
+To duplicate an existing deployment (including its database and configuration), open the deployment dashboard, go to the **Options** tab, and scroll to the bottom.
+
+`https://console.diploi.com/<your account>/project/<project id>/deployment/<deployment id>/options`
+
+There, look for the section "Clone Deployment" and click on the "Clone this deployment" button. This will open the cloning wizard, which follows [the same workflow as when you create a new deployment, explained in the previous section](#creating-a-deployment).
+
 ## Managing a Deployment
 
 Once you have created a deployment inside a project, you can access your deployment's settings from the project page.
@@ -102,7 +116,7 @@ Once you have created a deployment inside a project, you can access your deploym
 <ImageToPNG src={DeploymentHomePage} alt='Deployment home page'/>
 
 :::note
-Depending on the deployment stage of your deployment, the overview page will show different information. **For Development deployments**, the overview will show an additional entry _**Development**_, which allows you to access the remote development environment using our browser IDE or VS code.
+Depending on the deployment stage of your deployment, the overview page will show different information. **For Development deployments**, the overview will show an additional entry **Development**, which allows you to access the remote development environment using our browser IDE or VS code.
 :::
 
 ### Overview
@@ -120,7 +134,7 @@ In this section, you can get the SSH connection string to your development envir
 <ImageToPNG src={DevelopmentLocalIde} alt="Add IDE to deployment"/>
 
 :::note
-For deployments that are not for development, you can still access the deployment with SSH [by going to the containers section in the overview page](#ssh-containers).
+For deployments that are not for development, you can still access the deployment with SSH [by going to the containers section in the overview page](#connect).
 :::
 
 ##### Remote Development
@@ -158,13 +172,17 @@ All public facing URL endpoints that your applications expose have SSL encryptio
 All add-ons by default are only accesible locally by your applications and are not exposed to the wider internet.
 :::
 
-##### Deployment Setup Status
+#### Deployment Component and Add-on Status
 
-In this section you can visualize the status of each component and add-on that defines your deployment. 
+In this section you can visualize the status of each component and add-on that defines your deployment.
+
+<ImageToPNG src={PodStatus} alt='Component and Add-on pods status'/>
 
 ##### Status
 
 After a deployment is started you can check its status from the Deployments Overview page. Diploi assigns a color to indicate the overall state of the deployment components
+
+<ImageToPNG src={PodStatusHighlight} alt='Pod status highlighted'/>
 
 * **Green** -  the deployment is working correctly
 * **Yellow** - there is some issue but the deployment still runs
@@ -174,9 +192,41 @@ After a deployment is started you can check its status from the Deployments Over
 
 For each container used by your components and add-ons, you can review the logs by clicking on the "logs" button.
 
+<ImageToPNG src={PodLogs} alt='Pod logs action'/>
+
+This will show the output from the main running process of your component or add-on, and it operates in the same way in both development and staging/production environments. 
+
 <ImageToPNG src={ContainerLog} alt='Container logs'/>
 
 </div>
+
+##### Restart
+
+This action allows you to restart an individual component or add-on, without affecting the configuration of your deployment and other running components.
+
+<ImageToPNG src={PodRestart} alt='Pod restart action'/>
+
+
+##### Connect
+
+You can connect directly to each container part of your deployment via SSH. To get the SSH connection string to each container, click on the **Connect +** button next to each container and this will copy the connection string to your clipboard.
+
+<ImageToPNG src={CreateDeploymentConnect} alt='Conntect to container'/>
+
+
+:::note
+To connect via SSH to any deployment, you first need to [add your public SSH key to Diploi](/building/add-ssh-key).
+:::
+
+##### Describe
+
+In some situations where you need to view how your components and add-ons are actually being implemented and started by Diploi, you can use the **Describe** feature to review the Kubernetes config of a particular component in your deployment.
+
+<ImageToPNG src={PodDescribe} alt='Pod describe action'/>
+
+This will also show additional information, such as debug messages and pod specs, which could be used for debugging and support requests.
+
+<ImageToPNG src={PodDescribeOpen} alt='Pod describe dialog'/>
 
 ***
 
@@ -190,16 +240,6 @@ Here you can view how your application is using the resources available to the d
 Here you can visualize the overall resource usage of your deployment. You can adjust the timeframe to show 1 minute, 1 hour or 1 day.
 
 </div>
-
-***
-
-<div id='ssh-containers'/>
-
-:::tip
-You can connect directly to each container part of your deployment via SSH. To get the SSH connection string to each container, click on the _**Connect +**_ button next to each container and this will copy the connection string to your clipboard.
-
-<ImageToPNG src={CreateDeploymentConnect} alt='Conntect to container'/>
-:::
 
 ***
 
@@ -267,7 +307,7 @@ You can customize the environment variables that each of your components and add
 
 ## Deleting a Deployment
 
-When you don't need a deployment anymore, you can delete it by looking for the button _**Delete deployment**_ at the bottom of the Options tab. Be aware that this will permanently 
+When you don't need a deployment anymore, you can delete it by looking for the button **Delete deployment** at the bottom of the Options tab. Be aware that this will permanently 
 delete all data stored (such as code, databases etc.) associated with 
 the instance.
 

@@ -83,6 +83,7 @@ export default defineConfig({
           items: [
             "deploying/creating-a-project",
             "deploying/creating-a-deployment",
+            "deploying/cloning-a-deployment",
             "deploying/custom-domain",
           ],
         },
@@ -133,6 +134,7 @@ export default defineConfig({
         {
           label: "Reference",
           items: [
+            "reference/diploi-cli",
             "reference/technical-deep-dive",
             "reference/architecture",
             "reference/diploi-yaml",
