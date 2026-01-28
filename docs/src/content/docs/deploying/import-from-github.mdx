@@ -1,0 +1,85 @@
+---
+title: Import from GitHub
+description: Import your existing application from GitHub and host it on Diploi
+sidebar:
+    order: 3
+---
+
+import ImageToPNG from  "../../../components/ImageToPNG.astro"
+import DeploymentSizesAndPricing from  "../../../components/DeploymentSizesAndPricing.astro"
+import CreateDeploymentSize from '../../../assets/CreateDeploymentSize.png'
+import CreateDeploymentConnect from '../../../assets/CreateDeploymentConnect.png'
+import DisableDeploymentCard from '../../../assets/DisableDeploymentCard.png'
+import DisableDeploymentSwitch from '../../../assets/DisableDeploymentSwitch.png'
+import EnableDeployment from '../../../assets/EnableDeployment.png'
+import CloningAction from '../../../assets/CloningAction.png'
+import CloningDialogConfirmation from '../../../assets/CloningDialogConfirmation.png'
+import CloningDeploymentStage from '../../../assets/CloningDeploymentStage.png'
+import DeploymentEnvVars from '../../../assets/DeploymentEnvVars.png'
+import LaunchClonedDeployment from '../../../assets/LaunchClonedDeployment.png'
+
+If you already have an application that you would like to bring into Diploi, you can import it from GitHub.
+
+***
+
+## Supported Applications
+
+Currently you can import to Diploi any app built with:
+
+- Lovable
+
+
+The types of applications 
+
+You can import almost any kind of application to Diploi, but we currently don't support every case out of the box, which means that in many cases when you import an application it might require additional configuration work.
+
+
+To clone a deployment, from the deployment's dashboard, go to the tab **Options** and scroll to the bottom of the page.
+
+`https://console.diploi.com/<your account>/project/<project id>/deployment/<deployment id>/options`
+
+<ImageToPNG src={CloningAction} alt="Cloning a deployment"/>
+
+Look for the **Clone Deployment** section, and there you can click on the **Clone this deployment** button to launch the deployment cloning wizard, which is very similar to the deployment creation workflow.
+
+:::note[Keep in mind]
+During the process of cloning, you will be unable to make changes to the deployment.
+
+<ImageToPNG src={CloningDialogConfirmation} alt="Confirming the start of a cloning operation"/>
+:::
+
+### Assigning a Deployment Type
+
+When cloning a deployment, you can also change its stage. So you could clone a Production deployment and then create a clone deployment intended for Development, using your Production data.
+
+<ImageToPNG src={CloningDeploymentStage} alt="Clone deployment stage selection"/>
+
+For more information about the types of deployment stages, check [this article, which explains the differences between each type](/reference/deployments/deployment-lifecycle#deployment-stage).
+
+:::note
+When you create a new development deployment, it will be active for 12 hours, after which it will be automatically shut down to avoid unnecessary costs. For staging and production deployments, they are not started with a time limit, and will remain active until you shut them down manually.
+:::
+
+### Selecting the Deployment Size
+
+After assigning the stage for the cloned deployment, you can choose the size that the deployment should have. The available deployment sizes include:
+
+<DeploymentSizesAndPricing/>
+
+<ImageToPNG src={CreateDeploymentSize} alt="Deployment size"/>
+
+### Configuring Environment Variables
+
+Clone deployments inherit their Env values from the source deployment, which you can modify before launching the deployment.
+
+<ImageToPNG src={DeploymentEnvVars} alt="Environment variables for a cloned deployment"/>
+
+### Launching a Cloned Deployment
+
+Once you have finished configuring the type and size of the deployment, along with modifying any environment variables, you are ready to launch by clicking on "Clone Deployment" which can be found at the bottom of the clone creation wizard.
+
+<ImageToPNG src={LaunchClonedDeployment} alt="Starting a clone deployment"/>
+
+:::note
+There's no difference between cloned and non-cloned deployments in terms of how they operate. So you can expect it to behave exactly as any other deployment.
+:::

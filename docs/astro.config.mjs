@@ -83,6 +83,7 @@ export default defineConfig({
           items: [
             "deploying/creating-a-project",
             "deploying/creating-a-deployment",
+            "deploying/import-from-github",
             "deploying/cloning-a-deployment",
             "deploying/custom-domain",
           ],
