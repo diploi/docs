@@ -1,0 +1,456 @@
+---
+title: Troubleshooting
+description: Quick fixes and deep-dive guides for common Diploi issues (remote dev, Git, deployments, domains, add-ons).
+tableOfContents:
+    maxHeadingLevel: 2
+---
+import ImageToPNG from "../../components/ImageToPNG.astro"
+import DeploymentStage from '../../assets/DeploymentStage.png';
+import GithubActionResults from '../../assets/GithubActionResults.png';
+import ConfirmingChangesToDeployment from '../../assets/ConfirmingChangesToDeployment.png';
+import GithubActionFails from '../../assets/GithubActionFails.png';
+import DevelopSectionCopySSH from '../../assets/DevelopSectionCopySSH.png';
+import HealthyAddonExample from '../../assets/HealthyAddonExample.png';
+import DeploymentEnvVars from '../../assets/DeploymentEnvVars.png';
+import HeavyUtilization from '../../assets/HeavyUtilization.png';
+import CreateDeploymentSize from '../../assets/CreateDeploymentSize.png';
+
+
+Find the case that matches your situation and follow the checklist. Each section ends with what to collect if you need support.
+
+## Start here
+
+- **New issue and you’re not sure where to look?** Start with **[First-aid checklist](#first-aid-checklist)**
+- **Can’t connect to your environment?** Go to **[SSH and Remote Development](#ssh-and-remote-development)**
+- **Git push/pull/auth problems?** Go to **[Git and GitHub](#git-and-github-issues)**
+- **Build failed / deploy stuck / wrong version running?** Go to **[Builds and Deployments](#builds-and-deployments)**
+- **Domain or SSL issues?** Go to **[Custom domains & SSL](#custom-domains-and-ssl)**
+- **Database/add-on connection errors?** Go to **[Databases & add-ons](#databases-and-add-ons)**
+- **Slow app / OOM / resource limits?** Go to **[Performance & limits](#performance-and-limits)**
+- **Other issues not listed in this guide?** Go to **[Getting Help](#getting-help)**
+
+:::tip[Good to know]
+Most issues are commonly caused by runtime errors, which can be found by checking the deployment’s **logs** from the Overview tab.
+:::
+
+***
+
+<details>
+<summary>
+## First-aid checklist
+</summary>
+
+The fastest path from “something is broken” to a clear root cause. Try these steps first. They solve most issues in minutes.
+
+### 1. Identify the deployment stage
+
+- **Development**: meant for remote development (Browser IDE / VS Code / Cursor / Zed), code is editable live.
+- **Staging/Production**: runs a built image (CI/CD style), code changes come from a Git branch, and updates when you push updates to said branch.
+
+<ImageToPNG src={DeploymentStage} alt="Deployment Stage"/>
+
+### 2. Check status and logs
+
+- Open the deployment **Overview**
+- Look for:
+  - Failing containers/services
+  - Recent restarts
+  - Error lines in the logs of a component
+  - Deployment status shows "possible issues" or an error state
+
+### 3. Confirm what changed
+
+- A new dependency?
+- A change to `diploi.yaml`?
+- A DNS or domain change?
+- A framework upgrade?
+
+### 4. Try the smallest rollback
+
+- Revert the last change (code or config)
+- Restart the affected service/deployment
+- Stop and start the deployment again
+- If you updated a domain or DNS settings, you need to wait up to 30 minutes for the changes to propagate
+</details>
+
+***
+
+For more specific issues, refer to the cases listed below. In case none of the listed categories fit your situation, check the section showing how [to get help for other issues](#getting-help) and contact our team.
+
+***
+
+## How this guide is structured
+
+Each troubleshooting section follows the same pattern:
+
+1. **Symptoms** (what you see)
+2. **Fast fixes** (5-10 minutes)
+3. **Deep diagnosis**
+4. **If still stuck (collect this)**: a copy/paste checklist for support
+
+***
+<details>
+<summary>
+## SSH and Remote Development
+</summary>
+
+For issues related to remote access via SSH to development environments or app containers, via Browser IDE, VS Code, Cursor, Zed, or from a terminal.
+
+### Symptoms
+
+- VS Code/Cursor/Zed can’t connect (timeout, permission denied, handshake failed)
+- SSH prompts keep repeating when you try to connect with your local IDE
+- Browser IDE works, but local IDE does not
+- Connection fails when trying to access a container with SSH
+
+### Fast fixes
+
+#### Confirm your SSH key is added
+
+Follow the SSH key guide and re-check that you pasted the **public** key (the `.pub` content).  
+See: [Connecting via SSH](/building/add-ssh-key/)
+
+#### Try connecting using SSH from the terminal
+
+From the deployment Overview, copy the **Connect via SSH** command and run it locally.
+
+<ImageToPNG src={DevelopSectionCopySSH} alt="Connecting to a development environment via SSH"/>
+
+Then use the copied SSH connection string from your terminal, eg, `ssh dev-z8E49384c728@console.diploi.com`
+
+- If this fails, when you try connecting from your local IDE, it will also fail.
+- If this succeeds, the issue is usually local IDE configuration or possibly because your SSH private key has not been added to the SSH agent.
+
+#### Windows and WSL
+
+If you use Windows with WSL, verify which environment your IDE is using for SSH keys, Windows user, or WSL user.
+
+### Deep diagnosis
+
+#### Host key / known_hosts conflicts
+
+If you see messages about a host key changing, remove the old entry from your `~/.ssh/known_hosts` (or use `ssh-keygen -R <host>`), then reconnect.
+
+#### Permissions
+
+Ensure:
+- `~/.ssh` has read/write/execute permissions, using the command `chmod 700 ~/.ssh`
+- Private and public keys must have read/write permissions, using the command `chmod 600 <path-to-ssh-key>/<ssh-key>` for the key pair used.
+
+### If still stuck (collect this)
+
+- Exact SSH command you ran
+- Full terminal output (redact secrets)
+- Your OS and IDE (VS Code/Cursor) version
+- Whether Browser IDE works
+- [Contact us](#where-to-ask)
+</details>
+
+***
+<details>
+<summary>
+## Git and GitHub issues
+</summary>
+
+For issues related to GitHub auth, push/pull failures, and repository access problems in Diploi deployments.
+
+### Symptoms
+
+- `fatal: Authentication failed`
+- `remote: Permission to <repo> denied`
+- The production and Staging environments fail to update
+
+### Fast fixes
+
+#### 1. Retry running the git command
+
+In some situations, when you try to run a git command, eg, `git pull`, the first try might fail due to connection issues or latency, but in most cases, trying to run the command again can clear the issue.
+
+#### 2. Verify that Diploi still has access to the repository
+
+If you recently modified Diploi's access to your repositories, it is possible that the project you are using is no longer in sync with GitHub, which would prevent you from pushing or pulling. To restore access, visit https://github.com/settings/installations/ and check if Diploi is still installed in the repository linked to your Diploi project.
+
+#### 3. Check that the GitHub actions succeed after pushing an update
+
+For situations when your Staging or Production environments show a version of your application which is not the latest, check that the branch where you pushed your updates has run an action and is marked as successful.
+
+<ImageToPNG src={GithubActionResults} alt="GitHub Action results"/>
+
+Diploi uses GitHub Actions to create builds of your application for Development and for Staging/Production.
+
+### Deep diagnosis
+
+#### Your project was initiated without a repository
+
+If you started a project without a repository, and you use git init or clone a repository inside the repository, then any authentication you add to sync with GitHub won't be managed by Diploi, so if you create new deployments, you'll need to manually authenticate in GitHub in order to sync your code.
+
+### If still stuck (collect this)
+
+- The command you ran (`git fetch`, `git push`, etc.)
+- The exact error output
+- Whether this is a Development deployment or a Staging/Production stage
+- Whether the deployment has an assigned user
+- [Contact us](#where-to-ask)
+</details>
+
+***
+<details>
+<summary>
+## Builds and Deployments
+</summary>
+
+Troubleshoot failed builds, stuck rollouts, wrong version running, and unhealthy services.
+
+### Symptoms
+
+- Deployment stuck on “starting” / "Initializing" / "Possible issues" / "Error"
+- App is up, but is not showing the latest commit
+- One component/add-on fails to run or restarts constantly
+- Staging/production doesn’t reflect `diploi.yaml` changes
+
+### Fast fixes
+
+#### 1. Confirm deployment type
+
+- Development deployments are optimized for remote dev
+- Staging/Production deployments run a built image
+
+#### 2. Check the deployment status tree and service logs
+
+Inspect the failing components/add-ons and check their logs, looking for errors. If the components and add-ons seem to be working correctly, but your application still shows errors, open the live view of each component with the browser Developer Tools open.
+
+Check the console and network tabs to find any potential issues preventing your application from running.
+
+#### 3. Verify that the ports used in your application config match the Dockerfile settings
+
+If you configured the ports used by a component or add-on in your application, make sure to update them inside the `Dockerfile` (for Staging/Production) and the `Dockerfile.dev` (for Development environments).
+
+#### 4. Verify your CI/CD run
+
+If your project's GitHub Action didn’t run or at least one of the builds failed, the deployment will remain on the last build where all components were successful. You can find the issues with your GitHub Actions by reviewing the execution logs of the action.
+
+### Deep diagnosis
+
+#### Config changes (`diploi.yaml`) not taking effect
+
+- Confirm that the `diploi.yaml` file is in the repo and committed
+- Confirm that the change is on the branch tied to the deployment
+- Make sure to apply any changes from your `diploi.yaml` file to your deployment, and then push the changes to your repository
+
+<ImageToPNG src={ConfirmingChangesToDeployment} alt="Confirming changes to Deployments"/>
+
+#### Other common failure patterns
+
+##### GitHub Action build fails
+- Check the GitHub Action's workflow run logs
+- Make sure that dependency changes are part of the lockfiles of your components, eg, for Python `uv.lock`, for JS `package-lock.json`
+
+<ImageToPNG src={GithubActionFails} alt="Build fails"/>
+
+##### Build succeeds, but runtime fails
+- Make sure that all necessary ENV variables are defined
+- If your components require add-ons to operate, make sure to run the necessary migrations and that the add-ons are reachable
+- If you made changes to a component and now use a different run command, update it inside the `Dockerfile` and `Dockerfile.dev` belonging to the component
+
+### If still stuck (collect this)
+
+- Deployment stage and name
+- Link to the CI run (if it's a public repository)
+- Logs from the failing service (include startup section)
+- What changed (code/config/add-ons)
+- [Contact us](#where-to-ask)
+</details>
+
+***
+<details>
+<summary>
+## Custom domains and SSL
+</summary>
+
+For issues linked to DNS records, propagation, and SSL provisioning issues for custom and Diploi domains.
+
+### Symptoms
+
+- After changing a deployment's domain, the app fails to render
+- DNS works for `www` but not apex/root
+- SSL pending or browser certificate warning
+- Domain verified in one place (DNS) but not in Diploi
+
+### Fast fixes
+
+#### 1. Verify the record type and target
+
+- Subdomain usually uses a **CNAME** pointing to `edge.diploi.me`
+- Ensure the **name/host** matches the subdomain you intended
+
+#### 2. Wait for DNS propagation
+
+Use your DNS provider UI to confirm the change is saved and active. Changes to DNS records can take up to 30 minutes to propagate.
+
+#### 3. Apex/root domains
+
+Some providers need ALIAS/ANAME-style records for apex domains. Make sure to assign the right record type. For more information about record types, check our article listing the types of records supported based on the provider you use: [Configuring a custom root domain](/deploying/custom-domain#configuring-a-custom-root-domain).
+
+#### 4. Verify your application's endpoints are not hardcoded or defaulting to use http
+
+If you use hardcoded endpoints within your application, remember to update them to match your new domain, and verify that they use https by default. In Diploi, both custom and autogenerated domains are SSL-protected by default.
+
+:::note
+If your provider only supports A records at the root, document what you tried and contact us.
+:::
+
+### Deep diagnosis
+
+#### Wrong environment bound to the domain
+
+Diploi supports domains at both project and deployment levels. Verify you added it to the intended level.
+
+### If still stuck (collect this)
+
+- Domain name and record screenshots
+- Which DNS provider do you use
+- Whether it’s project-level or deployment-level domain
+- Timestamp when you updated DNS
+</details>
+
+***
+<details>
+<summary>
+## Databases and add-ons
+</summary>
+
+Fixing connection issues, missing env vars, and common configuration mistakes with add-ons like Postgres/Redis/Mongo/MariaDB/MinIO.
+
+### Symptoms
+
+- “Connection refused”
+- “password authentication failed”
+- App starts, but features using the DB fail
+- Works in dev, fails in staging/prod (or vice versa)
+
+### Fast fixes
+
+#### 1. Confirm the add-on is running and healthy
+
+Check the deployment Overview status tree and the add-on logs.
+
+<ImageToPNG src={HealthyAddonExample} alt="Healthy add-on example"/>
+
+#### 2. Confirm if your app imports env variables from the deployment or from a .env file
+
+If your application is using both an `.env` file and the environment variables of the deployment, your application might have conflicting duplicate variable declarations. Make sure to only use one source for your environment variables.
+
+We recommend that you keep your variables declared with the deployment environment variables.
+
+<ImageToPNG src={DeploymentEnvVars} alt="Deployment environment variables"/>
+
+#### 3. Trying to connect to an Add-on from a service or API outside of your deployment
+
+Add-ons hosted on Diploi are not accessible to services outside of the deployment they belong to. If you want to make data accessible to external services, you need to create a broker service that would handle requests on behalf of the add-on you want to access.
+
+### Deep diagnosis
+
+#### Migrations/schema init
+If the DB is reachable but your app still errors, check whether migrations ran and whether they’re expected to run during startup.
+
+### If still stuck (collect this)
+
+- Add-on type and identifier
+- Failing error message and stack trace
+- Add-on logs around startup
+- [Contact us](#where-to-ask)
+</details>
+
+***
+<details>
+<summary>
+## Performance and limits
+</summary>
+
+Issues related to slow apps, out-of-memory(OOM) states, and deployment crashes due to high resource load and usage.
+
+### Symptoms
+
+- Slow responses/timeouts
+- Container shuts down/OOM/crash loops under load
+- Deploy show state as "running" but none of the container logs are visible and endpoints fail to load
+- Works in Development but not Production
+
+### Fast fixes
+
+#### 1. Check resource graphs and container restarts
+
+Look for spikes, sustained high usage, or repeated restarts. 
+
+<ImageToPNG src={HeavyUtilization} alt="Deployment using resources heavily"/>
+
+#### 2. Increase deployment size or split into multiple deployments
+
+In situations where you are running heavy workloads or running many components/add-ons in one deployment, the resource needs of the deployment can rise and cause Kubernetes to kill all containers in the deployment.
+
+Try increasing the size of the cluster that your deployment uses or splitting your application into multiple projects.
+
+<ImageToPNG src={CreateDeploymentSize} alt="Updating the size of a deployment"/>
+
+#### 3. API connections break due to 504 Gateway Timeout, proxy timeout, or idle timeout
+
+**Diploi has a connection length limit per request/response processed by a service of 60 seconds**. If a request takes more than 60 seconds to be handled, the connection will be terminated, and your process waiting for a response will fail.
+
+In cases when a request could take longer than 60 seconds, we recommend you add pooling or a webhook to send the response to a request when the service is ready.
+
+
+### Deep diagnosis
+
+#### Performance issues during cold starts or while running
+
+If your deployment is slow during start-up only, it could be due to the size of the build image and might not affect the actual running performance of your application. This is common for deployments with n8n, Supabase, and/or Ghost components, which can consume a large share of resources during startup, compared with other of our supported components.
+
+
+#### Performance issues during cold starts or while running
+
+If your deployment experiences slow performance exclusively during cold starts, it is usually due to the containerization process and **cannot be significantly improved**.
+
+This **does not impact the actual running performance** of your application once initialized. You might notice this with resource-intensive components like n8n, Supabase, or Ghost during startup.
+
+For cases when runtime performance is the issue, try optimizing your application's architecture:  
+- Use database indexes and caching strategies  
+- Minimize synchronous operations during request handling  
+- Check if third-party services are causing bottlenecks  
+
+The main point to note is that cold-start delays might be unavoidable for some components, while runtime performance is directly influenced by your application's design and configuration.
+
+### If still stuck (collect this)
+
+- Average traffic volume
+- CPU/RAM utilization
+- Logs from the components and/or add-ons where timeouts and out-of-memory events happened
+- [Contact us](#where-to-ask)
+</details>
+
+***
+
+## Getting help
+
+In case your situation is not included in the listed issues above, or this guide is not enough to handle the issue you encountered, here we list some general information you can share with us to handle your support request faster.
+
+### Before you reach out
+
+Make sure you’ve done:
+- [First-aid checklist](#first-aid-checklist)
+- Collected logs and exact error(s) text
+- Include any additional details which are relevant to your issue
+
+### What to include
+
+- Project ID
+    - console.diploi.com/*USERNAME*/project/**PROJECT_ID**
+- Deployment ID
+    - console.diploi.com/*USERNAME*/project/*PROJECT_ID*/deployment/**DEPLOYMENT_ID**
+- Description of the issue and expected behavior
+- Steps to reproduce the issue
+- Logs (20-50 lines) showing the errors triggered
+- Your Diploi username or GitHub account
+
+### Where to ask
+
+You can contact us directly via email [hello@diploi.com](mailto:hello@diploi.com) or by messaging us in our [Discord community](https://discord.com/invite/vvgQxVjC8G)

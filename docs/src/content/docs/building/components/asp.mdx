@@ -1,0 +1,43 @@
+---
+title: ASP.NET
+description: Build applications using .NET.
+---
+
+ASP.NET is Microsoft’s open-source web framework for building modern, high-performance web apps and APIs with .NET. Choose this component when you’re shipping server-rendered sites, REST backends, or full-stack applications that benefit from the .NET ecosystem and tooling. Diploi handles the build/publish pipeline and runs your ASP.NET app as a service with the runtime and networking it needs.
+
+
+## Add ASP.NET to an existing project
+
+Paste this entry into the `components` list in `diploi.yaml` to add ASP.NET to your project.
+
+```yaml
+components:
+  - name: ASP.NET Core
+    identifier: asp
+    package: https://github.com/diploi/component-asp#main
+    
+```
+
+:::note
+- identifier must match the folder name you use for this component in your repo.
+- You can import ENV from add-ons into components using env.include, depending on the db your project uses.
+
+Example:
+
+```yaml
+env:
+  include:
+    - mariadb.*
+    - minio.*
+    - mongo.*
+    - postgres.*
+    - redis.*
+```
+:::
+
+## See also
+
+- [Using Components](/building/components)
+- [ASP.NET component repository](https://github.com/diploi/component-asp)
+- [ASP.NET docs](https://learn.microsoft.com/en-us/aspnet/core/)
+- [Learn more about the `diploi.yaml` file](/reference/diploi-yaml)
