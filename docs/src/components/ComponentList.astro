@@ -11,7 +11,11 @@ if (!data || data.status !== "ok") {
   throw new Error(`Failed to load pricing (${data})`);
 }
 
-const componentList = data.components as DiploiElement[];
+interface Props { componentsToShow: string[] }
+
+const {componentsToShow = []} = Astro.props
+
+const componentList:DiploiElement[] = componentsToShow.length > 0 ? data.components.filter((c:DiploiElement) => componentsToShow.includes(c.name)) : data.components;
 ---
 
 <h4>Components available</h4>
