@@ -14,7 +14,7 @@ export default defineConfig({
   }),
   vite: {
     server: {
-      allowedHosts: [".diploi.app"],
+      allowedHosts: [".diploi.me"],
     },
   },
   integrations: [

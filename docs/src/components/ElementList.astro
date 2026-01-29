@@ -1,0 +1,53 @@
+---
+import ElementCard from "./ElementCard.astro";
+import { ElementType, type DiploiElement } from "./types";
+
+interface Props {
+  type: 'component' | 'addon' | 'starter';
+  elementsToShow?: string[];
+  heading?: string;
+  hideHeading?: boolean;
+}
+
+const {
+  type,
+  elementsToShow = [],
+  heading,
+  hideHeading = false
+} = Astro.props;
+
+const defaultHeadings = {
+  component: "Components available",
+  addon: "Add-ons available",
+  starter: "Starter kits available",
+};
+
+const {
+  result: { data },
+} = await fetch(
+  `${import.meta.env.API_URL || "https://console.diploi.com"}/api/trpc/stack.listPreviewComponents`,
+).then((response) => response.json());
+
+if (!data || data.status !== "ok") {
+  throw new Error(`Failed to load ${type}s (${data})`);
+}
+
+const componentTypeID = ElementType[type];
+let elementList: DiploiElement[] = data.components.filter(
+  (element: DiploiElement) => element.componentTypeID === componentTypeID
+);
+
+if (elementsToShow.length > 0) {
+  elementList = elementList.filter((element) =>
+    elementsToShow.includes(element.name)
+  );
+}
+
+const displayHeading = heading || defaultHeadings[type];
+---
+
+{!hideHeading && <h4>{displayHeading}</h4>}
+
+<div class="flex gap-8 items-baseline flex-wrap">
+  {elementList.map((element) => <ElementCard element={element} />)}
+</div>
