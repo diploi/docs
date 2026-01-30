@@ -79,6 +79,13 @@ Version comes after the hashtag `#` symbol. Version can be a Git tag or branch r
 ENV values from other components aren't available by default, but can be configured here.
 Importing an ENV variable means making it available for processes inside of a component.
 
+#### Import From Other Components
+
+Imports let you reuse ENV values from other components,
+keeping everything in sync and avoiding repetitive manual configuration.
+
+Open the **Options** tab for any component to see the values it defines,
+review the ones it currently imports, and override individual entries whenever you need a custom value.
 
 ```yaml
 env:
@@ -90,16 +97,16 @@ env:
     # Imports all ENV values that start with `POSTGRES_` from a component with the `postgres` identifier
     - postgres.POSTGRES_*
     # Imports all ENV values from all components where an identifier starts with `post`
-    - `post*`
+    - post*
     # Imports the `POSTGRES_USER` ENV value from a component with the `postgres` identifier
     - postgres.POSTGRES_USER
     # Imports the `POSTGRES_USER` ENV value from a component with the `postgres` identifier and renames it to `DB_USER`
     - postgres.POSTGRES_USER:DB_USER
+
+    # Alternative syntax for renaming
+    - path: postgres.POSTGRES_USER
+      name: DB_USER
 ```
-
-#### `import`
-
-A list of ENV values available for processes inside of this component.
 
 You can use wildcards when importing values.
 - `*`
@@ -116,3 +123,26 @@ You can use wildcards when importing values.
 You can remap individual ENV values while importing them
 - `postgres.POSTGRES_USER:DB_USER`
   - Imports the `POSTGRES_USER` ENV value from a component with the `postgres` identifier and renames it to `DB_USER`
+
+#### Static Values
+
+Static values let you define build-time variables that are exposed to GitHub Actions workflows.
+
+```yaml
+env:
+  include:
+    - value: test
+      name: TEST
+```
+
+Diploi forwards static values as Docker build arguments.
+You can access them inside your component's `Dockerfile` and `Dockerfile.dev` with the `ARG` instruction and promote them to regular environment variables if needed.
+
+```dockerfile
+ARG TEST
+ENV TEST_VALUE=$TEST
+```
+
+Static values are scoped to the component where they are declared and remain consistent across deployments.
+Use the **Options** tab when you need runtime configuration instead.
+You can also overwrite a static ENV value in the **Options** tab without changing it in the config.
