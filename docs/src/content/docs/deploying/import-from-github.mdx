@@ -5,9 +5,10 @@ sidebar:
     order: 3
 ---
 
+import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 import ElementList from '../../../components/ElementList.astro'
-import ImageToPNG from  "../../../components/ImageToPNG.astro"
-import DeploymentSizesAndPricing from  "../../../components/DeploymentSizesAndPricing.astro"
+import ImageToPNG from "../../../components/ImageToPNG.astro"
+import DeploymentSizesAndPricing from "../../../components/DeploymentSizesAndPricing.astro"
 import CreateDeploymentSize from '../../../assets/CreateDeploymentSize.png'
 import CreateDeploymentConnect from '../../../assets/CreateDeploymentConnect.png'
 import DisableDeploymentCard from '../../../assets/DisableDeploymentCard.png'
@@ -18,73 +19,188 @@ import CloningDialogConfirmation from '../../../assets/CloningDialogConfirmation
 import CloningDeploymentStage from '../../../assets/CloningDeploymentStage.png'
 import DeploymentEnvVars from '../../../assets/DeploymentEnvVars.png'
 import LaunchClonedDeployment from '../../../assets/LaunchClonedDeployment.png'
+import RepositoryDefaultImport from '../../../assets/RepositoryDefaultImport.png'
+import StartAProject from '../../../assets/StartAProject.png'
+import SwitchTabToImport from '../../../assets/SwitchTabToImport.png'
+import GitHubRepoAccess from '../../../assets/GitHubRepoAccess.png'
+import AnalyzeRepository from '../../../assets/AnalyzeRepository.png'
+import RepositoryCreatedWithDiploiImport from '../../../assets/RepositoryCreatedWithDiploiImport.png'
+import RepositoryCreatedWithDiploiImport2 from '../../../assets/RepositoryCreatedWithDiploiImport2.png'
+import ImportRepoFinalConfig from '../../../assets/ImportRepoFinalConfig.png'
 
-If you already have an application that you would like to bring into Diploi, you can import them using **GitHub**. Although it is technically possible to import any application, not every kind of app will work right away, and it might require adjustments in order to work properly after import.
+If you already have an application that you would like to bring into Diploi, you can import them using **GitHub**.
 
 ***
 
+## How to Import an Existing App into Diploi
+
+Diploi offers two ways to import projects, by selecting the repo you want to import from a list of available repositories in your GitHub account or by using a URL.
+
+<Steps>
+
+1. Start a new project
+    <ImageToPNG src={StartAProject} alt="Default import for applications that are not fully supported"/>
+
+2. Then switch from "Start From Scratch" to the "Import Repository" tab
+    <ImageToPNG src={SwitchTabToImport} alt="Default import for applications that are not fully supported"/>
+
+3. Now you can select the source code you want to import. You can either select a repository stored in your own GitHub account or use a URL to import a public repo. 
+    :::note
+    You can also import your own repositories via URL, as long as you have approved Diploi to have access to them or if they are public.
+    :::
+    <ImageToPNG src={GitHubRepoAccess} alt="Installing Diploi on specific repos"/>
+
+4. Once you have selected the repository you'll import, click on the "Analyze Repository" button. Diploi will then look for the configuration files in your repository, for example, `package.json` or 'requirements.txt', to determine how to properly import your project to Diploi.
+
+    <ImageToPNG src={AnalyzeRepository} alt="Analyze repository before importing a project"/>
+
+    :::note
+    In cases when Diploi can't automatically configure an app to be hosted, Diploi will use a default configuration for Node.js, so you can start the project and try to make the necessary changes to be able to run it.
+
+    If you need assistance configuring your imported project, contact us [via email](mailto:hello@diploi.com) or in [Discord](https://discord.com/invite/vvgQxVjC8G).
+    <ImageToPNG src={RepositoryDefaultImport} alt="Default import for applications that are not fully supported"/>
+    :::
+    :::tip
+    As mentioned before, any repository created using Diploi can be imported without additonal configuration required.
+
+    <ImageToPNG src={RepositoryCreatedWithDiploiImport} alt="Importing a project built with Diploi"/>
+    :::
+
+5. After Diploi analyzes your repository, you'll be able to make some adjustments to the project before launching on Diploi. Once your project is setup, just click on "Launch Stack" to start your first deployment.
+    <ImageToPNG src={ImportRepoFinalConfig} alt="Configuration summary for an imported project, ready to be launched"/>
+
+6. Now you should have a development deployment running. If your project is not loading properly or fails to start, check the deployment logs.
+    :::tip
+    Diploi uses default port configurations for all supported frameworks and databases, so if your application uses other ports, try first changing your ports to match the ones used by Diploi. You can find the default port config, by opening the `dockerfile.dev` from the remote development environment.
+    :::
+</Steps>
+
+### Other considerations
+
+#### Run command config
+
+By default, Diploi will use common run commands for development and staging/production deployments, so there might be some situations when your imported application might fail because your project uses different run commands. To handle these situations, you can either modify the `dockerfile` and `dockerfile.dev` created by diploi, or by modifying your app's config to include the commands used by Diploi to run your application.
+
+#### Importing an external public repository
+
+When you can import a publicly available repository, which doesn't belong to your GitHub account, you will have the option of creating a new repository in your account to store your code, or start a project without a repository.
+
+In case you choose to proceed without a repo, your project won't be able to start a Production or Staging deployment, because Diploi creates a GitHub Action which takes care of creating a build of your project, which can be ran in Staging and Production.
+
+:::caution
+You cannot add a repository to an existing project. If you need to import an application and link it to a new repository, you will need to go through the process of importing the app again and then create a new repository before launching the project.
+
+For more information about the differences between projects with or without a repository, [check this article going over their properties](/reference/projects/project#project-types).
+:::
+
+#### Importing an app from a repository you own
+
+When you import from a repo you own, Diploi will use the same repository by default to store your code, so any change you make to your project can be pushed to the same repository you imported from.
+
+Currently, you can't import a repository and save it in a new repository.
+
+:::note
+Once you import an application, you will need to push the files that Diploi creates in your project directly to the `main` branch of your repository. This is needed because Diploi uses Docker in the background to host your application, and it uses a GitHub Action to generate a Docker build that can be used by Diploi.
+:::
+
 ## Supported Applications
 
-We currently offer complete support for applications built with:
+Although it is technically possible to import any application, not every app will work right away, and they might require additional work in order to run properly after you import them to Diploi.
 
-<ElementList type={'component'} elementsToShow={['Lovable','Node.js','React + Vite']}/>
-
-Currently you can import to Diploi any application built using **Lovable** or with **Diploi**.
-
-### How to import an app built with Lovable
-
-
-The types of applications 
-
-You can import almost any kind of application to Diploi, but we currently don't support every case out of the box, which means that in many cases when you import an application it might require additional configuration work.
-
-
-To clone a deployment, from the deployment's dashboard, go to the tab **Options** and scroll to the bottom of the page.
-
-`https://console.diploi.com/<your account>/project/<project id>/deployment/<deployment id>/options`
-
-<ImageToPNG src={CloningAction} alt="Cloning a deployment"/>
-
-Look for the **Clone Deployment** section, and there you can click on the **Clone this deployment** button to launch the deployment cloning wizard, which is very similar to the deployment creation workflow.
-
-:::note[Keep in mind]
-During the process of cloning, you will be unable to make changes to the deployment.
-
-<ImageToPNG src={CloningDialogConfirmation} alt="Confirming the start of a cloning operation"/>
-:::
-
-### Assigning a Deployment Type
-
-When cloning a deployment, you can also change its stage. So you could clone a Production deployment and then create a clone deployment intended for Development, using your Production data.
-
-<ImageToPNG src={CloningDeploymentStage} alt="Clone deployment stage selection"/>
-
-For more information about the types of deployment stages, check [this article, which explains the differences between each type](/reference/deployments/deployment-lifecycle#deployment-stage).
+You can **import any application built with Diploi**, or with any of these frameworks:
+<ElementList hideHeading type={'component'} elementsToShow={['Lovable','Node.js','React + Vite']}/>
 
 :::note
-When you create a new development deployment, it will be active for 12 hours, after which it will be automatically shut down to avoid unnecessary costs. For staging and production deployments, they are not started with a time limit, and will remain active until you shut them down manually.
+As noted before, Diploi will apply a default configuration for Node.js to your imported project, in cases when it can't automatically setup your application to be hosted. You can modify your application's tech stack [from the `diploi.yaml` file](/reference/diploi-yaml).
 :::
 
-### Selecting the Deployment Size
+### Apps built on Diploi
 
-After assigning the stage for the cloned deployment, you can choose the size that the deployment should have. The available deployment sizes include:
+Any application built on Diploi, can be imported into a new project without any additional configuration. Diploi will provision any component and add-on specified in the `diploi.yaml` file, but with the caveat that any environment variables used in the project must then be set manually, since Diploi doesn't store the project's secrets on GitHub.
 
-<DeploymentSizesAndPricing/>
-
-<ImageToPNG src={CreateDeploymentSize} alt="Deployment size"/>
-
-### Configuring Environment Variables
-
-Clone deployments inherit their Env values from the source deployment, which you can modify before launching the deployment.
-
-<ImageToPNG src={DeploymentEnvVars} alt="Environment variables for a cloned deployment"/>
-
-### Launching a Cloned Deployment
-
-Once you have finished configuring the type and size of the deployment, along with modifying any environment variables, you are ready to launch by clicking on "Clone Deployment" which can be found at the bottom of the clone creation wizard.
-
-<ImageToPNG src={LaunchClonedDeployment} alt="Starting a clone deployment"/>
+<ImageToPNG src={RepositoryCreatedWithDiploiImport2} alt="Additional example importing an app built with Diploi"/>
 
 :::note
-There's no difference between cloned and non-cloned deployments in terms of how they operate. So you can expect it to behave exactly as any other deployment.
+Any changes to component and/or add-on identifiers and root folders, can break the base configuration of a project imported, so remember to update any references changed.
+:::
+
+### Apps built on Lovable
+
+If you built a project on Lovable, you can seamlessly import it to Diploi. All you need to do is sync your application on GitHub.
+
+For Lovable projects using Supabase, you can use the open source version of Supabase that is available on Diploi. You can add Supabase by adding the snippet to your `diploi.yaml` file.
+
+```
+  - name: Supabase
+    identifier: supabase
+    package: https://github.com/diploi/component-supabase#main
+```
+
+Paste the snippet within the `components` field in the `diploi.yaml`, usually found in the root of your project.
+
+```
+components:
+  - name: Lovable
+    ...
+
+  - name: Supabase
+    identifier: supabase
+    package: https://github.com/diploi/component-supabase#main
+```
+
+If you would like a detailed walkthrough about how to import an application built with Lovable, [click here to check our tutorial explaining how to do it](https://diploi.com/blog/importing_from_lovable_and_github). We also have a guide walkthough explaining how to use Cursor for your imported Lovable app, which [you can check by clicking here](https://diploi.com/blog/exporting_from_lovable_to_cursor).
+
+:::tip
+To add additional frameworks and databases to your imported Lovable app, add the components and add-ons you would like by modifying the `diploi.yaml` file. [Click here for more information about how to do it](/reference/diploi-yaml).
+:::
+
+#### Running Supabase Migrations after Importing a Lovable App
+
+If you are Lovable project with Supabase, you'll need to run the necessary migrations, which should be stored inside your Supabase folder, as `migrations`.
+
+You can apply the migrations to your new Supabase instance by running the command `supabase migration up` from the development environment created when you import the project.
+
+### Apps built with Node.js or React + Vite
+
+Diploi allows you to import any application built with Node or React-Vite, but it might require changes if you expose non-default ports for your application or run if your application uses special commands to run in development or staging/production.
+
+### Default Config for Imported apps
+
+These are the default values used by Diploi to run applications. If your import app using different commands to the ones shown here, make sure to either add or modify them in your project to match these values, or you can also modify these defaults by editing the Dockerfiles created by Diploi inside of your project.
+
+<Tabs >
+    <TabItem label="for Node.js apps">
+    - Port exposed: 3000
+    - Package manager: npm
+    - **Development**
+        - Package installation command: `npm install`
+        - RUN command: `npm run dev`
+    - **Staging**
+        - Package installation command: `npm install`
+        - Build command: `npm run build`
+        - RUN command: `npm run start`
+    - **Production**
+        - Package installation command: `npm install`
+        - RUN command: `npm run start`
+    </TabItem>
+    <TabItem label="for React + Vite apps">
+    - Port exposed: 5173
+    - Package manager: npm
+    - **Development**
+        - Package installation command: `npm install`
+        - RUN command: `npm run dev`
+    - **Staging**
+        - Package installation command: `npm install`
+        - Build command: `npm run build`
+        - RUN command: `npm run start`
+    - **Production**
+        - Package installation command: `npm install`
+        - RUN command: `npm run start`
+    </TabItem>
+</Tabs>
+
+:::tip
+Besides `npm`, Diploi also supports `yarn` and `pnpm` as package managers.
+
+For Python-based applications, currently only `uv` is supported.
 :::
