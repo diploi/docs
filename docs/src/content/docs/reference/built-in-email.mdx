@@ -1,0 +1,77 @@
+---
+title: Built-In Email
+description: Use Diploi's internal SMTP relay for development-friendly email delivery.
+---
+
+Diploi provides a lightweight SMTP relay inside every deployment so your applications can send email without provisioning an external provider.
+The service is intended for development and low-volume operational notifications.   
+The SMTP relay is included with your deployment at no additional cost.
+
+## Connection details
+
+Connect using these values:
+
+- Host: `core.diploi`
+- Port: `2525`
+- Authentication: Not required
+
+:::note
+This SMTP relay is only reachable from processes running inside your Diploi deployment network. External services cannot connect.
+:::
+
+### Example configuration
+
+```ts
+import nodemailer from "nodemailer";
+
+const transporter = nodemailer.createTransport({
+	host: "core.diploi",
+	port: 2525,
+});
+
+await transporter.sendMail({
+	to: "user@example.com",
+	subject: "Verify your email",
+	text: "Click the link in the email to verify your account.",
+});
+```
+
+## Component integration
+
+The Supabase component automatically points its email authentication workflows at this relay, giving you out-of-the-box email confirmation flows without additional configuration.
+
+## Usage limits
+
+:::caution
+The relay enforces strict rate limits to keep the service reliable for all tenants.
+:::
+
+- Maximum 10 messages per hour
+- Maximum 30 messages per day
+- Contact support if you need higher throughput
+
+## Header normalization
+
+To protect deliverability, Diploi rewrites certain email headers. These headers are stripped if present:
+
+- `from`
+- `to`
+- `sender`
+- `reply-to`
+- `return-path`
+- `resent-from`
+- `resent-to`
+- `resent-sender`
+- `bcc`
+- `cc`
+- `errors-to`
+- `x-original-from`
+- `x-envelope-from`
+
+Diploi sets the `from` address to your project's default domain for every message.
+
+## Best practices
+
+- Use the relay for development and staging workloads; production-grade email should use a dedicated provider once you outgrow the limits.
+- Keep transactional content concise to avoid hitting daily limits.
+- Reach out to support if you need custom limits or additional deliverability controls.
