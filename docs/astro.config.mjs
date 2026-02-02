@@ -14,7 +14,7 @@ export default defineConfig({
   }),
   vite: {
     server: {
-      allowedHosts: ['.diploi.app'],
+      allowedHosts: [".diploi.me"],
     },
   },
   integrations: [
@@ -81,10 +81,11 @@ export default defineConfig({
         {
           label: 'Deploying',
           items: [
-            'deploying/creating-a-project',
-            'deploying/creating-a-deployment',
-            'deploying/cloning-a-deployment',
-            'deploying/custom-domain',
+            "deploying/creating-a-project",
+            "deploying/creating-a-deployment",
+            "deploying/import-from-github",
+            "deploying/cloning-a-deployment",
+            "deploying/custom-domain",
           ],
         },
         {

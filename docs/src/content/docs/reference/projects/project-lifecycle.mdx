@@ -10,9 +10,8 @@ import ProjectOptionsGeneral from '../../../../assets/ProjectOptionsGeneral.png'
 import ProjectOptionsDomain from '../../../../assets/ProjectOptionsDomain.png';
 import ProjectOptionsComponentsAndAddons from '../../../../assets/ProjectOptionsComponentsAndAddons.png';
 import DeleteProject from '../../../../assets/DeleteProject.png';
-import ComponentList from "../../../../components/ComponentList.astro"
+import ElementList from "../../../../components/ElementList.astro"
 import ImageToPNG from "../../../../components/ImageToPNG.astro"
-import AddonList from "../../../../components/AddonList.astro"
 
 ## Creating a Project
 
@@ -27,13 +26,13 @@ Every project is started from the set of components and add-ons you choose and t
 
 You can think of components as the application layer of your project. In Diploi you can have multiple options available to define your application, which you can mix as you wish.
 
-<ComponentList/>
+<ElementList type={'component'}/>
 
 ### Add-ons
 
 Add-ons provide services used by your application. In general, add-ons in Diploi are services that do not require direct development work, which can be services like databases, analytics services, CMS dashboards, etc.
 
-<AddonList/>
+<ElementList type={'addon'}/>
 
 :::note
 Services are not exposed publicly by default. They can only be accessed by the components in your project.
@@ -64,6 +63,8 @@ Once you choose between using a new repository or launching without a repository
 
 :::note
 **Using an existing repository and importing an application to Diploi** is not yet an automagically process, but it is possible. If you would like to bring your existing application to Diploi, contact us on <a href="https://discord.gg/vvgQxVjC8G" target="_blank">Discord</a> or [via email](mailto:hello@diploi.com).
+
+For more information about how to use the Import from GitHub feature, [check this article](/deploying/import-from-github).
 :::
 
 ***
