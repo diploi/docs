@@ -1,0 +1,39 @@
+---
+title: PostgreSQL
+description: Provision PostgreSQL as a Diploi add-on for relational data.
+---
+
+PostgreSQL is a popular relational database suited for transactional workloads and complex queries. Use this add-on when your application needs structured data storage with ACID guarantees.
+
+## Add to your project
+
+Paste this entry into the `addons` list in `diploi.yaml` to add PostgreSQL to your project.
+
+```yaml
+addons:
+  - name: PostgreSQL
+    identifier: postgres
+    package: https://github.com/diploi/addon-postgres#main
+```
+
+:::note
+- identifier must match the folder name you use for this add-on in your repo.
+- Components can import ENV from this add-on using env.include. For example, a FastAPI component can pull Postgres connection variables like this:
+
+```yaml
+components:
+  - name: FastAPI
+    identifier: fastapi
+    package: https://github.com/diploi/component-fastapi#main
+    env:
+      include:
+        - postgres.*
+```
+:::
+
+## See also
+
+- [Using Add-ons](/building/add-ons)
+- [PostgreSQL add-on repository](https://github.com/diploi/addon-postgres)
+- [PostgreSQL docs](https://www.postgresql.org/docs/)
+- [Learn more about the `diploi.yaml` file](/reference/diploi-yaml)
