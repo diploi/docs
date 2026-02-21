@@ -3,19 +3,22 @@ title: FastAPI
 description: Deploy FastAPI services through Diploi’s managed component.
 ---
 
+import { Code } from 'astro-expressive-code/components';
+import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+export const AllElements = await diploiElementList()
+export const fastapiDetails = extractElement(AllElements,'fastapi')
+export const fastapiPackage = `${fastapiDetails.url}/${fastapiDetails.versions.pop()}`
+
 FastAPI is a modern, async Python framework that makes it easy to build performant APIs with automatic OpenAPI docs. Use this component when you want Diploi to run uvicorn builds and handle deploys so you can focus on type-safe endpoints and business logic.
 
 ## Add to your project
 
 Paste this entry into the `components` list in `diploi.yaml` to add FastAPI to your project.
 
-```yaml
-components:
-  - name: FastAPI
-    identifier: fastapi
-    package: https://github.com/diploi/component-fastapi#main
-    
-```
+<Code code={`components:
+  - name: ${fastapiDetails.name}
+    identifier: ${fastapiDetails.identifier}
+    package: ${fastapiPackage}`} lang="yaml" />
 
 :::note
 - identifier must match the folder name you use for this component in your repo.

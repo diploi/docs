@@ -3,22 +3,26 @@ title: Laravel
 description: Deploy Laravel applications on Diploi with managed builds and releases.
 ---
 
+import { Code } from 'astro-expressive-code/components';
+import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+export const AllElements = await diploiElementList()
+export const laravelDetails = extractElement(AllElements,'laravel')
+export const laravelPackage = `${laravelDetails.url}/${laravelDetails.versions.pop()}`
+
 Laravel is a modern PHP framework with expressive routing, ORM, queues, and first-class testing utilities. Use this component when you want Diploi to run the build pipeline, publish assets, and keep your Laravel workloads updated without manually scripting servers.
 
 ## Add to your project
 
 Paste this entry into the `components` list in `diploi.yaml` to add Laravel to your project.
 
-```yaml
-components:
-  - name: Laravel
-    identifier: laravel
-    package: https://github.com/diploi/component-laravel#main
+<Code code={`components:
+  - name: ${laravelDetails.name}
+    identifier: ${laravelDetails.identifier}
+    package: ${laravelPackage}
     # Optional:
     # env:
     #   include:
-    #     - mariadb.*
-```
+    #     - mariadb.*`} lang="yaml" />
 
 :::note
 - identifier must match the folder name you use for this component in your repo.

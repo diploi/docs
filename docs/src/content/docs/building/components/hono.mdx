@@ -3,19 +3,22 @@ title: Hono
 description: Deploy lightweight Hono APIs across Diploi’s infrastructure.
 ---
 
+import { Code } from 'astro-expressive-code/components';
+import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+export const AllElements = await diploiElementList()
+export const honoDetails = extractElement(AllElements,'hono')
+export const honoPackage = `${honoDetails.url}/${honoDetails.versions.pop()}`
+
 Hono is a tiny, high-performance web framework tuned for edge and serverless workloads. Choose this component when you need fast APIs or request handlers with minimal overhead. Diploi takes care of packaging and deploying so you can focus on routing and middleware logic.
 
 ## Add to your project
 
 Paste this entry into the `components` list in `diploi.yaml` to add Hono to your project.
 
-```yaml
-components:
-  - name: Hono
-    identifier: hono
-    package: https://github.com/diploi/component-hono#main
-    
-```
+<Code code={`components:
+  - name: ${honoDetails.name}
+    identifier: ${honoDetails.identifier}
+    package: ${honoPackage}`} lang="yaml" />
 
 :::note
 - identifier must match the folder name you use for this component in your repo.

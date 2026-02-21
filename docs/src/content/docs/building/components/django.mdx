@@ -3,19 +3,22 @@ title: Django
 description: Run Django projects on Diploi with managed deploys.
 ---
 
+import { Code } from 'astro-expressive-code/components';
+import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+export const AllElements = await diploiElementList()
+export const djangoDetails = extractElement(AllElements,'django')
+export const djangoPackage = `${djangoDetails.url}/${djangoDetails.versions.pop()}`
+
 Django is a batteries-included Python framework for building secure, database-driven applications. Use this component when you need an admin interface, ORM, and templating system out of the box. Diploi provisions the deployment pipeline so you can focus on models and views instead of infrastructure.
 
 ## Add to your project
 
 Paste this entry into the `components` list in `diploi.yaml` to add Django to your project.
 
-```yaml
-components:
-  - name: Django
-    identifier: django
-    package: https://github.com/diploi/component-django#main
-    
-```
+<Code code={`components:
+  - name: ${djangoDetails.name}
+    identifier: ${djangoDetails.identifier}
+    package: ${djangoPackage}`} lang="yaml" />
 
 :::note
 - identifier must match the folder name you use for this component in your repo.

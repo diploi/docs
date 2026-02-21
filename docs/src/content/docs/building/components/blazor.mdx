@@ -3,19 +3,22 @@ title: Blazor
 description: Launching apps powered by Blazor.
 ---
 
+import { Code } from 'astro-expressive-code/components';
+import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+export const AllElements = await diploiElementList()
+export const blazorDetails = extractElement(AllElements,'blazor')
+export const blazorPackage = `${blazorDetails.url}/${blazorDetails.versions.pop()}`
+
 Blazor is a .NET web UI framework for building interactive web apps using C# and Razor components instead of JavaScript. Choose this component when you’re building dashboards, internal tools, or full-featured web apps where you want to stay in the .NET ecosystem and share code across client and server. Diploi builds your Blazor project and deploys it with the runtime and assets it needs to run.
 
 ## Add to your project
 
 Paste this entry into the `components` list in `diploi.yaml` to add Blazor to your project.
 
-```yaml
-components:
-  - name: Blazor
-    identifier: blazor
-    package: https://github.com/diploi/component-blazor#main
-    
-```
+<Code code={`components:
+  - name: ${blazorDetails.name}
+    identifier: ${blazorDetails.identifier}
+    package: ${blazorPackage}`} lang="yaml" />
 
 :::note
 - identifier must match the folder name you use for this component in your repo.

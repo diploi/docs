@@ -3,19 +3,22 @@ title: Node.js
 description: Run general-purpose Node.js services on Diploi.
 ---
 
+import { Code } from 'astro-expressive-code/components';
+import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+export const AllElements = await diploiElementList()
+export const nodeDetails = extractElement(AllElements,'node')
+export const nodePackage = `${nodeDetails.url}/${nodeDetails.versions.pop()}`
+
 The Node.js component gives you a standard runtime for JavaScript or TypeScript backends. Reach for it when you need an API, webhook processor, or background worker built with the Node ecosystem. Diploi builds and deploys your code while keeping environment variables and dependencies managed.
 
 ## Add to your project
 
 Paste this entry into the `components` list in `diploi.yaml` to add Node.js to your project.
 
-```yaml
-components:
-  - name: Node.js
-    identifier: nodejs
-    package: https://github.com/diploi/component-nodejs#main
-    
-```
+<Code code={`components:
+  - name: ${nodeDetails.name}
+    identifier: ${nodeDetails.identifier}
+    package: ${nodePackage}`} lang="yaml" />
 
 :::note
 - identifier must match the folder name you use for this component in your repo.
