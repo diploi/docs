@@ -1,229 +1,78 @@
 ---
-title: Using Starter Kits
-description: Components are the core building block in Diploi.
+title: "Using Starter Kits"
+description: "Launch pre-built, full-stack applications on Diploi with a single click. Starter Kits include everything you need to start developing immediately."
 ---
 
 import ElementList from "../../../components/ElementList.astro"
 import { LinkCard, CardGrid } from '@astrojs/starlight/components';
 
+## Starter Kits
 
-## Components
+Starter Kits are complete, pre-configured templates, which can be used as a scaffold to start new applications or to use directly as they are, which you can launch instantly on Diploi. Each starter kit includes a `diploi.yaml` file, Dockerfiles for development and production, and a ready-to-run codebase..
 
-You can think of components as the application layer of your project. In Diploi you can have multiple options available to define your application, which you can mix as you wish.
+<ElementList type={'starter'}/>
 
-<ElementList type={'component'}/>
+:::note
+Starter Kits are different from the Stack Builder. The Stack Builder scaffolds a new project from individual [components](/building/components) and [add-ons](/building/add-ons). Starter Kits provide a complete, working application you can build on.
 
-***
+You can extend all Starter Kits available with additional components and add-ons.
+:::
 
-### Astro
-A static site builder that lets you write components with your a broad selection of frontend frameworks, while optimizing for performance and modern SEO practices.
+---
 
-<CardGrid>
-  <LinkCard title="To the tutorial" href="https://diploi.com/blog/hosting_astro_apps" />
-  <LinkCard title="How to add Astro to a project" href="/building/components/astro" />
-  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-astro" />
-  <LinkCard title="Official documentation for Astro" href="https://docs.astro.build/en/getting-started/" />
-</CardGrid>
+### OpenClaw
 
-***
-
-### ASP.NET
-ASP.NET (ASP.NET Core) is an open-source .NET web framework for building web apps and APIs with C#.
+A self-hosted personal AI assistant that connects to messaging platforms and supports any LLM provider. Comes with an interactive browser terminal to access the OpenClaw CLI without using SSH.
 
 <CardGrid>
-  <LinkCard title="How to add ASP.NET to a project" href="/building/components/asp" />
-  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-asp" />
-  <LinkCard title="Official documentation for ASP.NET" href="https://learn.microsoft.com/en-us/aspnet/core/" />
+  <LinkCard title="Launch OpenClaw" href="https://diploi.com/starter-kit/openclaw" target="_blank" />
+  <LinkCard title="How to use the OpenClaw starter kit" href="/building/starter-kits/openclaw" />
+  <LinkCard title="Starter kit repository" href="https://github.com/diploi/starter-openclaw" target="_blank" />
+  <LinkCard title="OpenClaw documentation" href="https://docs.openclaw.ai/" target="_blank" />
 </CardGrid>
 
-***
+---
 
-### Blazor
-The .NET UI framework for building interactive web apps with C# and Razor components, letting you share code across client and server.
+### Chat App
+
+A Slack-like chat application with authentication and realtime features, built with Next.js and Supabase.
 
 <CardGrid>
-  <LinkCard title="How to add Blazor to a project" href="/building/components/blazor" />
-  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-blazor" />
-  <LinkCard title="Official documentation for Blazor" href="https://learn.microsoft.com/en-us/aspnet/core/blazor/" />
+  <LinkCard title="Launch Chat App" href="https://diploi.com/starter-kit/chat" target="_blank" />
+  <LinkCard title="How to use the Chat App starter kit" href="/building/starter-kits/chat" />
+  <LinkCard title="Starter kit repository" href="https://github.com/diploi/starter-chat" target="_blank" />
 </CardGrid>
 
-***
+---
 
-### Bun
-An JavaScript runtime designed to be faster than Node.js, with native bundling, support for TypeScript, and package management support.
+### Drawing App
+
+A fun, collaborative pixel art drawing application built with Refine and Supabase.
 
 <CardGrid>
-  <LinkCard title="To the tutorial" href="https://diploi.com/blog/hosting_bun_apps" />
-  <LinkCard title="How to add Bun to a project" href="/building/components/bun" />
-  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-bun" />
-  <LinkCard title="Official documentation for Bun" href="https://bun.sh/docs" />
+  <LinkCard title="Launch Drawing App" href="https://diploi.com/starter-kit/refine-pixels" target="_blank" />
+  <LinkCard title="How to use the Drawing App starter kit" href="/building/starter-kits/refine-pixels" />
+  <LinkCard title="Starter kit repository" href="https://github.com/diploi/starter-refine-pixels" target="_blank" />
+  <LinkCard title="Refine documentation" href="https://refine.dev/docs/" target="_blank" />
 </CardGrid>
 
-***
+---
 
-### Deno
-A JavaScript and TypeScript runtime for APIs and backend services.
+### Web App
+
+A modern, production-ready template for building full-stack React applications with Supabase.
 
 <CardGrid>
-  <LinkCard title="To the tutorial" href="https://diploi.com/blog/hosting_deno_apps" />
-  <LinkCard title="How to add Deno to a project" href="/building/components/deno" />
-  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-deno" />
-  <LinkCard title="Official documentation for Deno" href="https://docs.deno.com/runtime/manual" />
+  <LinkCard title="Launch Web App" href="https://diploi.com/starter-kit/web-app" target="_blank" />
+  <LinkCard title="How to use the Web App starter kit" href="/building/starter-kits/web-app" />
+  <LinkCard title="Starter kit repository" href="https://github.com/diploi/starter-web-app" target="_blank" />
 </CardGrid>
 
-***
+---
 
-### Django
-A high-level Python web fullstack framework that uses Python.
+## See also
 
-<CardGrid>
-  <LinkCard title="To the tutorial" href="https://diploi.com/blog/hosting_django_apps" />
-  <LinkCard title="How to add Django to a project" href="/building/components/django" />
-  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-django" />
-  <LinkCard title="Official documentation for Django" href="https://docs.djangoproject.com/en/5.2/" />
-</CardGrid>
-
-***
-
-### FastAPI
-A Python framework used to create APIs with automatic documentation.
-
-<CardGrid>
-  <LinkCard title="To the tutorial" href="https://diploi.com/blog/hosting_fastapi_apps" />
-  <LinkCard title="How to add FastAPI to a project" href="/building/components/fastapi" />
-  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-fastapi" />
-  <LinkCard title="Official documentation for FastAPI" href="https://fastapi.tiangolo.com/" />
-</CardGrid>
-
-***
-
-### Flask
-A minimalist Python framework, design for lightweight APIs, dashboards, services, and fullstack applications.
-
-<CardGrid>
-  <LinkCard title="To the tutorial" href="https://diploi.com/blog/hosting_flask_apps" />
-  <LinkCard title="How to add Flask to a project" href="/building/components/flask" />
-  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-flask" />
-  <LinkCard title="Official documentation for Flask" href="https://flask.palletsprojects.com/" />
-</CardGrid>
-
-***
-
-### Ghost
-An open-source content management system designed for publishing and managing blogs, online publications or websites.
-
-<CardGrid>
-  <LinkCard title="To the tutorial" href="https://diploi.com/blog/hosting_a_ghost_blog" />
-  <LinkCard title="How to add Ghost to a project" href="/building/components/ghost" />
-  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-ghost" />
-  <LinkCard title="Official documentation for Ghost" href="https://ghost.org/help/manual/" />
-</CardGrid>
-
-***
-
-### Hono
-A small web framework designed to build APIs and backend applications.
-
-<CardGrid>
-  <LinkCard title="To the tutorial" href="https://diploi.com/blog/hosting_hono_apps" />
-  <LinkCard title="How to add Hono to a project" href="/building/components/hono" />
-  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-hono" />
-  <LinkCard title="Official documentation for Hono" href="https://hono.dev/docs/" />
-</CardGrid>
-
-***
-
-### Laravel
-A fullstack PHP framework with native support for modern JS-based frontend frameworks.
-
-<CardGrid>
-  <LinkCard title="To the tutorial" href="https://diploi.com/blog/hosting_laravel_apps" />
-  <LinkCard title="How to add Laravel to a project" href="/building/components/laravel" />
-  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-laravel" />
-  <LinkCard title="Official documentation for Laravel" href="https://laravel.com/docs" />
-</CardGrid>
-
-***
-
-### n8n
-A workflow automation platform used to run trigger-driven workloads, using a GUI to setup triggers and logic workflow.
-
-<CardGrid>
-  <LinkCard title="To the tutorial" href="https://diploi.com/blog/hosting_n8n" />
-  <LinkCard title="How to add n8n to a project" href="/building/components/n8n" />
-  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-n8n" />
-  <LinkCard title="Official documentation for n8n" href="https://docs.n8n.io/" />
-</CardGrid>
-
-***
-
-### Next.js
-A React-based web development framework for server-side and static web rendering.
-
-<CardGrid>
-  <LinkCard title="To the tutorial" href="https://diploi.com/blog/hosting_nextjs_apps" />
-  <LinkCard title="How to add Next.js to a project" href="/building/components/nextjs" />
-  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-nextjs" />
-  <LinkCard title="Official documentation for Next.js" href="https://nextjs.org/docs" />
-</CardGrid>
-
-***
-
-### Node.js
-A runtime used to develop backend applications and APIs using JavaScript.
-
-<CardGrid>
-  <LinkCard title="To the tutorial" href="https://diploi.com/blog/hosting_node_apps" />
-  <LinkCard title="How to add Node.js to a project" href="/building/components/nodejs" />
-  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-nodejs" />
-  <LinkCard title="Official documentation for Node.js" href="https://nodejs.org/docs/latest/api/" />
-</CardGrid>
-
-***
-
-### Nue.js
-A framework focused on building lightweight fullstack applications using JavaScript, and with native support for Rust or Zig to run workloads.
-
-<CardGrid>
-  <LinkCard title="To the tutorial" href="https://diploi.com/blog/hosting_nuejs_apps" />
-  <LinkCard title="How to add Nue.js to a project" href="/building/components/nue" />
-  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-nue" />
-  <LinkCard title="Official documentation for Nue.js" href="https://nuejs.org/docs/" />
-</CardGrid>
-
-***
-
-### React + Vite
-Mixes Vite's bundling capabilities and React's frontend development capabilities, in a component that requires no configuration and provides instant hot module reload for frontend applications.
-
-<CardGrid>
-  <LinkCard title="To the tutorial" href="https://diploi.com/blog/hosting_react_apps" />
-  <LinkCard title="How to add React + Vite to a project" href="/building/components/react-vite" />
-  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-react-vite" />
-  <LinkCard title="Official documentation for Vite" href="https://vite.dev/guide/" />
-  <LinkCard title="Official documentation for React" href="https://react.dev/reference/react" />
-</CardGrid>
-
-***
-
-### Supabase
-An open-source backend platform that bundles multiple services into one, such as Postgres, storage, auth, real-time listeners, and edge functions.
-
-<CardGrid>
-  <LinkCard title="To the tutorial" href="https://diploi.com/blog/hosting_supabase" />
-  <LinkCard title="How to add Supabase to a project" href="/building/components/supabase" />
-  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-supabase" />
-  <LinkCard title="Official documentation for Supabase" href="https://supabase.com/docs" />
-</CardGrid>
-
-***
-
-### SvelteKit
-A framework for building performant web applications with Svelte, offering server-side rendering.
-
-<CardGrid>
-  <LinkCard title="To the tutorial" href="https://diploi.com/blog/hosting_svelte_apps" />
-  <LinkCard title="How to add SvelteKit to a project" href="/building/components/sveltekit" />
-  <LinkCard title="To the component's repository" href="https://github.com/diploi/component-sveltekit" />
-  <LinkCard title="Official documentation for SvelteKit" href="https://svelte.dev/docs/kit/introduction" />
-</CardGrid>
+- [Using Components](/building/components)
+- [Using Add-ons](/building/add-ons)
+- [Creating a Project](/deploying/creating-a-project)
+- [Learn more about the `diploi.yaml` file](/reference/diploi-yaml)

@@ -1,0 +1,99 @@
+---
+title: "OpenClaw"
+description: "A self-hosted personal AI assistant starter kit that connects to messaging platforms like WhatsApp, Telegram, Slack, and Discord, with support for any LLM provider."
+---
+
+OpenClaw is an open-source, self-hosted personal AI assistant that connects to messaging platforms including WhatsApp, Telegram, Slack, Discord, Google Chat, Signal, Microsoft Teams, and more.
+
+Use this starter kit when you want Diploi to run a fully configured OpenClaw instance with a management UI, web terminal and AI enabled using gpt-4.1-nano right from the start, plus you can connect your preferred LLM providers and messaging channels.
+
+## What's included
+
+The starter kit provides two main parts:
+
+- A **wrapper server** (`server/`) built with Hono and TypeScript that initializes configuration, manages the OpenClaw gateway process, and exposes control APIs.
+
+- A **React/Vite control UI** (`web/`) for managing the OpenClaw instance from your browser.
+
+- AI provider added right from the start, using gpt-4.1-nano.
+
+- Access to a browser terminal, to run CLI commands without requiring a SSH connection.
+
+### Tech stack
+
+| Technology | Role |
+|---|---|
+| **Node.js 22+** | Runtime |
+| **TypeScript** | Language |
+| **Hono** | Wrapper API server |
+| **React + Vite** | Control UI frontend |
+| **OpenClaw** | AI assistant runtime |
+
+You can extend your OpenClaw project with any of the components and add-ons supported on Diploi. For more information, [click here to learn about how to use the `diploi.yaml`](/reference/diploi-yaml).
+
+## How it works
+
+On startup, the wrapper server:
+
+1. Initializes `/app/openclaw.json` (if missing) via `openclaw onboard`
+2. Patches config defaults (gateway token, model provider, channel/plugin defaults)
+3. Starts and monitors the OpenClaw gateway on `127.0.0.1:18789`
+4. Proxies `/dashboard` to the OpenClaw gateway UI, and all other routes to the Vite frontend
+
+### API endpoints
+
+The wrapper exposes these endpoints:
+
+- `GET /healthz` - Health check
+- `GET /api/dashboard-token` - Retrieve the dashboard token
+- `GET /api/gateway/status` - Gateway status
+- `POST /api/gateway/start` - Start the gateway
+- `POST /api/gateway/stop` - Stop the gateway
+- `POST /api/gateway/restart` - Restart the gateway
+- `POST /api/full-reset` - Full reset
+- `POST /api/logout` - Logout
+- `WS /api/terminal-ws` - Browser terminal (PTY websocket)
+
+### Environment variables
+
+Common variables used by the wrapper:
+
+- `PORT` (default: `3000`) - Server port
+- `HOSTNAME` (default: `0.0.0.0`) - Server hostname
+- `VITE_HOST` (default: `127.0.0.1`) - Vite dev server host
+- `VITE_PORT` (default: `5173`) - Vite dev server port
+- `OPENCLAW_CONFIG_PATH` (default: `/app/openclaw.json`) - Path to OpenClaw config
+- `OPENCLAW_STATE_DIR` (default: `/app`) - State directory
+- `OPENCLAW_WORKSPACE_DIR` (default: `/app/workspace`) - Workspace directory
+- `OPENCLAW_GATEWAY_TOKEN` - Gateway auth token (generated if missing)
+- `DIPLOI_AI_GATEWAY_URL` / `DIPLOI_AI_GATEWAY_TOKEN` - Optional model proxy wiring
+- `DIPLOI_LOGIN_SECRET` - Required to validate login cookie
+- `DIPLOI_LOGIN_USERNAME` / `DIPLOI_LOGIN_PASSWORD` - Credential login
+
+## Project structure
+
+```
+server/
+  index.ts            # wrapper server + proxy
+  processManager.ts   # gateway lifecycle manager
+  initOpenclaw.ts     # OpenClaw config bootstrap + patching
+  api.ts              # API routes
+  terminalWs.ts       # PTY websocket bridge
+web/
+  src/                # React UI
+Dockerfile.dev        # full dev image including OpenClaw build
+Dockerfile            # production runtime image
+diploi.yaml           # Diploi starter metadata
+```
+
+## Launch
+
+[Launch OpenClaw on Diploi](https://diploi.com/starter-kit/openclaw)
+
+## See also
+
+- [Using Starter Kits](/building/starter-kits)
+- [Starter kit repository](https://github.com/diploi/starter-openclaw)
+- [OpenClaw documentation](https://docs.openclaw.ai/)
+- [OpenClaw GitHub](https://github.com/openclaw/openclaw)
+- [Learn more about the `diploi.yaml` file](/reference/diploi-yaml)
