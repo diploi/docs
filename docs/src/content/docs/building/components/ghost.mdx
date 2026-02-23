@@ -3,23 +3,27 @@ title: Ghost
 description: Host Ghost to publish blogs and newsletters with Diploi.
 ---
 
+import { Code } from 'astro-expressive-code/components';
+import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+export const AllElements = await diploiElementList()
+export const ghostDetails = extractElement(AllElements,'ghost')
+export const ghostPackage = `${ghostDetails.url}/${ghostDetails.versions.pop()}`
+
 Ghost is an open-source content platform for publishing blogs, newsletters, and membership sites. Use this component when you want Diploi to manage builds and deployments for a Ghost site. It keeps your content workflow together with the infrastructure that serves it.
 
 ## Add to your project
 
 Paste this entry into the `components` list in `diploi.yaml` to add Ghost to your project.
 
-```yaml
-components:
-  - name: Ghost
-    identifier: ghost
-    package: https://github.com/diploi/component-ghost#main
+<Code code={`components:
+  - name: ${ghostDetails.name}
+    identifier: ${ghostDetails.identifier}
+    package: ${ghostPackage}
     env:
       include:
         - mariadb.MARIADB_HOST:database__connection__host
         - mariadb.MARIADB_USER:database__connection__user
-        - mariadb.MARIADB_PASSWORD:database__connection__password
-```
+        - mariadb.MARIADB_PASSWORD:database__connection__password`} lang="yaml" />
 
 :::note
 - identifier must match the folder name you use for this component in your repo.

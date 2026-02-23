@@ -1,0 +1,78 @@
+---
+title: "Using Starter Kits"
+description: "Launch pre-built, full-stack applications on Diploi with a single click. Starter Kits include everything you need to start developing immediately."
+---
+
+import ElementList from "../../../components/ElementList.astro"
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+## Starter Kits
+
+Starter Kits are complete, pre-configured templates, which can be used as a scaffold to start new applications or to use directly as they are, which you can launch instantly on Diploi. Each starter kit includes a `diploi.yaml` file, Dockerfiles for development and production, and a ready-to-run codebase..
+
+<ElementList type={'starter'}/>
+
+:::note
+Starter Kits are different from the Stack Builder. The Stack Builder scaffolds a new project from individual [components](/building/components) and [add-ons](/building/add-ons). Starter Kits provide a complete, working application you can build on.
+
+You can extend all Starter Kits available with additional components and add-ons.
+:::
+
+---
+
+### OpenClaw
+
+A self-hosted personal AI assistant that connects to messaging platforms and supports any LLM provider. Comes with an interactive browser terminal to access the OpenClaw CLI without using SSH.
+
+<CardGrid>
+  <LinkCard title="Launch OpenClaw" href="https://diploi.com/starter-kit/openclaw" target="_blank" />
+  <LinkCard title="How to use the OpenClaw starter kit" href="/building/starter-kits/openclaw" />
+  <LinkCard title="Starter kit repository" href="https://github.com/diploi/starter-openclaw" target="_blank" />
+  <LinkCard title="OpenClaw documentation" href="https://docs.openclaw.ai/" target="_blank" />
+</CardGrid>
+
+---
+
+### Chat App
+
+A Slack-like chat application with authentication and realtime features, built with Next.js and Supabase.
+
+<CardGrid>
+  <LinkCard title="Launch Chat App" href="https://diploi.com/starter-kit/chat" target="_blank" />
+  <LinkCard title="How to use the Chat App starter kit" href="/building/starter-kits/chat" />
+  <LinkCard title="Starter kit repository" href="https://github.com/diploi/starter-chat" target="_blank" />
+</CardGrid>
+
+---
+
+### Drawing App
+
+A fun, collaborative pixel art drawing application built with Refine and Supabase.
+
+<CardGrid>
+  <LinkCard title="Launch Drawing App" href="https://diploi.com/starter-kit/refine-pixels" target="_blank" />
+  <LinkCard title="How to use the Drawing App starter kit" href="/building/starter-kits/refine-pixels" />
+  <LinkCard title="Starter kit repository" href="https://github.com/diploi/starter-refine-pixels" target="_blank" />
+  <LinkCard title="Refine documentation" href="https://refine.dev/docs/" target="_blank" />
+</CardGrid>
+
+---
+
+### Web App
+
+A modern, production-ready template for building full-stack React applications with Supabase.
+
+<CardGrid>
+  <LinkCard title="Launch Web App" href="https://diploi.com/starter-kit/web-app" target="_blank" />
+  <LinkCard title="How to use the Web App starter kit" href="/building/starter-kits/web-app" />
+  <LinkCard title="Starter kit repository" href="https://github.com/diploi/starter-web-app" target="_blank" />
+</CardGrid>
+
+---
+
+## See also
+
+- [Using Components](/building/components)
+- [Using Add-ons](/building/add-ons)
+- [Creating a Project](/deploying/creating-a-project)
+- [Learn more about the `diploi.yaml` file](/reference/diploi-yaml)

@@ -3,18 +3,22 @@ title: PostgreSQL
 description: Provision PostgreSQL as a Diploi add-on for relational data.
 ---
 
+import { Code } from 'astro-expressive-code/components';
+import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+export const AllElements = await diploiElementList()
+export const postgresDetails = extractElement(AllElements,'postgres')
+export const postgresPackage = `${postgresDetails.url}/${postgresDetails.versions.pop()}`
+
 PostgreSQL is a popular relational database suited for transactional workloads and complex queries. Use this add-on when your application needs structured data storage with ACID guarantees.
 
 ## Add to your project
 
 Paste this entry into the `addons` list in `diploi.yaml` to add PostgreSQL to your project.
 
-```yaml
-addons:
-  - name: PostgreSQL
-    identifier: postgres
-    package: https://github.com/diploi/addon-postgres#main
-```
+<Code code={`addons:
+  - name: ${postgresDetails.name}
+    identifier: ${postgresDetails.identifier}
+    package: ${postgresPackage}`} lang="yaml" />
 
 :::note
 - identifier must match the folder name you use for this add-on in your repo.

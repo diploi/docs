@@ -3,19 +3,22 @@ title: Flask
 description: Deploy lightweight Flask services on Diploi without custom infra.
 ---
 
+import { Code } from 'astro-expressive-code/components';
+import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+export const AllElements = await diploiElementList()
+export const flaskDetails = extractElement(AllElements,'flask')
+export const flaskPackage = `${flaskDetails.url}/${flaskDetails.versions.pop()}`
+
 Flask is a minimalist Python framework for APIs, dashboards, and microservices. Use this component when you want Diploi to handle the build steps, gunicorn/uvicorn configuration, and deployments while you focus on routes and extensions.
 
 ## Add to your project
 
 Paste this entry into the `components` list in `diploi.yaml` to add Flask to your project.
 
-```yaml
-components:
-  - name: Flask
-    identifier: flask
-    package: https://github.com/diploi/component-flask#main
-    
-```
+<Code code={`components:
+  - name: ${flaskDetails.name}
+    identifier: ${flaskDetails.identifier}
+    package: ${flaskPackage}`} lang="yaml" />
 
 :::note
 - identifier must match the folder name you use for this component in your repo.

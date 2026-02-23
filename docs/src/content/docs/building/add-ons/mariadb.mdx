@@ -3,18 +3,23 @@ title: MariaDB
 description: Provision MariaDB when your Diploi app needs MySQL compatibility.
 ---
 
+import { Code } from 'astro-expressive-code/components';
+import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+export const AllElements = await diploiElementList()
+export const mariadbDetails = extractElement(AllElements,'mariadb')
+export const mariadbPackage = `${mariadbDetails.url}/${mariadbDetails.versions.pop()}`
+
 MariaDB is a relational database that's compatible with MySQL, and adds performance and tooling improvements. You can use MariaDB when your project requires a db compatible with MySQL or if you are migrating existing MySQL workloads.
+
 
 ## Add to your project
 
 Paste this entry into the `addons` list in `diploi.yaml` to add MariaDB to your project.
 
-```yaml
-addons:
-  - name: MariaDB
-    identifier: mariadb
-    package: https://github.com/diploi/addon-mariadb#main
-```
+<Code code={`addons:
+  - name: ${mariadbDetails.name}
+    identifier: ${mariadbDetails.identifier}
+    package: ${mariadbPackage}`} lang="yaml" />
 
 :::note
 - identifier must match the folder name you use for this add-on in your repo.

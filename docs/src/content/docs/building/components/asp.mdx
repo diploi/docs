@@ -3,6 +3,12 @@ title: ASP.NET
 description: Build applications using .NET.
 ---
 
+import { Code } from 'astro-expressive-code/components';
+import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+export const AllElements = await diploiElementList()
+export const aspDetails = extractElement(AllElements,'asp')
+export const aspPackage = `${aspDetails.url}/${aspDetails.versions.pop()}`
+
 ASP.NET is Microsoft’s open-source web framework for building modern, high-performance web apps and APIs with .NET. Choose this component when you’re shipping server-rendered sites, REST backends, or full-stack applications that benefit from the .NET ecosystem and tooling. Diploi handles the build/publish pipeline and runs your ASP.NET app as a service with the runtime and networking it needs.
 
 
@@ -10,13 +16,10 @@ ASP.NET is Microsoft’s open-source web framework for building modern, high-per
 
 Paste this entry into the `components` list in `diploi.yaml` to add ASP.NET to your project.
 
-```yaml
-components:
-  - name: ASP.NET Core
-    identifier: asp
-    package: https://github.com/diploi/component-asp#main
-    
-```
+<Code code={`components:
+  - name: ${aspDetails.name}
+    identifier: ${aspDetails.identifier}
+    package: ${aspPackage}`} lang="yaml" />
 
 :::note
 - identifier must match the folder name you use for this component in your repo.

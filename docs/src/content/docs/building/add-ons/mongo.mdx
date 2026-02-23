@@ -3,18 +3,22 @@ title: Mongo
 description: Attach a Mongo database to Diploi components.
 ---
 
+import { Code } from 'astro-expressive-code/components';
+import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+export const AllElements = await diploiElementList()
+export const mongoDetails = extractElement(AllElements,'mongo')
+export const mongoPackage = `${mongoDetails.url}/${mongoDetails.versions.pop()}`
+
 Mongo is a document database that stores flexible JSON-like records with dynamic schemas. Use this add-on when your application benefits from schema-less data modeling or rapid iteration.
 
 ## Add to your project
 
 Paste this entry into the `addons` list in `diploi.yaml` to add Mongo to your project.
 
-```yaml
-addons:
-  - name: Mongo
-    identifier: mongo
-    package: https://github.com/diploi/addon-mongo#main
-```
+<Code code={`addons:
+  - name: ${mongoDetails.name}
+    identifier: ${mongoDetails.identifier}
+    package: ${mongoPackage}`} lang="yaml" />
 
 :::note
 - identifier must match the folder name you use for this add-on in your repo.

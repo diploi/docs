@@ -3,17 +3,24 @@ title: n8n
 description: Automate workflows with the n8n component managed by Diploi.
 ---
 
+import { Code } from 'astro-expressive-code/components';
+import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+export const AllElements = await diploiElementList()
+export const n8nDetails = extractElement(AllElements,'n8n')
+export const postgresDetails = extractElement(AllElements,'postgres')
+export const n8nPackage = `${n8nDetails.url}/${n8nDetails.versions.pop()}`
+export const postgresPackage = `${postgresDetails.url}/${postgresDetails.versions.pop()}`
+
 n8n is a workflow automation platform for connecting APIs, services, and custom logic. Use this component when you need Diploi to build and deploy n8n so you can focus on building workflows, not configuring runtime environments.
 
 ## Add to your project
 
 Paste this entry into the `components` list in `diploi.yaml` to add n8n to your project.
 
-```yaml
-components:
-  - name: n8n
-    identifier: n8n
-    package: https://github.com/diploi/component-n8n#v1.112.4
+<Code code={`components:
+  - name: ${n8nDetails.name}
+    identifier: ${n8nDetails.identifier}
+    package: ${n8nPackage}
     env:
       include:
         - postgres.POSTGRES_HOST:DB_POSTGRESDB_HOST
@@ -23,9 +30,7 @@ components:
 addons:
   - name: PostgreSQL
     identifier: postgres
-    package: https://github.com/diploi/addon-postgres#v17.2
-
-```
+    package: ${postgresPackage}`} lang="yaml" />
 
 :::note
 - In Diploi, n8n uses Postgres for database, so you need to add a Postgres db if your deployment doesn't have one available. [Click here to learn how to add Postgres to your project](/building/add-ons/postgres).

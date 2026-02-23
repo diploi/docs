@@ -3,19 +3,22 @@ title: Astro
 description: Ship Astro sites with Diploi-managed builds and hosting.
 ---
 
+import { Code } from 'astro-expressive-code/components';
+import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+export const AllElements = await diploiElementList()
+export const astroDetails = extractElement(AllElements,'astro')
+export const astroPackage = `${astroDetails.url}/${astroDetails.versions.pop()}`
+
 Astro is a modern static site builder focused on shipping minimal JavaScript to the browser. Choose this component when you are delivering content-heavy marketing sites, blogs, or documentation that benefit from fast page loads. Diploi handles the SSR build pipeline and pushes assets where they need to run.
 
 ## Add to your project
 
 Paste this entry into the `components` list in `diploi.yaml` to add Astro to your project.
 
-```yaml
-components:
-  - name: Astro
-    identifier: astro
-    package: https://github.com/diploi/component-astro#main
-    
-```
+<Code code={`components:
+  - name: ${astroDetails.name}
+    identifier: ${astroDetails.identifier}
+    package: ${astroPackage}`} lang="yaml" />
 
 :::note
 - identifier must match the folder name you use for this component in your repo.

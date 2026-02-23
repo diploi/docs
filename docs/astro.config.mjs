@@ -128,6 +128,17 @@ export default defineConfig({
                 'building/add-ons/redis',
               ],
             },
+            'building/starter-kits',
+            {
+              label: 'Starter Kits available',
+              collapsed: true,
+              items: [
+                'building/starter-kits/openclaw',
+                'building/starter-kits/chat-app',
+                'building/starter-kits/drawing-app',
+                'building/starter-kits/web-app',
+              ],
+            },
             'building/add-ssh-key',
             'building/remote-development',
           ],

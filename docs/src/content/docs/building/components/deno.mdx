@@ -3,19 +3,22 @@ title: Deno
 description: Run Deno apps on Diploi with automated builds and deploys.
 ---
 
+import { Code } from 'astro-expressive-code/components';
+import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+export const AllElements = await diploiElementList()
+export const denoDetails = extractElement(AllElements,'deno')
+export const denoPackage = `${denoDetails.url}/${denoDetails.versions.pop()}`
+
 Deno is a secure JavaScript and TypeScript runtime with batteries-included tooling and standards-based APIs. Use this component when you want Diploi to manage cache-friendly builds and keep Deno services updated without self-hosting.
 
 ## Add to your project
 
 Paste this entry into the `components` list in `diploi.yaml` to add Deno to your project.
 
-```yaml
-components:
-  - name: Deno
-    identifier: deno
-    package: https://github.com/diploi/component-deno#main
-    
-```
+<Code code={`components:
+  - name: ${denoDetails.name}
+    identifier: ${denoDetails.identifier}
+    package: ${denoPackage}`} lang="yaml" />
 
 :::note
 - identifier must match the folder name you use for this component in your repo.

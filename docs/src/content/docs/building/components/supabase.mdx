@@ -3,19 +3,22 @@ title: Supabase
 description: Deploy Supabase edge functions and services using Diploi components.
 ---
 
+import { Code } from 'astro-expressive-code/components';
+import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+export const AllElements = await diploiElementList()
+export const supabaseDetails = extractElement(AllElements,'supabase')
+export const supabasePackage = `${supabaseDetails.url}/${supabaseDetails.versions.pop()}`
+
 Supabase bundles Postgres, real-time listeners, storage, and auth with edge functions. Use this component when you want Diploi to manage Supabase deployments alongside the rest of your stack so you can ship a unified backend without wiring infrastructure by hand.
 
 ## Add to your project
 
 Paste this entry into the `components` list in `diploi.yaml` to add Supabase to your project.
 
-```yaml
-components:
-  - name: Supabase
-    identifier: supabase
-    package: https://github.com/diploi/component-supabase#main
-    
-```
+<Code code={`components:
+  - name: ${supabaseDetails.name}
+    identifier: ${supabaseDetails.identifier}
+    package: ${supabasePackage}`} lang="yaml" />
 
 :::note
 - identifier must match the folder name you use for this component in your repo.
