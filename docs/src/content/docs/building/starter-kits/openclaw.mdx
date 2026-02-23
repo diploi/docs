@@ -3,46 +3,69 @@ title: "OpenClaw"
 description: "A self-hosted personal AI assistant starter kit that connects to messaging platforms like WhatsApp, Telegram, Slack, and Discord, with support for any LLM provider."
 ---
 
+import OpenClawTerminal from '../../../../assets/OpenClawTerminal.png'
+import OpenClawModels from '../../../../assets/OpenClawModels.png'
+import OpenClawWelcomePage from '../../../../assets/OpenClawWelcomePage.png'
+import ImageToPNG from '../../../../components/ImageToPNG.astro'
+
 OpenClaw is an open-source, self-hosted personal AI assistant that connects to messaging platforms including WhatsApp, Telegram, Slack, Discord, Google Chat, Signal, Microsoft Teams, and more.
 
-Use this starter kit when you want Diploi to run a fully configured OpenClaw instance with a management UI, web terminal and AI enabled using gpt-4.1-nano right from the start, plus you can connect your preferred LLM providers and messaging channels.
+Use this starter kit when you want Diploi to run an OpenClaw instance without having to manually configure the hosting infrastructure for it.
 
-## What's included
-
-The starter kit provides two main parts:
-
-- A **wrapper server** (`server/`) built with Hono and TypeScript that initializes configuration, manages the OpenClaw gateway process, and exposes control APIs.
-
-- A **React/Vite control UI** (`web/`) for managing the OpenClaw instance from your browser.
-
-- AI provider added right from the start, using gpt-4.1-nano.
+Besides offering the easiest way to host OpenClaw on the cloud, Diploi has features that help you start even faster:
 
 - Access to a browser terminal, to run CLI commands without requiring a SSH connection.
+<ImageToPNG src={OpenClawTerminal} alt="Browser terminal for OpenClaw"/>
 
-### Tech stack
+- Fully configured gpt-4.1-nano model, provided through the Diploi AI gateway.
+<ImageToPNG src={OpenClawModels} alt="gpt-4.1-nano for OpenClaw"/>
+
+## Tech stack
 
 | Technology | Role |
 |---|---|
-| **Node.js 22+** | Runtime |
+| **Node.js** | Runtime |
 | **TypeScript** | Language |
 | **Hono** | Wrapper API server |
 | **React + Vite** | Control UI frontend |
 | **OpenClaw** | AI assistant runtime |
+| **gpt-4.1-nano** | AI model |
 
-You can extend your OpenClaw project with any of the components and add-ons supported on Diploi. For more information, [click here to learn about how to use the `diploi.yaml`](/reference/diploi-yaml).
+You can extend your OpenClaw project with any of the components and add-ons supported on Diploi. For more information, [click here to learn about how to use the `diploi.yaml` to extend your project](/reference/diploi-yaml).
+
+## Key features
+
+- **Multi-platform messaging** - WhatsApp, Telegram, Slack, Discord, Google Chat, Signal, Microsoft Teams, and more
+- **Browser terminal** - Run OpenClaw CLI commands directly from the browser without SSH
+- **Pre-configured AI model** - gpt-4.1-nano ready out of the box via the Diploi AI gateway
+- **Custom control panel** - Welcome page to monitor status, start/stop the gateway, and reset your instance
+- **API-driven management** - REST endpoints for programmatic control of the gateway
+- **Self-hosted & open-source** - Full ownership of your data and infrastructure
 
 ## How it works
 
 On startup, the wrapper server:
 
-1. Initializes `/app/openclaw.json` (if missing) via `openclaw onboard`
-2. Patches config defaults (gateway token, model provider, channel/plugin defaults)
-3. Starts and monitors the OpenClaw gateway on `127.0.0.1:18789`
-4. Proxies `/dashboard` to the OpenClaw gateway UI, and all other routes to the Vite frontend
+1. Initializes `/app/openclaw.json` via `openclaw onboard` under the hood
+2. Applies config defaults (gateway token and model provider, access to Diploi's browser terminal)
+3. Starts OpenClaw with a SSL-protected endpoint
+4. Proxies `/dashboard` to the OpenClaw dashboard UI, and all other routes to the Vite frontend
+
+When finished, you will have access to a custom welcome page which is unique for Diploi, from where you can:
+
+- See the general status of your OpenClaw gateway
+- Start/Stop the gateway globally
+- Reset OpenClaw to its startup defaults
+- Interact with the browser terminal and access the OpenClaw CLI
+- Access the OpenClaw dashboard
+
+<ImageToPNG src={OpenClawWelcomePage} alt="Welcome page for OpenClaw"/>
+
+The OpenClaw dashboard hasn't been modified, so you can expect the exact experience you would get if you configure OpenClaw manually. For more information about how to configure your OpenClaw instance, check their official documentation at https://docs.openclaw.ai/
 
 ### API endpoints
 
-The wrapper exposes these endpoints:
+The Hono API wrapper exposes a set of endpoints which can be useful to perform programmatical actions on your OpenClaw instance. This is the full list of endpoints exposed:
 
 - `GET /healthz` - Health check
 - `GET /api/dashboard-token` - Retrieve the dashboard token
@@ -70,7 +93,7 @@ Common variables used by the wrapper:
 - `DIPLOI_LOGIN_SECRET` - Required to validate login cookie
 - `DIPLOI_LOGIN_USERNAME` / `DIPLOI_LOGIN_PASSWORD` - Credential login
 
-## Project structure
+### Project structure
 
 ```
 server/
