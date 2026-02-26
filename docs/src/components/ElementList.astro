@@ -4,7 +4,6 @@ import { ElementType, type DiploiElement } from "./types";
 import {diploiElementList, extractElement} from './elementUtils'
 
 const elementListings:DiploiElement[] = await diploiElementList()
-console.log(extractElement(elementListings,'deno'))
 
 interface Props {
   type: 'component' | 'addon' | 'starter';
