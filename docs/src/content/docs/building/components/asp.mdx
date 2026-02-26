@@ -4,10 +4,10 @@ description: Build applications using .NET.
 ---
 
 import { Code } from 'astro-expressive-code/components';
-import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+import {diploiElementList, extractElement, repoURLPackageBuilder} from '../../../../components/elementUtils'
 export const AllElements = await diploiElementList()
 export const aspDetails = extractElement(AllElements,'asp')
-export const aspPackage = `${aspDetails.url}/${aspDetails.versions.pop()}`
+export const aspPackage = repoURLPackageBuilder(aspDetails.url,aspDetails.versions.pop())
 
 ASP.NET is Microsoft’s open-source web framework for building modern, high-performance web apps and APIs with .NET. Choose this component when you’re shipping server-rendered sites, REST backends, or full-stack applications that benefit from the .NET ecosystem and tooling. Diploi handles the build/publish pipeline and runs your ASP.NET app as a service with the runtime and networking it needs.
 

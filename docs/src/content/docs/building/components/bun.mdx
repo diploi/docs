@@ -4,10 +4,10 @@ description: Deploy Bun apps and tooling with Diploi.
 ---
 
 import { Code } from 'astro-expressive-code/components';
-import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+import {diploiElementList, extractElement, repoURLPackageBuilder} from '../../../../components/elementUtils'
 export const AllElements = await diploiElementList()
 export const bunDetails = extractElement(AllElements,'bun')
-export const bunPackage = `${bunDetails.url}/${bunDetails.versions.pop()}`
+export const bunPackage = repoURLPackageBuilder(bunDetails.url,bunDetails.versions.pop())
 
 Bun is a high-performance JavaScript runtime that includes a bundler, test runner, and package manager. Use this component when you want Bun's fast startup times and all-in-one tooling for web services or utilities. Diploi handles the deployment so you can take advantage of Bun without custom infrastructure.
 

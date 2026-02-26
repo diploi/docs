@@ -4,10 +4,10 @@ description: Provision MariaDB when your Diploi app needs MySQL compatibility.
 ---
 
 import { Code } from 'astro-expressive-code/components';
-import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+import {diploiElementList, extractElement, repoURLPackageBuilder} from '../../../../components/elementUtils'
 export const AllElements = await diploiElementList()
 export const mariadbDetails = extractElement(AllElements,'mariadb')
-export const mariadbPackage = `${mariadbDetails.url}/${mariadbDetails.versions.pop()}`
+export const mariadbPackage = repoURLPackageBuilder(mariadbDetails.url,mariadbDetails.versions.pop())
 
 MariaDB is a relational database that's compatible with MySQL, and adds performance and tooling improvements. You can use MariaDB when your project requires a db compatible with MySQL or if you are migrating existing MySQL workloads.
 

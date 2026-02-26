@@ -4,12 +4,12 @@ description: Automate workflows with the n8n component managed by Diploi.
 ---
 
 import { Code } from 'astro-expressive-code/components';
-import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+import {diploiElementList, extractElement, repoURLPackageBuilder} from '../../../../components/elementUtils'
 export const AllElements = await diploiElementList()
 export const n8nDetails = extractElement(AllElements,'n8n')
 export const postgresDetails = extractElement(AllElements,'postgres')
-export const n8nPackage = `${n8nDetails.url}/${n8nDetails.versions.pop()}`
-export const postgresPackage = `${postgresDetails.url}/${postgresDetails.versions.pop()}`
+export const n8nPackage = repoURLPackageBuilder(n8nDetails.url,n8nDetails.versions.pop())
+export const postgresPackage = repoURLPackageBuilder(postgresDetails.url,postgresDetails.versions.pop())
 
 n8n is a workflow automation platform for connecting APIs, services, and custom logic. Use this component when you need Diploi to build and deploy n8n so you can focus on building workflows, not configuring runtime environments.
 

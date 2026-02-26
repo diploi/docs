@@ -4,10 +4,10 @@ description: Bundle React apps quickly with the React + Vite component.
 ---
 
 import { Code } from 'astro-expressive-code/components';
-import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+import {diploiElementList, extractElement, repoURLPackageBuilder} from '../../../../components/elementUtils'
 export const AllElements = await diploiElementList()
 export const reactViteDetails = extractElement(AllElements,'react-vite')
-export const reactVitePackage = `${reactViteDetails.url}/${reactViteDetails.versions.pop()}`
+export const reactVitePackage = repoURLPackageBuilder(reactViteDetails.url,reactViteDetails.versions.pop())
 
 The React + Vite component pairs Vite's fast bundler with a ready-to-serve React runtime. Use it when you need quick rebuilds, hot module reload, and a lightweight deployment target for frontend projects. Diploi handles the build pipeline so you can focus on UI work.
 

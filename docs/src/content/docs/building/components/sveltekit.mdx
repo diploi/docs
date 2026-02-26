@@ -4,10 +4,10 @@ description: Deploy full-stack SvelteKit apps through Diploi.
 ---
 
 import { Code } from 'astro-expressive-code/components';
-import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+import {diploiElementList, extractElement, repoURLPackageBuilder} from '../../../../components/elementUtils'
 export const AllElements = await diploiElementList()
 export const sveltekitDetails = extractElement(AllElements,'sveltekit')
-export const sveltekitPackage = `${sveltekitDetails.url}/${sveltekitDetails.versions.pop()}`
+export const sveltekitPackage = repoURLPackageBuilder(sveltekitDetails.url,sveltekitDetails.versions.pop())
 
 SvelteKit combines Svelte's component model with server-side rendering, routing, and adapters. Use this component when you need a fast Svelte frontend that can fetch data server-side or run API endpoints. Diploi runs the build and deployment steps so your project ships with predictable infrastructure.
 

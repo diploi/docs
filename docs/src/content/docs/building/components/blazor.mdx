@@ -4,10 +4,10 @@ description: Launching apps powered by Blazor.
 ---
 
 import { Code } from 'astro-expressive-code/components';
-import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+import {diploiElementList, extractElement, repoURLPackageBuilder} from '../../../../components/elementUtils'
 export const AllElements = await diploiElementList()
 export const blazorDetails = extractElement(AllElements,'blazor')
-export const blazorPackage = `${blazorDetails.url}/${blazorDetails.versions.pop()}`
+export const blazorPackage = repoURLPackageBuilder(blazorDetails.url,blazorDetails.versions.pop())
 
 Blazor is a .NET web UI framework for building interactive web apps using C# and Razor components instead of JavaScript. Choose this component when you’re building dashboards, internal tools, or full-featured web apps where you want to stay in the .NET ecosystem and share code across client and server. Diploi builds your Blazor project and deploys it with the runtime and assets it needs to run.
 

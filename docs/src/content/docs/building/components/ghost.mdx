@@ -4,10 +4,10 @@ description: Host Ghost to publish blogs and newsletters with Diploi.
 ---
 
 import { Code } from 'astro-expressive-code/components';
-import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+import {diploiElementList, extractElement, repoURLPackageBuilder} from '../../../../components/elementUtils'
 export const AllElements = await diploiElementList()
 export const ghostDetails = extractElement(AllElements,'ghost')
-export const ghostPackage = `${ghostDetails.url}/${ghostDetails.versions.pop()}`
+export const ghostPackage = repoURLPackageBuilder(ghostDetails.url,ghostDetails.versions.pop())
 
 Ghost is an open-source content platform for publishing blogs, newsletters, and membership sites. Use this component when you want Diploi to manage builds and deployments for a Ghost site. It keeps your content workflow together with the infrastructure that serves it.
 

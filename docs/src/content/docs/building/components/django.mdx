@@ -4,10 +4,10 @@ description: Run Django projects on Diploi with managed deploys.
 ---
 
 import { Code } from 'astro-expressive-code/components';
-import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+import {diploiElementList, extractElement, repoURLPackageBuilder} from '../../../../components/elementUtils'
 export const AllElements = await diploiElementList()
 export const djangoDetails = extractElement(AllElements,'django')
-export const djangoPackage = `${djangoDetails.url}/${djangoDetails.versions.pop()}`
+export const djangoPackage = repoURLPackageBuilder(djangoDetails.url,djangoDetails.versions.pop())
 
 Django is a batteries-included Python framework for building secure, database-driven applications. Use this component when you need an admin interface, ORM, and templating system out of the box. Diploi provisions the deployment pipeline so you can focus on models and views instead of infrastructure.
 

@@ -4,10 +4,10 @@ description: Deploy Nue.js apps with Diploi handling builds and deploys.
 ---
 
 import { Code } from 'astro-expressive-code/components';
-import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+import {diploiElementList, extractElement, repoURLPackageBuilder} from '../../../../components/elementUtils'
 export const AllElements = await diploiElementList()
 export const nueDetails = extractElement(AllElements,'nue')
-export const nuePackage = `${nueDetails.url}/${nueDetails.versions.pop()}`
+export const nuePackage = repoURLPackageBuilder(nueDetails.url,nueDetails.versions.pop())
 
 Nue.js is a minimal framework for composing modular web applications with fast SSR. Pick this component when you want Nue's lean runtime while keeping deployment automation simple. Diploi runs the build and serves the output so you can focus on your UI modules.
 

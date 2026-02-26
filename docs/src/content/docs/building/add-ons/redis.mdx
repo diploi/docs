@@ -4,10 +4,10 @@ description: Add Redis for caching, queues, and ephemeral data in Diploi.
 ---
 
 import { Code } from 'astro-expressive-code/components';
-import {diploiElementList, extractElement} from '../../../../components/elementUtils'
+import {diploiElementList, extractElement, repoURLPackageBuilder} from '../../../../components/elementUtils'
 export const AllElements = await diploiElementList()
 export const redisDetails = extractElement(AllElements,'redis')
-export const redisPackage = `${redisDetails.url}/${redisDetails.versions.pop()}`
+export const redisPackage = repoURLPackageBuilder(redisDetails.url,redisDetails.versions.pop())
 
 Redis is an in-memory data store ideal for caching, rate limiting, queues, and other latency-sensitive workloads. Choose this add-on when your components need fast key-value access or pub/sub messaging.
 

@@ -11,3 +11,5 @@ export const extractElement = (elementList: DiploiElement[], elementToExtract: A
     const extractedElement = elementList.filter(element => element.identifier === elementToExtract)[0]
     return extractedElement
 }
+
+export const repoURLPackageBuilder = (repoURL:string, version:string) => `${repoURL}#${version}`
