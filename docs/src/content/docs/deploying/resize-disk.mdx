@@ -1,0 +1,54 @@
+---
+title: Resizing Disk Storage
+description: How to increase the disk storage of a deployment using the Storage Selector
+sidebar:
+    order: 6
+---
+
+import ImageToPNG from  "../../../components/ImageToPNG.astro"
+import ResizeDisk from '../../../assets/ResizeDisk.png'
+import ResizeDiskAction from '../../../assets/ResizeDiskAction.png'
+import StorageCostCalculator from '../../../assets/StorageCostCalculator.png'
+
+Every deployment in Diploi includes persistent disk storage used by your components, add-ons, and data. By default, new deployments start with **5 GB** of storage. As your application grows and your data needs increase, you can expand the disk size directly from the deployment dashboard.
+
+:::caution[Important]
+Disk resizing is a **one-way operation**. You can increase the storage size of your deployment, but you cannot decrease it afterward. Plan your storage needs carefully before resizing, as this change is permanent.
+:::
+
+***
+
+## Viewing Disk Usage
+
+From the **Overview** tab of your deployment, the **Cluster** panel displays real-time resource usage for your deployment, including RAM, CPU, and Disk.
+
+The **Disk** section shows how much storage your deployment is currently using, broken down by category: Code, Home, PostgreSQL, Devpod, etc. This gives you a quick overview of where your storage is being consumed.
+
+<ImageToPNG src={ResizeDisk} alt="Disk usage monitor with Resize button"/>
+
+***
+
+## Resizing the Disk
+
+To increase your deployment's storage, click the **Resize** button located next to the Disk usage indicator in the Cluster panel.
+
+This will open the **Resize Disk** dialog, where you can use the slider to increase your deployment's storage in 5 GB increments.
+
+<ImageToPNG src={ResizeDiskAction} alt="Resize Disk dialog"/>
+
+Resizing storage will affect your monthly costs. You can review the pricing before confirming by visiting our [pricing page](https://diploi.com/pricing) and checking how much you would pay for the new storage you plan to allocate.
+
+<ImageToPNG src={StorageCostCalculator} alt="Recalculating the storage costs"/>
+
+Once you have selected the desired size, click the **Resize** button to confirm. The additional storage will be made available to your deployment.
+
+:::note
+Resizing does not require your deployment to be paused or restarted. Your application will continue running during the resize operation.
+:::
+
+***
+
+## See also
+
+- [Creating a Deployment](/deploying/creating-a-deployment)
+- [Deployment Lifecycle](/reference/deployments/deployment-lifecycle)
