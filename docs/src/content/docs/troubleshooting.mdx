@@ -14,6 +14,8 @@ import HealthyAddonExample from '../../assets/HealthyAddonExample.png';
 import DeploymentEnvVars from '../../assets/DeploymentEnvVars.png';
 import HeavyUtilization from '../../assets/HeavyUtilization.png';
 import CreateDeploymentSize from '../../assets/CreateDeploymentSize.png';
+import DisableDeploymentSwitch from '../../assets/DisableDeploymentSwitch.png';
+import PodLogs from '../../assets/PodLogs.png';
 
 
 Find the case that matches your situation and follow the checklist. Each section ends with what to collect if you need support.
@@ -21,6 +23,7 @@ Find the case that matches your situation and follow the checklist. Each section
 ## Start here
 
 - **New issue and you’re not sure where to look?** Start with **[First-aid checklist](#first-aid-checklist)**
+- **Imported app fails to run?** Go to **[Hosting existing apps from GitHub](#hosting-existing-apps-from-github)**
 - **Can’t connect to your environment?** Go to **[SSH and Remote Development](#ssh-and-remote-development)**
 - **Git push/pull/auth problems?** Go to **[Git and GitHub](#git-and-github-issues)**
 - **Build failed / deploy stuck / wrong version running?** Go to **[Builds and Deployments](#builds-and-deployments)**
@@ -87,6 +90,51 @@ Each troubleshooting section follows the same pattern:
 2. **Fast fixes** (5-10 minutes)
 3. **Deep diagnosis**
 4. **If still stuck (collect this)**: a copy/paste checklist for support
+
+***
+<details>
+<summary>
+## Hosting existing apps from GitHub
+</summary>
+
+Diploi's automated import feature tries to configure any app you import, but it is not fail-proof. These are some common situations you might find, and how to handle them.
+
+### Symptoms
+
+- Import analysis determined that the app could be hosted on Diploi, but the app shows a 502 error or fails to load
+- Import failed, but the app has a `diploi.yaml` file already or it was created using Diploi
+- Import analysis finished successfully for a fullstack app, but one of the components fails to start
+
+### Fast fixes
+
+#### Reset your deployment
+
+Sometimes, the resource allocation API might fail during the startup of your app, which can cause your app to get stuck while trying to start. Try disabling the deployment and enabling it again to run the startup sequence again.
+
+<ImageToPNG src={DisableDeploymentSwitch} alt="Disabling a deployment"/>
+
+#### Failing components or deployment fails to start
+
+In cases when you have a multi-component app, it could be the case that a one of the components fails to start. This could be because ENV variables are missing or there are version conflicts. Check the [builds and deployments](#builds-and-deployments) section which goes over what to do.
+
+#### Missing components or add-ons
+
+If your app's stack was not correctly detected, you can manually configure the mising elements by editing the `diploi.yaml` file in the root of your project. For more information about how to use the `diploi.yaml` file, check [this article explaining how to use it](/reference/diploi-yaml).
+
+### Deep diagnosis
+
+#### Review deployment logs
+
+In most situations, when your import fails to start, it is possible that the import system used the wrong start commands or some files are missing in your repository. To debug these situation, you can view the logs of each component in your app to determine why your app might be failing to start.
+
+<ImageToPNG src={PodLogs} alt="Viewing deployment logs" />
+
+### If still stuck (collect this)
+
+- List the components of your app's stack, eg. Next.js + Deno + Redis + Mongo
+- Your deployment's URL, eg. `https://console.diploi.com/<your_account>/project/<project_id>/deployment/<deployment_id>`
+- Describe the issue(s) you found while trying to host an app
+</details>
 
 ***
 <details>
