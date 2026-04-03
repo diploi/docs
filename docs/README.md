@@ -1,3 +1,5 @@
+[![launch with diploi badge](https://diploi.com/launch.svg)](https://diploi.com/import)
+
 <img alt="icon" src="public/icon.svg" width="32">
 
 # Diploi Documentation
