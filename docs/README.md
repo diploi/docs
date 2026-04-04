@@ -1,4 +1,4 @@
-[![launch with diploi badge](https://diploi.com/launch.svg)](https://diploi.com/import)
+[![launch with diploi badge](https://diploi.com/launch.svg)](https://diploi.com/import?url=https%3A%2F%2Fgithub.com%2Fdiploi%2Fdocs)
 
 <img alt="icon" src="public/icon.svg" width="32">
 
