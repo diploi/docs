@@ -126,7 +126,7 @@ You can remap individual ENV values while importing them
 
 #### Static Values
 
-Static values let you define build-time variables that are exposed to GitHub Actions workflows.
+Static values let you define build-time variables that are exposed to [GitHub Actions workflows](/reference/github-action/).
 
 ```yaml
 env:
@@ -146,3 +146,35 @@ ENV TEST_VALUE=$TEST
 Static values are scoped to the component where they are declared and remain consistent across deployments.
 Use the **Options** tab when you need runtime configuration instead.
 You can also overwrite a static ENV value in the **Options** tab without changing it in the config.
+
+### `containerCommands`
+
+Overrides the default startup commands for a component's container. Each component defines sensible defaults, but you can customize them here when your project structure or tooling differs from the component's assumptions.
+
+The alternative to using `containerCommands` is to edit the startup command directly in the `Dockerfile` (for staging and production) or `Dockerfile.dev` (for development) inside your component's folder. Use `containerCommands` when you want to change the startup command without modifying the Dockerfiles.
+
+```yaml
+components:
+  - name: Astro
+    identifier: astro
+    package: https://github.com/diploi/component-astro#main
+    containerCommands:
+      developmentStart: bun run dev -- --host
+      productionStart: bun start
+```
+
+:::note
+This feature is only available for supported components.
+:::
+
+#### `containerCommands.developmentStart`
+
+The command used to start the container in a **development** deployment. This replaces the component's default development start command.
+
+For example, the Astro component defaults to `npm run dev -- --host` and the FastAPI component defaults to `uv run --with uvicorn uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload --reload-dir src --reload-dir .venv/lib`. You can check the default command from the Dockerfile.dev.
+
+#### `containerCommands.productionStart`
+
+The command used to start the container in a **staging or production** deployment. This replaces the component's default production start command.
+
+For example, the Astro component defaults to `npm start` and the FastAPI component defaults to `uv run --with uvicorn uvicorn src.main:app --host 0.0.0.0 --port 8000 --proxy-headers`. You can check the default command from the Dockerfile.

@@ -151,6 +151,7 @@ export default defineConfig({
             'reference/technical-deep-dive',
             'reference/architecture',
             'reference/diploi-yaml',
+            'reference/github-action',
             'reference/built-in-email',
             'reference/glossary',
             {

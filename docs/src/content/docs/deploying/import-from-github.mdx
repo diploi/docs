@@ -99,7 +99,7 @@ By default, Diploi will use common run commands for development and staging/prod
 
 When you can import a publicly available repository, which doesn't belong to your GitHub account, you will have the option of creating a new repository in your account to store your code or start a project without a repository.
 
-In case you choose to proceed without a repo, your project won't be able to start a Production or Staging deployment, because Diploi creates a GitHub Action which takes care of creating a build of your project, which can be ran in Staging and Production.
+In case you choose to proceed without a repo, your project won't be able to start a Production or Staging deployment, because Diploi creates a [GitHub Actions workflow](/reference/github-action/) which takes care of creating a build of your project, which can be ran in Staging and Production.
 
 :::caution
 You cannot add a repository to an existing project. If you need to import an application and link it to a new repository, you will need to go through the process of importing the app again and then create a new repository before launching the project.
@@ -114,7 +114,7 @@ When you import from a repo you own, Diploi will use the same repository by defa
 Currently, you can't import a repository and save it in a new repository.
 
 :::note
-Once you import an application, you will need to push the files that Diploi creates in your project directly to the `main` branch of your repository. This is needed because Diploi uses Docker in the background to host your application, and it uses a GitHub Action to generate a Docker build that can be used by Diploi.
+Once you import an application, you will need to push the files that Diploi creates in your project directly to the `main` branch of your repository. This is needed because Diploi uses Docker in the background to host your application, and it uses a [GitHub Actions workflow](/reference/github-action/) to generate a Docker build that can be used by Diploi.
 :::
 
 ## Supported Applications

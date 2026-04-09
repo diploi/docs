@@ -1,0 +1,116 @@
+---
+title: GitHub Actions
+description: How Diploi uses GitHub Actions to build and push container images for your components.
+---
+
+Diploi automatically generates a GitHub Actions workflow in your repository at `.github/workflows/Build.yaml`. This workflow builds Docker images for each component in your stack and pushes them to the Diploi container registry whenever you push code to any branch.
+
+## How it works
+
+The workflow runs in two jobs:
+
+1. **Define Components** — reads your `diploi.yaml` and outputs a build matrix describing each component and environment that needs an image.
+2. **Build** — runs in parallel for each matrix entry, building and pushing the Docker image using the [`diploi/action-build`](https://github.com/diploi/action-build) action.
+
+## Default workflow
+
+```yaml
+name: Build Components
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  define-components:
+    name: Define Components
+    runs-on: ubuntu-latest
+    outputs:
+      components: ${{ steps.diploi-meta.outputs.components }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - id: diploi-meta
+        name: Diploi meta
+        uses: diploi/action-components@v1.8
+  run-builds:
+    name: Build ${{ matrix.name }} ${{ matrix.stage }}
+    runs-on: ubuntu-24.04-arm
+    needs: define-components
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(needs.define-components.outputs.components) }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Diploi build
+        uses: diploi/action-build@v1.12
+        with: ${{ matrix }}
+        env:
+          project: ${{ secrets.DIPLOI_REGISTRY_PROJECT }}
+          registry: ${{ secrets.DIPLOI_REGISTRY_HOSTNAME }}
+          username: ${{ secrets.DIPLOI_REGISTRY_USERNAME }}
+          password: ${{ secrets.DIPLOI_REGISTRY_PASSWORD }}
+```
+
+## Dockerfiles
+
+The build action selects the Dockerfile to use based on the target environment:
+
+- **`Dockerfile.dev`** — used for the **development** environment, if it exists in the component's folder.
+- **`Dockerfile`** — used for **staging and production** environments, and as a fallback for development if `Dockerfile.dev` is not present.
+
+Both files are expected to be located inside the component's folder (e.g. `my-api/Dockerfile`).
+
+:::tip
+You can get the official Dockerfiles for all Diploi-supported components from the [Diploi GitHub repositories](https://github.com/orgs/diploi/repositories). Each component repository contains the `Dockerfile` and `Dockerfile.dev` used as defaults.
+:::
+
+## Registry secrets
+
+The workflow expects four repository secrets to be configured. Diploi sets these automatically when you connect your repository.
+
+Secret | Description
+--- | ---
+`DIPLOI_REGISTRY_HOSTNAME` | Hostname of the Diploi container registry
+`DIPLOI_REGISTRY_PROJECT` | Project name within the registry
+`DIPLOI_REGISTRY_USERNAME` | Registry login username
+`DIPLOI_REGISTRY_PASSWORD` | Registry login password
+
+## Build arguments
+
+Static ENV values defined in `diploi.yaml` under a component's `env` block are forwarded to the Docker build as `ARG` variables. See [Static Values](/reference/diploi-yaml#static-values) for details on how to define them.
+
+## Exposing GitHub secrets to the build
+
+If your Dockerfile needs access to sensitive values during the build — such as a private npm registry token or an API key for a build-time fetch — you can pass GitHub repository secrets to the build action using Docker BuildKit's secret mounting.
+
+Add a `secrets` key to the `env` block of the build step in your workflow:
+
+```yaml
+      - name: Diploi build
+        uses: diploi/action-build@v1.12
+        with: ${{ matrix }}
+        env:
+          project: ${{ secrets.DIPLOI_REGISTRY_PROJECT }}
+          registry: ${{ secrets.DIPLOI_REGISTRY_HOSTNAME }}
+          username: ${{ secrets.DIPLOI_REGISTRY_USERNAME }}
+          password: ${{ secrets.DIPLOI_REGISTRY_PASSWORD }}
+          secrets: |
+            NPM_TOKEN=${{ secrets.NPM_TOKEN }}
+```
+
+Then mount the secret in your `Dockerfile` using `--mount=type=secret`:
+
+```dockerfile
+RUN --mount=type=secret,id=NPM_TOKEN \
+    NPM_TOKEN=$(cat /run/secrets/NPM_TOKEN) npm install
+```
+
+Secrets mounted this way are never stored in the image layers, only available during the `RUN` step that mounts them.
+
+:::note
+GitHub repository secrets can be added under **Settings → Secrets and variables → Actions** in your repository.
+:::
