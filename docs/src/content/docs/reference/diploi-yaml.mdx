@@ -74,6 +74,53 @@ You can get all of our officially supported Dockerfiles for all components [in o
 The URL for the package repository.
 Version comes after the hashtag `#` symbol. Version can be a Git tag or branch reference.
 
+### `hosts`
+
+`hosts` declares the network endpoints a component exposes. Each entry maps a port inside the container to either a public HTTPS endpoint 
+and/or an internal service name reachable only by other components in the same deployment.
+
+:::note
+Not all components support the `hosts` directive yet. Check the component's repository for details.
+:::
+
+```yaml
+components:
+  - name: Bun
+    identifier: bun
+    package: https://github.com/diploi/component-bun#main
+    hosts:
+      # Public endpoint — gets an SSL certificate and a configurable domain
+      - identifier: api
+        name: API
+        port: 3000
+
+      # Internal-only endpoint — accessible by other components but not the public internet
+      - identifier: metrics
+        name: Metrics
+        endpoint: false
+        port: 3001
+```
+
+#### `hosts[].identifier`
+
+A unique slug for this host entry within the component. The identifier becomes part of the internal hostname that other components use to reach this service. You can view the full internal hostname in the Diploi Console.
+
+#### `hosts[].name`
+
+A human-readable label shown in the Diploi Console for this endpoint.
+
+#### `hosts[].port`
+
+The port your application listens on inside the container.
+
+#### `hosts[].endpoint`
+
+Controls whether the host is exposed publicly. Defaults to `true`.
+
+- **`true`** — Diploi provisions a public HTTPS endpoint with an automatically managed SSL certificate. You can assign a `diploi.app` subdomain or a [custom domain](/deploying/custom-domain/) from the deployment's **Options** tab.
+- **`false`** — The service is only reachable by other components inside the same deployment and is never exposed to the public internet.
+
+
 ### `env`
 
 ENV values from other components aren't available by default, but can be configured here.
@@ -86,6 +133,7 @@ keeping everything in sync and avoiding repetitive manual configuration.
 
 Open the **Options** tab for any component to see the values it defines,
 review the ones it currently imports, and override individual entries whenever you need a custom value.
+
 
 ```yaml
 env:
