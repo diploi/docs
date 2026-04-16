@@ -19,7 +19,7 @@ jobs:
         uses: diploi/action-components@v1.6-alpha
   run-builds:
     name: Build ${{ matrix.name }} ${{ matrix.stage }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     needs: define-components
     strategy:
       fail-fast: false
