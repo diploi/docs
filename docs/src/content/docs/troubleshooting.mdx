@@ -47,7 +47,7 @@ The fastest path from “something is broken” to a clear root cause. Try these
 
 ### 1. Identify the deployment stage
 
-- **Development**: meant for remote development (Browser IDE / VS Code / Cursor / Zed), code is editable live.
+- **Development**: meant for remote development (Cloud IDE / VS Code / Cursor / Zed), code is editable live.
 - **Staging/Production**: runs a built image (CI/CD style), code changes come from a Git branch, and updates when you push updates to said branch.
 
 <ImageToPNG src={DeploymentStage} alt="Deployment Stage"/>
@@ -142,13 +142,13 @@ In most situations, when your import fails to start, it is possible that the imp
 ## SSH and Remote Development
 </summary>
 
-For issues related to remote access via SSH to development environments or app containers, via Browser IDE, VS Code, Cursor, Zed, or from a terminal.
+For issues related to remote access via SSH to development environments or app containers, via Cloud IDE, VS Code, Cursor, Zed, or from a terminal.
 
 ### Symptoms
 
 - VS Code/Cursor/Zed can’t connect (timeout, permission denied, handshake failed)
 - SSH prompts keep repeating when you try to connect with your local IDE
-- Browser IDE works, but local IDE does not
+- Cloud IDE works, but local IDE does not
 - Connection fails when trying to access a container with SSH
 
 ### Fast fixes
@@ -190,7 +190,7 @@ Ensure:
 - Exact SSH command you ran
 - Full terminal output (redact secrets)
 - Your OS and IDE (VS Code/Cursor) version
-- Whether Browser IDE works
+- Whether Cloud IDE works
 - [Contact us](#where-to-ask)
 </details>
 
