@@ -7,7 +7,8 @@ import starlightLlmsTxt from 'starlight-llms-txt';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://docs.diploi.com/',
+  site: 'https://docs.diploi.com',
+  trailingSlash: 'never',
   markdown: {},
   adapter: node({
     mode: 'standalone',
@@ -70,11 +71,11 @@ export default defineConfig({
             },
             {
               label: 'Get Started',
-              link: '/get-started/',
+              link: '/get-started',
             },
             {
               label: 'The Diploi Way',
-              link: '/the-diploi-way/',
+              link: '/the-diploi-way',
             },
           ],
         },
@@ -172,15 +173,15 @@ export default defineConfig({
         },
         {
           label: 'FAQ',
-          link: '/faq/',
+          link: '/faq',
         },
         {
           label: 'Troubleshooting',
-          link: '/troubleshooting/',
+          link: '/troubleshooting',
         },
         {
           label: 'Roadmap',
-          link: '/roadmap/',
+          link: '/roadmap',
         },
         {
           label: 'LLMs',
