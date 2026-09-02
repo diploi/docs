@@ -102,6 +102,26 @@ You'll be notified before reaching limits. Some features may be temporarily rest
 
 </details>
 
+
+<details>
+<summary><strong>How do I call AI models from my app?</strong></summary>
+
+Use the [AI Gateway](/reference/ai-gateway). Inject `{diploi-ai-gateway-url}` and `{diploi-ai-gateway-token}` into your component and point an OpenAI- or Anthropic-compatible client at it. You do not need your own provider API keys. The cloud IDE, OpenCode, and the Prompt view already use this gateway.
+</details>
+
+<details>
+<summary><strong>How is AI usage billed?</strong></summary>
+
+AI is metered from the same prepaid balance as your deployments. Trial accounts include €1 of AI usage per UTC day. Paid plans are billed at model rates, with 5% off on Pro and 10% off on Ultra. See [pricing](https://diploi.com/pricing) and the Billing page in the console.
+</details>
+
+<details>
+<summary><strong>Can I use the AI Gateway from my laptop?</strong></summary>
+
+No. The gateway is only reachable inside the deployment containers, at `core.diploi`. Use Prompt in the console, OpenCode or Continue in the remote environment, or call it from your deployed app.
+</details>
+
+
 ## Pricing & Plans
 
 <details>

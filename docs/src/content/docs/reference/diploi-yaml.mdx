@@ -226,3 +226,23 @@ For example, the Astro component defaults to `npm run dev -- --host` and the Fas
 The command used to start the container in a **staging or production** deployment. This replaces the component's default production start command.
 
 For example, the Astro component defaults to `npm start` and the FastAPI component defaults to `uv run --with uvicorn uvicorn src.main:app --host 0.0.0.0 --port 8000 --proxy-headers`. You can check the default command from the Dockerfile.
+
+## Diploi placeholders
+
+Some values are filled in by Diploi at deployment time. Use them in `env.include` entries so each deployment gets the right credentials:
+
+```yaml
+env:
+  include:
+    - name: DIPLOI_AI_GATEWAY_URL
+      value: '{diploi-ai-gateway-url}'
+    - name: DIPLOI_AI_GATEWAY_TOKEN
+      value: '{diploi-ai-gateway-token}'
+```
+
+| Placeholder | Meaning |
+|---|---|
+| `{diploi-ai-gateway-url}` | Internal AI Gateway URL (`http://core.diploi/ai-core-proxy`) |
+| `{diploi-ai-gateway-token}` | Token for this deployment |
+
+These are resolved when the deployment starts, not at image build time. See [AI Gateway](/reference/ai-gateway).

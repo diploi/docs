@@ -51,6 +51,15 @@ env:
 In n8n, you must use the environment variable names defined by their documentation. For more information check: https://docs.n8n.io/hosting/configuration/environment-variables/database/#postgresql
 :::
 
+## AI models
+
+To use Diploi-hosted models in n8n, create an OpenAI credential that points at the AI Gateway:
+
+- **Base URL:** `{diploi-ai-gateway-url}/openai/v1`
+- **API key:** `{diploi-ai-gateway-token}`
+
+Inject those placeholders as env vars on the n8n component, then pick a [supported model](/reference/ai-gateway#supported-models). See [AI Gateway](/reference/ai-gateway).
+
 ## See also
 
 - [Using Components](/building/components)

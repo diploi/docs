@@ -154,6 +154,7 @@ export default defineConfig({
             'reference/diploi-yaml',
             'reference/github-action',
             'reference/built-in-email',
+            'reference/ai-gateway',
             'reference/glossary',
             {
               label: 'Projects',
