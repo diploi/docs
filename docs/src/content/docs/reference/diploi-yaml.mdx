@@ -1,6 +1,6 @@
 ---
 title: diploi.yaml Explained
-description: A deployment is a full instance of your application.
+description: The configuration file that defines the components, add-ons and development environment of a project.
 ---
 
 The `diploi.yaml` file at the root of a Diploi repository is the **Infrastructure as Code (IaC)** configuration file Diploi uses to build the infrastructure for a deployment.   
@@ -13,16 +13,20 @@ The more detailed config for a component, such as HELM charts and other setup fi
 
 ```yaml
 diploiVersion: v1.0
+development:
+  env:
+    include:
+      - postgres.*
 components:
   - name: Next.js
     identifier: next
     package: https://github.com/diploi/component-nextjs#main
     env:
       include:
-        - *
+        - '*'
   - name: Bun
     identifier: bun
-    folder: /api #Optional
+    folder: /api # Optional
     package: https://github.com/diploi/component-bun#main
     env:
       include:
@@ -38,6 +42,14 @@ addons:
     identifier: postgres
     package: https://github.com/diploi/addon-postgres#main
 ```
+
+The file has three top-level sections: [`components`](#components-and-addons) and [`addons`](#components-and-addons)
+describe what the deployment runs, and [`development`](#development) describes the environment you work in.
+`diploiVersion` is always `v1.0`.
+
+After editing the file, apply the changes from the deployment's **Overview** in the Console, or run
+[`diploi apply`](/reference/diploi-cli#diploi-apply) in the development environment. `diploi status` shows what is
+pending before you apply.
 
 ## `components` and `addons`
 
@@ -61,6 +73,8 @@ If the `folder` parameter is not defined, Diploi will use the component identifi
 
 Indicates to Diploi where to store the files necessary for a component, and is meant to be used when you import an existing application that already has a functioning app running in a specific folder inside your repository.
 
+The path is relative to the root of the repository and **has to start with a `/`**: `/api`, or `/` when the component is the repository root.
+
 If a component has a `folder` parameter assigned that already exists, Diploi will not generate any new files, and instead it will try to run the component using the files in the directory you are pointing to.
 
 :::note
@@ -74,13 +88,28 @@ You can get all of our officially supported Dockerfiles for all components [in o
 The URL for the package repository.
 Version comes after the hashtag `#` symbol. Version can be a Git tag or branch reference.
 
+### `prebuildImage`
+
+An image to start the component from instead of building it from the repository, used by starter kits so a new
+deployment is running before the first build finishes. `[tag]` in the url is replaced with the version of the
+component.
+
+```yaml
+components:
+  - name: React
+    identifier: react
+    package: https://github.com/diploi/component-react-vite#v19.2.6
+    prebuildImage: public.ecr.aws/p8t2q7f4/diploi/starter-web-app/react:[tag]
+```
+
 ### `hosts`
 
 `hosts` declares the network endpoints a component exposes. Each entry maps a port inside the container to either a public HTTPS endpoint 
 and/or an internal service name reachable only by other components in the same deployment.
 
 :::note
-Not all components support the `hosts` directive yet. Check the component's repository for details.
+Overriding a host that a component already declares works everywhere. Adding new hosts only works for components
+that support it — the component page of each component lists the hosts it declares.
 :::
 
 ```yaml
@@ -103,7 +132,9 @@ components:
 
 #### `hosts[].identifier`
 
-A unique slug for this host entry within the component. The identifier becomes part of the internal hostname that other components use to reach this service. You can view the full internal hostname in the Diploi Console.
+A unique slug for this host entry within the component. The identifier becomes part of the internal hostname that other components use to reach this service, and of the `<IDENTIFIER>_ENDPOINT` environment variable the component gets for it. You can view the full internal hostname in the Diploi Console, or with [`diploi describe <component>`](/reference/diploi-cli#diploi-describe).
+
+When it is left out, the identifier becomes `port-<port>`. Using the same identifier as a host the component already declares overrides that host (its name, port or `endpoint`) instead of adding a new one.
 
 #### `hosts[].name`
 
@@ -138,8 +169,8 @@ review the ones it currently imports, and override individual entries whenever y
 ```yaml
 env:
   include:
-    # Imports every ENV value from every component
-    - *
+    # Imports every ENV value from every component (quoted: a bare * is not valid YAML)
+    - '*'
     # Imports all ENV values from a component with the `postgres` identifier
     - postgres.*
     # Imports all ENV values that start with `POSTGRES_` from a component with the `postgres` identifier
@@ -157,8 +188,8 @@ env:
 ```
 
 You can use wildcards when importing values.
-- `*`
-  - Imports every ENV value from every component
+- `'*'`
+  - Imports every ENV value from every component (quote it, a bare `*` is not valid YAML)
 - `postgres.*`
   - Imports all ENV values from a component with the `postgres` identifier
 - `postgres.POSTGRES_*`
@@ -226,6 +257,76 @@ For example, the Astro component defaults to `npm run dev -- --host` and the Fas
 The command used to start the container in a **staging or production** deployment. This replaces the component's default production start command.
 
 For example, the Astro component defaults to `npm start` and the FastAPI component defaults to `uv run --with uvicorn uvicorn src.main:app --host 0.0.0.0 --port 8000 --proxy-headers`. You can check the default command from the Dockerfile.
+
+## `development`
+
+Configures the **development environment** — the container with your editor and terminal, the one you open from the
+Console or connect to over SSH. It is separate from the containers your components run in, but shares the same
+`/app` folder, so it is where you edit code, run git, and use [the Diploi CLI](/reference/diploi-cli).
+
+This section only affects development deployments; staging and production ignore it.
+
+```yaml
+development:
+  initCommands:
+    - apt-get install -y imagemagick
+  env:
+    include:
+      - postgres.*
+      - supabase.ANON_KEY:SUPABASE_ANON_KEY
+      - name: APP_ENV
+        value: development
+components:
+  # ...
+```
+
+### `development.env`
+
+Which environment variables are available in your terminal. By default the development environment has none of the
+variables of your components: this is what makes `psql $POSTGRES_URL` or a migration script work from the terminal
+without copying credentials by hand.
+
+The syntax is the same as [`env`](#env) on a component, with one difference: it imports from **every** component,
+including static values.
+
+```yaml
+development:
+  env:
+    include:
+      # Everything a component defines
+      - postgres.*
+      # One value, renamed
+      - supabase.APP_ENDPOINT:SUPABASE_URL
+      # A static value
+      - name: APP_ENV
+        value: development
+```
+
+Run `printenv` in the terminal to see them, or
+[`diploi describe`](/reference/diploi-cli#diploi-describe) to see each one with the component it came from. Changing
+this section restarts the development environment.
+
+### `development.initCommands`
+
+Commands to run when the development environment starts, as `root`, before your terminal is available. Use them for
+tools your work needs but the base image does not have.
+
+```yaml
+development:
+  initCommands:
+    - apt-get update
+    - apt-get install -y imagemagick
+```
+
+The commands run on every start of the environment, not only the first, so they should be safe to repeat. They run
+in a shell that stops at the first failing command, and their output is in the development environment's logs.
+Changing them restarts the environment.
+
+:::note
+`initCommands` install things in the development environment only. To install something a component needs at
+runtime, put it in that component's `Dockerfile` — or, for a quick test, run
+[`diploi exec <component> -- ...`](/reference/diploi-cli#diploi-exec) and remember it is gone on the next restart.
+:::
 
 ## Diploi placeholders
 
