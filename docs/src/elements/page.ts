@@ -4,6 +4,7 @@
  */
 import { TYPE_INFO, type Element } from './api';
 import { expandPlaceholders, rebaseRelativeUrls, type Overlay } from './overlays';
+import { referenceSection } from './config';
 import { cleanReadme, type ReadmeLink } from './readme';
 
 export type ElementPage = {
@@ -133,6 +134,7 @@ export const buildElementPage = (element: Element, overlay: Overlay | undefined,
     overlay?.intro ? expand(overlay.intro) : '',
     element.type === 'starter' ? launchSection(element) : addToProjectSection(element, elements),
     overlay?.more ? expand(overlay.more) : '',
+    referenceSection(element),
     readme.markdown ? `## Readme\n\n${readme.markdown}` : '',
     seeAlsoSection(element, overlay?.links ?? [], readme.links),
   ];

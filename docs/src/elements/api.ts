@@ -17,6 +17,23 @@ export type Repository = {
   rawBaseUrl: string;
 };
 
+/** The parsed `diploi.yaml` of an element, as the Console returns it (common/stack/ComponentConfigDocuments.ts) */
+export type ElementConfig = {
+  defaultContainer?: string;
+  hosts?: { name?: string; identifier: string; serviceName?: string; endpoint?: boolean; port?: number }[];
+  connectionStrings?: { name: string; value: string; description?: string }[];
+  parameterGroups?: {
+    identifier: string;
+    name?: string;
+    description?: string;
+    toggleable?: boolean;
+    defaultValue?: boolean;
+    parameters: { identifier: string; name?: string; description?: string; type: string; defaultValue?: string | number | boolean }[];
+  }[];
+  environmentVariables?: { identifier: string; defaultValue?: string | number | boolean }[];
+  storage?: { identifier: string; sizeMiB: number }[];
+};
+
 export type Element = {
   identifier: string;
   name: string;
@@ -39,9 +56,17 @@ export type Element = {
   pageId: string;
   /** Raw README.md of the repository (unmodified) */
   readme: string;
+  /** What the container starts with, from the Console */
+  developmentStartupCommand?: string;
+  productionStartupCommand?: string;
+  /** Parsed diploi.yaml of the newest version, when the Console gives it out (needs API_KEY) */
+  config?: ElementConfig;
 };
 
 const API_URL = import.meta.env.API_URL || import.meta.env.VITE_API_URL || 'https://console.diploi.com';
+// Lets the docs read the configuration of an element (stack.loadComponent). Without it the pages are built without
+// their reference section.
+const API_KEY = import.meta.env.API_KEY || import.meta.env.VITE_API_KEY;
 
 const TYPE_BY_ID: Record<number, ElementType> = { 1: 'component', 2: 'addon', 3: 'starter' };
 
@@ -80,6 +105,9 @@ type ApiElement = {
   badge?: string | null;
   hidden?: boolean;
   url: string;
+  developmentStartupCommand?: string | null;
+  productionStartupCommand?: string | null;
+  config?: ElementConfig | null;
 };
 
 /** Splits a GitHub repository url (https, git@ or with a #ref) into its parts */
@@ -147,7 +175,34 @@ const toElement = async (api: ApiElement): Promise<Element> => {
     launchUrl,
     pageId: `${TYPE_INFO[type].directory}/${api.identifier}`,
     readme: await fetchText(`${repository.rawBaseUrl}README.md`),
+    developmentStartupCommand: api.developmentStartupCommand ?? undefined,
+    productionStartupCommand: api.productionStartupCommand ?? undefined,
+    config: (await fetchElementConfig(api.identifier)) ?? undefined,
   };
+};
+
+/**
+ * The parsed diploi.yaml of an element. Only the Console has it (it keeps the configuration of every component
+ * version), and only for callers with the API key; without one the element is described without it.
+ */
+const fetchElementConfig = async (identifier: string): Promise<ElementConfig | undefined> => {
+  if (!API_KEY) return undefined;
+  try {
+    const response = await fetch(`${API_URL}/api/trpc/stack.loadComponent`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ identifier, token: API_KEY }),
+    });
+    if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
+    const {
+      result: { data },
+    } = await response.json();
+    if (data?.status !== 'ok') throw new Error(data?.status ?? 'unknown error');
+    return data.component?.config ?? undefined;
+  } catch (error) {
+    console.warn(`Could not load the configuration of "${identifier}": ${(error as Error).message}`);
+    return undefined;
+  }
 };
 
 let elementsPromise: Promise<Element[]> | undefined;
