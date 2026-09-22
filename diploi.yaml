@@ -2,7 +2,7 @@ diploiVersion: v1.0
 components:
   - name: Astro
     identifier: docs
-    package: https://github.com/diploi/component-astro#main
+    package: https://github.com/diploi/component-astro#v7.1.1
     env:
       include: '*'
 addons: []
