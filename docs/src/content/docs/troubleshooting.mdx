@@ -61,6 +61,14 @@ The fastest path from “something is broken” to a clear root cause. Try these
   - Error lines in the logs of a component
   - Deployment status shows "possible issues" or an error state
 
+From the development environment, the same in three commands with [the Diploi CLI](/reference/diploi-cli):
+
+```bash
+diploi status          # what is running, and what needs attention
+diploi logs <component>
+diploi events -w       # warnings from Kubernetes: failed pulls, crashes, failed probes
+```
+
 ### 3. Confirm what changed
 
 - A new dependency?
