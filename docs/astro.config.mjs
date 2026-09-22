@@ -24,6 +24,13 @@ export default defineConfig({
   site: 'https://docs.diploi.com',
   trailingSlash: 'never',
   markdown: {},
+  // Element pages are named after the identifiers used by the Diploi Console
+  redirects: {
+    '/building/components/nextjs': '/building/components/next',
+    '/building/components/nodejs': '/building/components/node',
+    '/building/starter-kits/chat-app': '/building/starter-kits/chat',
+    '/building/starter-kits/drawing-app': '/building/starter-kits/refine-pixels',
+  },
   adapter: node({
     mode: 'standalone',
   }),
@@ -44,8 +51,14 @@ export default defineConfig({
       social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/diploi/docs' }],
       components: {
         SiteTitle: './src/components/SiteTitle.astro',
+        PageTitle: './src/components/PageTitle.astro',
       },
+      routeMiddleware: './src/routeData.ts',
       tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 5 },
+      markdown: {
+        // Apply Starlight's Markdown plugins (asides, heading links) to MDX partials imported from outside src/content/docs
+        processedDirs: ['src/components'],
+      },
       head: [
         {
           tag: 'script',

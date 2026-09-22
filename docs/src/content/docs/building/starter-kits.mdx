@@ -4,7 +4,7 @@ description: "Launch pre-built, full-stack applications on Diploi with a single 
 ---
 
 import ElementList from "../../../components/ElementList.astro"
-import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+import ElementOverview from "../../../components/ElementOverview.astro"
 
 ## Starter Kits
 
@@ -20,53 +20,7 @@ You can extend all Starter Kits available with additional components and add-ons
 
 ---
 
-### OpenClaw
-
-A self-hosted personal AI assistant that connects to messaging platforms and supports any LLM provider. Comes with an interactive browser terminal to access the OpenClaw CLI without using SSH.
-
-<CardGrid>
-  <LinkCard title="Launch OpenClaw" href="https://diploi.com/starter-kit/openclaw" target="_blank" />
-  <LinkCard title="How to use the OpenClaw starter kit" href="/building/starter-kits/openclaw" />
-  <LinkCard title="Starter kit repository" href="https://github.com/diploi/starter-openclaw" target="_blank" />
-  <LinkCard title="OpenClaw documentation" href="https://docs.openclaw.ai/" target="_blank" />
-</CardGrid>
-
----
-
-### Chat App
-
-A Slack-like chat application with authentication and realtime features, built with Next.js and Supabase.
-
-<CardGrid>
-  <LinkCard title="Launch Chat App" href="https://diploi.com/starter-kit/chat" target="_blank" />
-  <LinkCard title="How to use the Chat App starter kit" href="/building/starter-kits/chat-app" />
-  <LinkCard title="Starter kit repository" href="https://github.com/diploi/starter-chat" target="_blank" />
-</CardGrid>
-
----
-
-### Drawing App
-
-A fun, collaborative pixel art drawing application built with Refine and Supabase.
-
-<CardGrid>
-  <LinkCard title="Launch Drawing App" href="https://diploi.com/starter-kit/refine-pixels" target="_blank" />
-  <LinkCard title="How to use the Drawing App starter kit" href="/building/starter-kits/drawing-app" />
-  <LinkCard title="Starter kit repository" href="https://github.com/diploi/starter-refine-pixels" target="_blank" />
-  <LinkCard title="Refine documentation" href="https://refine.dev/docs/" target="_blank" />
-</CardGrid>
-
----
-
-### Web App
-
-A modern, production-ready template for building full-stack React applications with Supabase.
-
-<CardGrid>
-  <LinkCard title="Launch Web App" href="https://diploi.com/starter-kit/web-app" target="_blank" />
-  <LinkCard title="How to use the Web App starter kit" href="/building/starter-kits/web-app" />
-  <LinkCard title="Starter kit repository" href="https://github.com/diploi/starter-web-app" target="_blank" />
-</CardGrid>
+<ElementOverview type={'starter'}/>
 
 ---
 

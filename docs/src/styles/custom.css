@@ -18,6 +18,17 @@
   width: 28px !important;
 }
 
+/* Icons of components, add-ons and starter kits in the sidebar (set on the links by src/elements/page.ts) */
+.sidebar a[data-element]::before {
+  content: '';
+  display: inline-block;
+  width: 1.1em;
+  height: 1.1em;
+  margin-inline-end: 0.5em;
+  vertical-align: -0.2em;
+  background: var(--element-icon) center / contain no-repeat;
+}
+
 /* Dark mode colors. */
 :root {
   --sl-color-accent-low: #f1f8f8;

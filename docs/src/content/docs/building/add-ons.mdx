@@ -3,16 +3,8 @@ title: Using Add-ons
 description: Add-ons are used to host services and databases for projects.
 ---
 
-import CreateProjectPreview from '../../../assets/CreateProjectPreview.png';
-import CreateProjectEditNames from '../../../assets/CreateProjectEditNames.png';
-import ProjectHomePage from '../../../assets/ProjectHomePage.png';
-import ProjectOptionsGeneral from '../../../assets/ProjectOptionsGeneral.png';
-import ProjectOptionsDomain from '../../../assets/ProjectOptionsDomain.png';
-import ProjectOptionsComponentsAndAddons from '../../../assets/ProjectOptionsComponentsAndAddons.png';
-import DeleteProject from '../../../assets/DeleteProject.png';
-import ImageToPNG from "../../../components/ImageToPNG.astro"
 import ElementList from "../../../components/ElementList.astro"
-import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+import ElementOverview from "../../../components/ElementOverview.astro"
 
 ## Add-ons
 
@@ -26,58 +18,4 @@ Services are not exposed publicly by default. They can only be accessed by the c
 
 ***
 
-### PostgreSQL
-An open-source relational database system known for being reliable, and performant handling complex queries and transactions.
-
-<CardGrid>
-  <LinkCard title="How to add PostgreSQL to a project" href="/building/add-ons/postgres" />
-  <LinkCard title="To the repository" href="https://github.com/diploi/addon-postgres" target="_blank" />
-  <LinkCard title="Official documentation for PostgreSQL" href="https://www.postgresql.org/docs/" target="_blank" />
-</CardGrid>
-
-***
-
-### Redis
-An in-memory data structure store used as a database, cache, and message broker, known for its high speed and support for various data structures.
-
-<CardGrid>
-  <LinkCard title="How to add Redis to a project" href="/building/add-ons/redis" />
-  <LinkCard title="To the repository" href="https://github.com/diploi/addon-redis" target="_blank" />
-  <LinkCard title="Official documentation for Redis" href="https://redis.io/docs/latest/" target="_blank" />
-</CardGrid>
-
-***
-
-### Mongo
-
-A NoSQL document database that stores data in JSON-like documents.
-
-<CardGrid>
-  <LinkCard title="How to add Mongo to a project" href="/building/add-ons/mongo" />
-  <LinkCard title="To the repository" href="https://github.com/diploi/addon-mongo" target="_blank" />
-  <LinkCard title="Official documentation for Mongo" href="https://www.mongodb.com/docs/manual/" target="_blank" />
-</CardGrid>
-
-***
-
-### MariaDB
-
-An open-source relational database forked from MySQL, with additional features and performance improvements.
-
-<CardGrid>
-  <LinkCard title="How to add MariaDB to a project" href="/building/add-ons/mariadb" />
-  <LinkCard title="To the repository" href="https://github.com/diploi/addon-mariadb" target="_blank" />
-  <LinkCard title="Official documentation for MariaDB" href="https://mariadb.com/docs/" target="_blank" />
-</CardGrid>
-
-***
-
-### MinIO
-
-An S3-compatible object storage service used to save uploads, backups, and other binary data.
-
-<CardGrid>
-  <LinkCard title="How to add MinIO to a project" href="/building/add-ons/minio" />
-  <LinkCard title="To the repository" href="https://github.com/diploi/addon-minio" target="_blank" />
-  <LinkCard title="Official documentation for MinIO" href="https://docs.min.io/enterprise/aistor-object-store/" target="_blank" />
-</CardGrid>
+<ElementOverview type={'addon'}/>
