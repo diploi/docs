@@ -3,6 +3,16 @@
   font-weight: bold;
 }
 
+.title-wrapper {
+  align-items: center;
+  gap: 18px;
+}
+
+.site-title > img {
+  width: 88px;
+  height: 26x;
+}
+
 .element-icon {
   height: 28px !important;
   width: 28px !important;
@@ -27,6 +37,11 @@
   --sl-color-hairline-light: var(--sl-color-gray-8);
   --sl-color-hairline-shade: var(--sl-color-gray-8);
   --sl-color-accent-custom: #ec609c;
+
+  /* Backgrounds */
+  --sl-color-bg: #181818;
+  --sl-color-bg-nav: var(--sl-color-bg);
+  --sl-color-bg-sidebar: var(--sl-color-bg);
 
   .social-icons a {
     color: var(--sl-color-white);
