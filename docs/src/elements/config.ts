@@ -117,19 +117,19 @@ const describeTip = (element: Element) => {
   ].join('\n');
 };
 
-/** The generated reference of an element, empty when its configuration is not available */
+/**
+ * The generated reference of an element. Components and add-ons always get one, so that every page says how to read
+ * the configuration of a running deployment, even when the tables are not available.
+ */
 export const referenceSection = (element: Element): string => {
   const { config } = element;
-  if (!config) return '';
-
-  const sections = [environmentSection(element, config)].filter(Boolean);
-  if (!sections.length) return '';
+  const sections = config ? [environmentSection(element, config)].filter(Boolean) : [];
+  if (!sections.length && element.type === 'starter') return '';
 
   return [
     `## ${element.name} reference`,
     '',
-    `What ${element.name} defines in a deployment.`,
-    '',
+    ...(sections.length ? [`What ${element.name} defines in a deployment.`, ''] : []),
     describeTip(element),
     '',
     ...sections,
