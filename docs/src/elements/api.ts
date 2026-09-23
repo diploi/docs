@@ -63,7 +63,7 @@ export type Element = {
   config?: ElementConfig;
 };
 
-const API_URL = import.meta.env.API_URL || import.meta.env.VITE_API_URL || 'https://console.diploi.com';
+export const API_URL = import.meta.env.API_URL || import.meta.env.VITE_API_URL || 'https://console.diploi.com';
 // Lets the docs read the configuration of an element (stack.loadComponent). Without it the pages are built without
 // their reference section.
 const API_KEY = import.meta.env.API_KEY || import.meta.env.VITE_API_KEY;

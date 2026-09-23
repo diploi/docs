@@ -3,61 +3,67 @@ title: AI Gateway
 description: Call OpenAI and Anthropic models from your Diploi deployment without managing API keys.
 ---
 
-Diploi provides an AI Gateway inside every deployment so your apps, agents, and coding tools can call supported various models without provisioning provider keys. Usage is metered from the same account balance as your deployments.
+import AiModels from '../../../components/AiModels.astro';
 
-The gateway is OpenAI- and Anthropic-compatible, supports streaming, and is already wired into the cloud IDE, OpenCode, and the Prompt view in the console.
+Diploi provides an AI Gateway inside every deployment so your apps, agents and coding tools can use AI models without provider API keys.
+Usage is billed from the same account balance as your deployments.
+
+The gateway works with the OpenAI and Anthropic APIs and supports streaming. The cloud IDE, OpenCode and the Prompt view in the console already use it.
 
 ## Connection details
 
 Connect using these values from any process running inside your deployment:
 
-- **Base URL:** `http://core.diploi/ai-core-proxy`
-- **Authentication:** Bearer token (the deployment's AI Gateway token)
+- Base URL: `http://core.diploi/ai-core-proxy`
+- Authentication: Bearer token, unique to each deployment
 
 :::note
-The AI Gateway is only reachable from processes running inside your Diploi deployment network. Requests from your laptop, CI, or any host outside the deployment cannot connect.
+The AI Gateway is only reachable from processes running inside your Diploi deployment network. Your laptop, CI and other hosts outside the deployment cannot connect.
 :::
 
-Prefer injecting the URL and token with placeholders in `diploi.yaml` instead of copying them by hand. See [Wire it into a component](#wire-it-into-a-component).
+You do not need to copy these values by hand. Diploi fills them in for you when you use these placeholders in `diploi.yaml` (see [Using the gateway in a component](#using-the-gateway-in-a-component)):
 
-| Placeholder | Resolves to |
+| Placeholder | Value |
 |---|---|
 | `{diploi-ai-gateway-url}` | `http://core.diploi/ai-core-proxy` |
-| `{diploi-ai-gateway-token}` | The unique token for this deployment |
+| `{diploi-ai-gateway-token}` | The token of this deployment |
 
-Development environments also inject these automatically:
+Development environments also have these environment variables set:
 
 | Environment variable | Value |
 |---|---|
 | `DIPLOI_AI_API_BASE_URL` | `http://core.diploi/ai-core-proxy/v1` |
-| `DIPLOI_AI_TOKEN` | The unique token for this deployment |
+| `DIPLOI_AI_TOKEN` | The token of this deployment |
 
 :::caution
-`{diploi-ai-gateway-url}` does **not** include `/v1`. `DIPLOI_AI_API_BASE_URL` in the cloud IDE **does**. Use the URL form that matches the SDK you are calling — see the examples below.
+`{diploi-ai-gateway-url}` does not end with `/v1`, but `DIPLOI_AI_API_BASE_URL` does. Check which one you have before adding the path for your SDK.
 :::
 
 ### URL formats
 
-Use a provider prefix when you know which API you are calling:
+Add the path of the API you are calling to the gateway URL:
 
-- OpenAI-compatible: `{diploi-ai-gateway-url}/openai/v1`
-- Anthropic-compatible: `{diploi-ai-gateway-url}/anthropic`
+- OpenAI: `{diploi-ai-gateway-url}/openai/v1`
+- Anthropic: `{diploi-ai-gateway-url}/anthropic`
 
-A legacy OpenAI-style path is also accepted: `{diploi-ai-gateway-url}/v1/...` (same as `DIPLOI_AI_API_BASE_URL`). The gateway picks the provider from the `model` field in that case.
+The gateway also accepts the older OpenAI-style path `{diploi-ai-gateway-url}/v1/...`, which is where `DIPLOI_AI_API_BASE_URL` points.
+On that path the gateway picks the provider from the `model` field.
 
-Kimi, GLM, and Qwen models use that `/v1` path with their full `@cf/...` model IDs. Do not send them to `/openai/` or `/anthropic/`.
+Kimi, GLM and Qwen models only work on the `/v1` path, not on `/openai/` or `/anthropic/`.
 
 ### Authentication
 
-Send the deployment token with any of:
+Send the deployment token in one of these ways:
 
-- `Authorization: Bearer <token>`
-- `x-api-key: <token>`
-- Query parameter `?key=<token>`
+- `Authorization: Bearer <token>` header
+- `x-api-key: <token>` header
+- `?key=<token>` query parameter
 
-Each running deployment has its own token. Cloning or re-enabling a deployment issues a new token, so always read it from the environment rather than hard-coding it.
+Each deployment has its own token, and cloning or re-enabling a deployment gives it a new one. Read the token from the environment instead of hard-coding it.
 
 ## Example configuration
+
+These examples read the URL and token from `DIPLOI_AI_GATEWAY_URL` and `DIPLOI_AI_GATEWAY_TOKEN`, which you can set up as shown in [Using the gateway in a component](#using-the-gateway-in-a-component).
 
 ### OpenAI SDK
 
@@ -75,9 +81,9 @@ const response = await openai.chat.completions.create({
 });
 ```
 
-Streaming works the same way as with OpenAI directly (`stream: true`).
+Streaming works the same way as with OpenAI (`stream: true`).
 
-In the cloud IDE you can instead pass `process.env.DIPLOI_AI_TOKEN` and `process.env.DIPLOI_AI_API_BASE_URL` (that base URL already ends with `/v1`).
+In the cloud IDE you can use `process.env.DIPLOI_AI_TOKEN` and `process.env.DIPLOI_AI_API_BASE_URL` instead. That base URL already ends with `/v1`, so pass it to `baseURL` as it is.
 
 ### Anthropic SDK
 
@@ -108,9 +114,9 @@ curl http://core.diploi/ai-core-proxy/openai/v1/chat/completions \
   }'
 ```
 
-## Wire it into a component
+## Using the gateway in a component
 
-Add the placeholders as environment variables on the component that will call the gateway. Diploi replaces them when the deployment starts:
+Add the placeholders as environment variables of the component that calls the gateway. Diploi fills them in when the deployment starts:
 
 ```yaml
 components:
@@ -125,77 +131,50 @@ components:
           value: '{diploi-ai-gateway-token}'
 ```
 
-You can also set the same names from the deployment **Options** tab. Use whichever names your framework expects (`OPENAI_API_KEY` / `OPENAI_BASE_URL`, n8n credentials, and so on) — the placeholders work in any env value.
+You can also set these variables in the **Options** tab of the deployment.
+The placeholders work in any environment variable, so you can use the names your framework expects, such as `OPENAI_API_KEY` and `OPENAI_BASE_URL`.
+
+This works in development, staging and production deployments, and any component in the deployment can call `core.diploi`.
 
 :::tip
-Do not bake the token into a Docker image or commit it to Git. It is unique per deployment and can change when the deployment is re-enabled.
+Do not build the token into a Docker image or commit it to Git. It is unique to each deployment and changes when the deployment is re-enabled.
 :::
-
-This works on development, staging, and production. Any component in the deployment can call `core.diploi`.
 
 ## Built-in tools
 
-You do not need to configure the gateway yourself for Diploi's coding tools. They already use it:
+Diploi's own AI tools already use the gateway, so there is nothing to set up for them.
 
-- **Prompt view** — Open a development deployment in the console and switch to **Prompt**. Describe a change and the agent edits the codebase. No API keys required.
-- **OpenCode** — Preconfigured in every development environment. Run `opencode` in the cloud IDE or an SSH session.
-- **Continue** — Preconfigured in the cloud IDE with Diploi models selected.
+In the console, open a development deployment and switch to the **Prompt** view. Describe the change you want, and the agent edits the code for you.
 
-These tools bill through the same gateway and the same account balance as calls you make from your own app.
+OpenCode is set up in every development environment. Run `opencode` in the cloud IDE or in an SSH session.
+
+Continue is set up in the cloud IDE with Diploi models selected.
+
+Usage from these tools is billed from your balance, the same way as calls from your own app.
 
 :::note
-Cursor Chat and Tab run on your local machine, so they cannot reach `core.diploi`. Use Prompt, OpenCode, or Continue in the remote environment when you want Diploi-hosted models.
+Cursor Chat and Tab run on your own machine, so they cannot reach `core.diploi`. To use Diploi's models, use Prompt, OpenCode or Continue in the remote environment.
 :::
 
 ## Supported models
 
-Send the model ID exactly as listed. Requests for other models are rejected.
+Send the model ID exactly as listed. Kimi, GLM and Qwen models use the `/v1` path (see [URL formats](#url-formats)).
 
-**OpenAI**
+<AiModels />
 
-| Model ID | Notes |
-|---|---|
-| `gpt-5.6-terra` | Default in Prompt, OpenCode, and Continue |
-| `gpt-5.6-sol` | Available in Prompt, OpenCode, and Continue |
-| `gpt-5.3-codex` | API |
-| `gpt-5.2-codex` | API |
-| `gpt-5.1-codex` | API |
-| `gpt-5-nano` | API |
-| `gpt-4.1-nano` | Default in the [OpenClaw](/building/starter-kits/openclaw) starter kit |
-| `whisper-1` | Speech-to-text via `multipart/form-data` |
-
-**Anthropic**
-
-| Model ID | Notes |
-|---|---|
-| `claude-fable-5-1` | Available in Prompt and OpenCode |
-| `claude-sonnet-5` | Available in Prompt, OpenCode, and Continue |
-| `claude-opus-5` | Available in Prompt, OpenCode, and Continue |
-| `claude-sonnet-4-6` | API |
-| `claude-sonnet-4-5` | API |
-| `claude-opus-4-8` | API |
-
-**Kimi, GLM, and Qwen**
-
-Use the OpenAI-compatible `/v1` URL and send the full model ID in the request body. Prompt and OpenCode use the short names shown in the notes.
-
-| Model ID | Notes |
-|---|---|
-| `@cf/moonshotai/kimi-k2.7-code` | Kimi K2.7 Code. Prompt / OpenCode: `kimi-k2.7-code` |
-| `@cf/zai-org/glm-5.3-flash` | GLM 5.3 Flash. Prompt / OpenCode: `glm-5.3-flash` |
-| `@cf/qwen/qwen3.8-27b` | Qwen 3.8 27B. Prompt / OpenCode: `qwen3.8-27b` |
-
-The model list can grow over time. If a request returns `Model … is currently not supported`, check this page or [pricing](https://diploi.com/pricing).
+If a request returns `Model … is currently not supported`, check the model ID against this list.
 
 ## Billing and limits
 
-AI usage is drawn from the same prepaid balance as cluster hours. There is no separate AI subscription. Review spend by model on the account **Billing** page.
+AI usage is paid from the same prepaid balance as cluster hours, and there is no separate AI subscription.
+You can see your spending per model on the **Billing** page of your account.
 
-- **Trial** — €1 of AI usage per UTC day is included. The allowance resets at 00:00 UTC. Trial AI also consumes trial credits. Choose a plan to keep going after the daily cap.
-- **Pay as you go, Pro, Ultra** — billed at model rates from your balance. Pro is 5% off AI usage, Ultra is 10% off.
-- **Empty balance** — further requests are refused until you add funds.
+On the Trial plan, €1 of AI usage per day is included. The allowance resets at 00:00 UTC, and trial AI usage also uses up your trial credits. To keep going after the daily limit, choose a plan.
 
-When a request is blocked, the gateway responds with **HTTP 402** and an error explaining whether the trial daily cap was reached or the balance is used up.
+On Pay as you go, Pro and Ultra, AI usage is billed at model rates from your balance. Pro gets 5% off AI usage and Ultra gets 10% off.
+
+When your balance runs out, requests are refused until you add funds.
+A refused request gets an **HTTP 402** response, with an error that says whether the trial's daily limit was reached or the balance ran out.
 
 :::caution[Rate limits]
 To keep the gateway reliable for every deployment:
@@ -207,11 +186,11 @@ To keep the gateway reliable for every deployment:
 
 ## Best practices
 
-- Inject `{diploi-ai-gateway-url}` and `{diploi-ai-gateway-token}` rather than copying values from another deployment.
-- Call the gateway from server-side code. Do not expose the token to browsers or public clients.
-- Prefer cheaper models (`gpt-4.1-nano`, `gpt-5-nano`, `gpt-5.6-sol`) for high-volume or background jobs.
-- For production email-scale or always-on agents, watch the Billing page and enable auto top-up so a dry balance does not stop the app.
-- Use your own provider keys only when you need a model Diploi does not offer. Those calls are not billed through Diploi.
+- Use the `{diploi-ai-gateway-url}` and `{diploi-ai-gateway-token}` placeholders instead of copying values from another deployment.
+- Call the gateway from server-side code, and never expose the token to browsers or public clients.
+- Use cheaper models, such as GPT Terra, for high-volume or background jobs.
+- If your app uses AI all the time in production, keep an eye on the **Billing** page and turn on auto top-up, so the app does not stop when the balance runs out.
+- If you need a model Diploi does not offer, use your own provider key. Those calls are not billed through Diploi.
 
 ## See also
 
