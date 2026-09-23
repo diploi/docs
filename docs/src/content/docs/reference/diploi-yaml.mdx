@@ -56,6 +56,11 @@ pending before you apply.
 
 The components and add-ons the deployment runs. Edit this list and the infrastructure adapts.
 
+To add one, take its entry from the component's page in these docs, or from
+[`diploi components`](/reference/diploi-cli#diploi-components) in the development environment, and apply the change
+before you write code in its folder. Applying creates the folder from the component's starter (its `Dockerfile`,
+`Dockerfile.dev`, configuration and starter code), but only when the folder does not exist yet.
+
 ### `name`
 
 The display name for a component.
@@ -135,8 +140,10 @@ components:
 #### `hosts[].identifier`
 
 A unique slug for the host inside the component. It becomes part of the internal hostname other components use to
-reach the service, and of the `<IDENTIFIER>_ENDPOINT` environment variable the component gets for it. The full
-hostname is in the Diploi Console and in [`diploi describe <component>`](/reference/diploi-cli#diploi-describe).
+reach the service, and of the variables its addresses are published as: `<IDENTIFIER>_ENDPOINT` for the public url
+and `<IDENTIFIER>_INTERNAL_ENDPOINT` for the internal one (see
+[Addresses of Other Components](#addresses-of-other-components)). The full hostname is in the Diploi Console and in
+[`diploi describe <component>`](/reference/diploi-cli#diploi-describe).
 
 When it is left out, the identifier becomes `port-<port>`. Using the same identifier as a host the component already declares overrides that host (its name, port or `endpoint`) instead of adding a new one.
 
@@ -197,6 +204,44 @@ env:
 | `post*` | Every ENV value of every component whose identifier starts with `post` |
 | `postgres.POSTGRES_USER` | One value of `postgres` |
 | `postgres.POSTGRES_USER:DB_USER` | One value of `postgres`, renamed to `DB_USER` |
+
+#### Addresses of Other Components
+
+Every host of a component is published as variables other components can import:
+
+| Variable | Value | Use it for |
+| --- | --- | --- |
+| `<HOST>_INTERNAL_ENDPOINT` | `http://app.odoo:8069` | Calls between components: they stay inside the deployment |
+| `<HOST>_ENDPOINT` | `https://my-dev--odoo.diploi.me` | Links for browsers, or anything outside the deployment |
+
+`<HOST>` is the host's identifier in capitals (`app` becomes `APP_`, `admin-ui` becomes `ADMIN_UI_`). The internal
+endpoint is published only for hosts with a [`port`](#hostsport), and only for other components to import: the
+component itself does not get it. The development environment can import it too, under
+[`development.env`](#developmentenv). It is for server-side code: a browser cannot reach an internal address.
+
+`diploi describe <component>` lists a component's addresses with the names to import them by. Importing a name a
+component does not publish gives nothing, without an error, so check there first.
+
+#### Compose Values From Imports
+
+A static value can use `${VARIABLE}` to refer to a variable the component has, including one it just imported. Use
+this to build a url or a connection string from what another component publishes, instead of writing that
+component's address into the configuration:
+
+```yaml
+components:
+  - name: Astro
+    identifier: astro
+    package: https://github.com/diploi/component-astro#main
+    env:
+      include:
+        - odoo.APP_INTERNAL_ENDPOINT:ODOO_URL
+        - name: ODOO_CATALOG_URL
+          value: '${ODOO_URL}/api/catalog/products'
+```
+
+A literal internal address (`http://app.odoo:8069`) contains another component's identifier, service name and port,
+and stops working when any of them changes. Import the address the component publishes instead.
 
 #### Static Values
 
