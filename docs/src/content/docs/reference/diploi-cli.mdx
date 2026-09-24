@@ -10,6 +10,7 @@ It also runs commands in your containers, restarts them, and applies the changes
 Your editor and terminal run in their own container, the **development environment**, which is separate from the
 containers your components run in. Both see the same code in `/app`, so a file you edit here is the file they run.
 Use `diploi exec` when something has to run inside a component's container, with its runtime and its environment.
+`diploi` only works from the development environment.
 
 ```bash
 diploi status          # is everything running?
@@ -31,7 +32,8 @@ there is more than one.
 
 Some components run several workloads. Supabase, for example, runs a dozen.
 Name one after the component to pick it: `diploi logs supabase db` reads the `db` pod.
-A full pod name works too, and `-c <container>` picks a container without naming a pod.
+A full pod name works too. Name a container after the pod, as in `diploi logs supabase db postgres`, or use
+`-c <container>` to pick one without naming a pod.
 
 ## Commands
 
@@ -86,8 +88,9 @@ With a component it describes that component:
 - The folder of its code, its main container and the commands it starts with
 - Its image, volumes, public url and internal addresses
 - Its parameters and connection strings
-- Every environment variable **with its origin**: a parameter, a default from the package, an import from another
-  component, or a value set in the Console
+- Every environment variable **with its origin**: a parameter from the **Setup** tab, a value from the **Environment**
+  tab, a static value in `diploi.yaml`, a default from the package, an import from another component, the component's
+  own address, or a built-in Diploi variable such as `DIPLOI_NAMESPACE`
 
 ```bash
 diploi describe postgres
@@ -98,7 +101,7 @@ Secret values are masked unless you pass `--reveal`.
 
 ### `diploi logs`
 
-The last 200 lines of a component's log, or a live stream with `--follow`.
+The last 200 lines of a component's log, or a live stream with `--follow`. `diploi log` works too.
 
 ```bash
 diploi logs api
@@ -127,9 +130,10 @@ failing, containers backing off.
 Look here when a pod never reaches a running state and its log is empty.
 
 ```bash
-diploi events                  # everything that happened recently
+diploi events                  # the newest 100 events
 diploi events api --since 10m
 diploi events -w               # only warnings
+diploi events -n 20            # only the newest 20
 ```
 
 ### `diploi exec`
@@ -142,11 +146,15 @@ With a command after `--` it runs that one command and returns its exit code.
 diploi exec api                              # a shell in the api container
 diploi exec api -- npm install lodash        # install a dependency where it runs
 diploi exec api -- npm run migrate
+diploi exec api -- sh -c 'npm run build && npm start'
 cat dump.sql | diploi exec postgres -- psql -U postgres
 ```
 
-Everything after `--` goes to the container as it is, so quote what the shell should not touch.
-`-u 1000:1000` runs as another user, and `-t` forces a TTY for commands that expect one.
+The command runs as it is, without a shell. For pipes, `&&` or the container's own variables, wrap it in `sh -c '…'`
+as above. The single quotes also keep your own terminal from expanding anything first.
+
+`-u 1000:1000` runs as another user, and `-t` forces a TTY for commands that expect one. `--no-tty` turns the TTY off,
+and `--no-stdin` does not pass your input to the command.
 
 :::tip
 Code dependencies, like npm or pip packages, are installed when the pod starts. You can also install them yourself,
@@ -162,11 +170,13 @@ component's `Dockerfile` and `Dockerfile.dev` instead. For a tool you only need 
 
 Restarts a component by deleting its pod, and the deployment immediately creates a new one.
 The command waits until the new pod is running and ready, so it is finished when the component is back.
+It waits up to 2 minutes, and exits with code `2` when no new pod becomes ready in that time.
 
 ```bash
 diploi restart api
-diploi restart supabase db      # one workload of a multi-workload component
-diploi restart supabase --all   # every pod of the component
+diploi restart supabase db         # one workload of a multi-workload component
+diploi restart supabase --all      # every pod of the component
+diploi restart api --timeout 300   # wait up to 5 minutes (at most 600 seconds)
 diploi restart api --no-wait
 ```
 
@@ -177,8 +187,9 @@ imports and changed versions. This is what the **Apply changes** button in the C
 
 `diploi status` shows what is pending before you apply. A change to `diploi.yaml` takes a few seconds to be checked,
 and `diploi apply` right after saving waits for that first, so it always applies the file as it is. It then waits until
-every new and changed component is deployed and ready, and lists each one with its state, folder and public url. When a component fails,
-for example because its container keeps crashing, the command says so and exits with code `2`.
+every new and changed component is deployed and ready, and lists each one with its state, folder and public url.
+Removed components are waited for too, until their pods are gone. When a component fails, for example because its
+container keeps crashing, or is not ready before the timeout, the command says so and exits with code `2`.
 
 ```bash
 diploi status              # "Pending changes" lists what would be applied
@@ -217,7 +228,7 @@ environment variables other components can import from it, the add-ons it needs,
 ```bash
 diploi components             # everything that can be added
 diploi components next        # versions and the diploi.yaml entry of Next.js
-diploi components database    # everything matching "database"
+diploi components react ssr   # everything matching "react ssr"
 ```
 
 Use one of the listed versions: a version that does not exist makes `diploi.yaml` fail to apply, and `diploi status`
@@ -226,9 +237,10 @@ leave out the ones your `diploi.yaml` already has.
 
 ### `diploi agents`
 
-Sets up the AI clients you bring along, so they can use the tools of this deployment. Claude Code, Codex, Gemini CLI,
-VS Code and Cursor are supported. Each one gets the Diploi MCP server and is pointed at the instructions in
-`/etc/diploi/AGENTS.md`. Your existing settings are kept, and only what is missing is added.
+Sets up the AI clients you bring along, so they can use the tools of this deployment. Claude Code, Codex and
+Gemini CLI get the Diploi MCP server and are pointed at the instructions in `/etc/diploi/AGENTS.md`. VS Code gets the
+MCP server only. Cursor is only configured with `--project`, which writes `AGENTS.md` and `.cursor/mcp.json` into the
+project. Your existing settings are kept, and only what is missing is added.
 
 OpenCode and Continue come with the development environment and Diploi configures them itself
 (see [Built-in tools](/reference/ai-gateway#built-in-tools)), so they need nothing from you.
@@ -239,9 +251,9 @@ diploi agents init --project   # also write AGENTS.md and .cursor/mcp.json into 
 diploi agents init --force     # configure every client again, also the ones you changed
 ```
 
-This already runs when the development environment starts, so you rarely need it yourself: only when the files it
-wrote have been deleted, or when your configuration is very old. Each client is configured once. If you remove the Diploi MCP server from a client, it stays removed until you run
-`diploi agents init --force`.
+This already runs when the development environment starts, and each client is configured only once, so a file you
+delete or change is not touched again. Run it yourself with `--force` to restore files you deleted or changed, or with
+`--project` to add the project files.
 
 ## See also
 
