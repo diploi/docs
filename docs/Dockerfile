@@ -53,7 +53,7 @@ ARG VITE_API_URL
 ENV VITE_API_URL=$VITE_API_URL
 
 RUN --mount=type=secret,id=API_KEY \
-  API_KEY=$(cat /run/secrets/API_KEY) \
+  export API_KEY="$(cat /run/secrets/API_KEY)"; \
   if [ -f bun.lockb ] || [ -f bun.lock ]; then bun run build; \
   elif [ -f yarn.lock ]; then yarn run build; \
   elif [ -f package-lock.json ]; then npm run build; \
