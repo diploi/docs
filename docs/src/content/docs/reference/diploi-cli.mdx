@@ -1,34 +1,230 @@
 ---
 title: The Diploi CLI
-description: A CLI to help you debug your applications via terminal interface.
+description: Inspect and control a deployment from its development environment with the diploi command.
 ---
-import { Steps } from '@astrojs/starlight/components';
-import ImageToPNG from  "../../../components/ImageToPNG.astro"
-import CLIRunning from  "../../../assets/CLIRunning.png"
-import CLILogs from  "../../../assets/CLILogs.png"
 
-Diploi's development environments come with a CLI, from which you can access the logs of any component or add-on in your deployment, execute commands inside of a running container, and view the current status of a deployment.
+Every Diploi development environment comes with the `diploi` command (short: `dip`).
+It works on the deployment you are in: what is running, how it is configured, and what the logs and Kubernetes events say.
+It also runs commands in your containers, restarts them, and applies the changes you made to `diploi.yaml`.
 
-<ImageToPNG src={CLILogs} alt='CLI logs'/>
+Your editor and terminal run in their own container, the **development environment**, which is separate from the
+containers your components run in. Both see the same code in `/app`, so a file you edit here is the file they run.
+Use `diploi exec` when something has to run inside a component's container, with its runtime and its environment.
+
+```bash
+diploi status          # is everything running?
+diploi describe        # what is in this deployment, and what is in my environment?
+diploi logs api        # what is my component saying?
+```
 
 :::note
-Using the CLI is currently under development, which is why some of the features mentioned here are not yet available for all users.
+Run `diploi` with no arguments to see the commands.
+`diploi help <command>` and `diploi <command> --help` show the options and examples of one command.
 :::
 
-## How to use
+## Naming things
 
-You can access the CLI by opening a terminal from any development environment in Diploi. To view if the CLI is installed in your environment, you can try running the command `diploi`, and it should show the following output:
+Most commands take a **component**: the `identifier` of a component or add-on in `diploi.yaml`, such as `api`,
+`postgres` or `supabase`. That is all you normally need.
+The CLI picks the running pod and the component's main container for you, and tells you which one it picked when
+there is more than one.
 
-<ImageToPNG src={CLIRunning} alt='CLI running correctly'/>
+Some components run several workloads. Supabase, for example, runs a dozen.
+Name one after the component to pick it: `diploi logs supabase db` reads the `db` pod.
+A full pod name works too, and `-c <container>` picks a container without naming a pod.
 
+## Commands
 
-## CLI commands
+| Command | What it does |
+| --- | --- |
+| [`diploi status`](#diploi-status) | Components, pods, addresses and anything that needs attention |
+| [`diploi describe [component]`](#diploi-describe) | Configuration: paths, addresses, environment variables and where they come from |
+| [`diploi logs <component>`](#diploi-logs) | Recent logs of a component, or a live stream |
+| [`diploi events [component]`](#diploi-events) | Kubernetes events: why a pod restarted or failed to start |
+| [`diploi exec <component>`](#diploi-exec) | A shell, or one command, inside a container |
+| [`diploi restart <component>`](#diploi-restart) | Restart a component and wait for the new pod |
+| [`diploi apply`](#diploi-apply) | Apply the pending `diploi.yaml` changes |
+| [`diploi components [query]`](#diploi-components) | Components and add-ons you can add, with their versions and `diploi.yaml` entry |
 
-Command | Description | Example | Availability
-| --- | --- | --- | --- |
-`diploi` | Shows a brief introduction about what you can do with the CLI and lists the commands available | `diploi` | All users
-`diploi help [command]` | Shows the help article for a command | `diploi help exec` | All users
-`diploi logs [component or add-on]` or `diploi log [component or add-on]` | Streams logs from a running component | `diploi logs next` | All users
-`diploi status` | Shows the current status of the deployment from which the command is being run | `diploi status` | Testers only
-`diploi exec [component or add-on] "command"` | Executes a command inside of a component or add-on | `diploi exec next "echo 'test'"` | Testers only
+Every command also accepts `--json`, which prints the same information as JSON instead of text.
+That is useful in scripts and for AI agents working in the environment.
+Streaming commands print one JSON object per line.
 
+### `diploi status`
+
+The state of the whole deployment:
+
+- Every component with its state (`ok`, `starting`, `problem` or `no pods`), public url and internal addresses
+- Its pods with phase, readiness, restarts and age
+- The `diploi.yaml` changes that are not applied yet, with a heads-up when applying them needs care (see
+  [Adding a component](#adding-a-component))
+- A **Problems** list in plain words, such as a container stuck in `CrashLoopBackOff`, an image that cannot be pulled,
+  or a configuration error
+
+A deployment that is only starting up is not a problem, so an empty list means there is nothing to look into.
+
+```bash
+diploi status
+diploi status --json
+```
+
+### `diploi describe`
+
+What the deployment is configured with. This is the applied configuration, not the file on disk.
+
+Without a component it describes the deployment: its components and the folder each one lives in, the environment
+variables available in your development environment, and the init commands.
+Every variable is listed with the component it came from.
+
+```bash
+diploi describe
+```
+
+With a component it describes that component:
+
+- The folder of its code, its main container and the commands it starts with
+- Its image, volumes, public url and internal addresses
+- Its parameters and connection strings
+- Every environment variable **with its origin**: a parameter, a default from the package, an import from another
+  component, or a value set in the Console
+
+```bash
+diploi describe postgres
+diploi describe postgres --reveal   # with the secret values
+```
+
+Secret values are masked unless you pass `--reveal`.
+
+### `diploi logs`
+
+The last 200 lines of a component's log, or a live stream with `--follow`.
+
+```bash
+diploi logs api
+diploi logs api --follow
+diploi logs api --since 10m           # a time window instead of a line count
+diploi logs api --previous            # the log of the container that crashed
+diploi logs api --all-containers      # including init and sidecar containers
+```
+
+| Option | |
+| --- | --- |
+| `-f, --follow` | Stream new lines as they arrive |
+| `-n, --lines <number>` | Lines to show, `0` for all (default 200, or all with `--since`) |
+| `--since <duration>` | Only newer than e.g. `30s`, `10m`, `2h`, `1d` |
+| `--since-time <timestamp>` | Only after an RFC3339 timestamp |
+| `--timestamps` | A timestamp on every line |
+| `-p, --previous` | The previously terminated container instance |
+| `--all-containers` | Every container of the pod, each line tagged |
+| `-c, --container <name>` | A specific container |
+| `-q, --quiet` | Do not print which pod was picked |
+
+### `diploi events`
+
+The Kubernetes events of the deployment, oldest first: pods being scheduled and started, images pulled, probes
+failing, containers backing off.
+Look here when a pod never reaches a running state and its log is empty.
+
+```bash
+diploi events                  # everything that happened recently
+diploi events api --since 10m
+diploi events -w               # only warnings
+```
+
+### `diploi exec`
+
+Runs something inside a component's container.
+Without a command it opens an interactive shell.
+With a command after `--` it runs that one command and returns its exit code.
+
+```bash
+diploi exec api                              # a shell in the api container
+diploi exec api -- npm install lodash        # install a dependency where it runs
+diploi exec api -- npm run migrate
+cat dump.sql | diploi exec postgres -- psql -U postgres
+```
+
+Everything after `--` goes to the container as it is, so quote what the shell should not touch.
+`-u 1000:1000` runs as another user, and `-t` forces a TTY for commands that expect one.
+
+:::tip
+Code dependencies, like npm or pip packages, are installed when the pod starts. You can also install them yourself,
+either with `diploi exec` or in the component's folder from your own terminal, because both see the same files in
+`/app`.
+
+A system package is different. One installed with `diploi exec` is gone when the component restarts, so add it to the
+component's `Dockerfile` and `Dockerfile.dev` instead. For a tool you only need in your own terminal, use
+[`development.initCommands`](/reference/diploi-yaml#developmentinitcommands).
+:::
+
+### `diploi restart`
+
+Restarts a component by deleting its pod, and the deployment immediately creates a new one.
+The command waits until the new pod is running and ready, so it is finished when the component is back.
+
+```bash
+diploi restart api
+diploi restart supabase db      # one workload of a multi-workload component
+diploi restart supabase --all   # every pod of the component
+diploi restart api --no-wait
+```
+
+### `diploi apply`
+
+Applies the changes you made to `diploi.yaml`, such as added or removed components and add-ons, changed environment
+imports and changed versions. This is what the **Apply changes** button in the Console does.
+
+`diploi status` shows what is pending before you apply. A change to `diploi.yaml` takes a few seconds to be checked,
+and `diploi apply` right after saving waits for that first, so it always applies the file as it is. It then waits until
+every new and changed component is deployed and ready, and lists each one with its state, folder and public url. When a component fails,
+for example because its container keeps crashing, the command says so and exits with code `2`.
+
+```bash
+diploi status              # "Pending changes" lists what would be applied
+diploi apply               # wait for the changed components, up to 5 minutes
+diploi apply --timeout 600
+diploi apply --no-wait     # return right after applying
+```
+
+Applying acts as the user assigned to the deployment in the Console (under **Git**), or as the user who created the
+deployment when the project has no repository.
+
+#### Adding a component
+
+When you add a component to `diploi.yaml`, applying creates its folder (`/app/<identifier>`, or its `folder`) from the
+component's starter: its `Dockerfile` and `Dockerfile.dev`, its configuration and its starter code. This only happens
+when the folder does not exist yet, so add the component and apply first, then build on the starter.
+
+If the folder already exists, for example because you are adding a component for code you already have, it is left as
+it is and the component gets none of the starter files. Both `diploi status` and `diploi apply` point this out. Staging
+and production builds need the `Dockerfile`, so add it yourself in that case.
+
+:::note
+Changing the environment variables or the [`development.initCommands`](/reference/diploi-yaml#developmentinitcommands)
+of the development environment restarts it when you apply: running processes stop, and tools installed outside `/app`
+and the home folder have to be installed again. `diploi apply` answers right away in that case, without waiting for the
+components.
+:::
+
+### `diploi components`
+
+The components and add-ons you can add to `diploi.yaml`: the same list the Console offers, with the versions that
+exist. With a query (an identifier, a name or a few words) it shows the matches in detail: every version, the
+environment variables other components can import from it, the add-ons it needs, and the entry to paste into
+`diploi.yaml`.
+
+```bash
+diploi components             # everything that can be added
+diploi components next        # versions and the diploi.yaml entry of Next.js
+diploi components database    # everything matching "database"
+```
+
+Use one of the listed versions: a version that does not exist makes `diploi.yaml` fail to apply, and `diploi status`
+then lists the versions that do. The entry includes the add-ons a component needs, such as the database of Odoo;
+leave out the ones your `diploi.yaml` already has.
+
+## See also
+
+- [Using Remote Development](/building/remote-development)
+- [diploi.yaml Explained](/reference/diploi-yaml)
+- [Troubleshooting](/troubleshooting)

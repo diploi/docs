@@ -1,0 +1,48 @@
+---
+/**
+ * A section per component, add-on or starter kit for the overview pages: name, summary and link cards. Headings
+ * are added to the table of contents by the route middleware in src/routeData.ts.
+ */
+import { getCollection } from 'astro:content';
+import { CardGrid, Icon, LinkCard } from '@astrojs/starlight/components';
+import { compareElements, TYPE_INFO, type ElementType } from '../elements/api';
+
+interface Props {
+  type: ElementType;
+}
+
+const { type } = Astro.props;
+const { label } = TYPE_INFO[type];
+
+const elements = (await getCollection('elements', ({ data }) => data.type === type && !data.hidden)).map(({ data }) => data).sort(compareElements);
+
+const pageCardTitle = (name: string) => (type === 'starter' ? `How to use the ${name} starter kit` : `How to add ${name} to a project`);
+---
+
+{
+  elements.map((element, index) => (
+    <>
+      {index > 0 && <hr />}
+      <div class="sl-heading-wrapper level-h3">
+        <h3 id={element.identifier}>{element.name}</h3>
+        <a class="sl-anchor-link" href={`#${element.identifier}`}>
+          <span aria-hidden="true" class="sl-anchor-icon">
+            <Icon name="link-alt" size="16px" />
+          </span>
+          <span class="sr-only" data-pagefind-ignore>
+            Section titled “{element.name}”
+          </span>
+        </a>
+      </div>
+      <p>{element.summary}</p>
+      <CardGrid>
+        {element.type === 'starter' && element.launchUrl && <LinkCard title={`Launch ${element.name}`} href={element.launchUrl} target="_blank" />}
+        <LinkCard title={pageCardTitle(element.name)} href={`/${element.pageId}`} />
+        <LinkCard title={`${element.name} ${label} repository`} href={element.url} target="_blank" />
+        {element.links.map((link) => (
+          <LinkCard title={link.label} href={link.href} target={link.href.startsWith('/') ? undefined : '_blank'} />
+        ))}
+      </CardGrid>
+    </>
+  ))
+}

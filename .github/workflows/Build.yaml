@@ -1,9 +1,12 @@
+# This file is used to build the images for a deployment in GitHub actions.
+# For more information, see https://diploi.com/ci
+
 name: Build Components
 
 on:
   push:
     branches:
-      - '*'
+      - '**'
 
 jobs:
   define-components:
@@ -16,7 +19,7 @@ jobs:
         uses: actions/checkout@v3
       - id: diploi-meta
         name: Diploi meta
-        uses: diploi/action-components@v1.6-alpha
+        uses: diploi/action-components@v1.8
   run-builds:
     name: Build ${{ matrix.name }} ${{ matrix.stage }}
     runs-on: ubuntu-24.04-arm
@@ -29,7 +32,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Diploi build
-        uses: diploi/action-build@v1.6-alpha
+        uses: diploi/action-build@v1.12
         with: ${{ matrix }}
         env:
           project: ${{ secrets.DIPLOI_REGISTRY_PROJECT }}

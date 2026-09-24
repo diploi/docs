@@ -1,0 +1,49 @@
+---
+import { API_URL } from '../elements/api';
+import { fetchAiModels } from './aiModels';
+
+// Rendered at build time so that the list is in the static page and in llms-full.txt; the script replaces it with
+// the current list when the page is opened
+const models = await fetchAiModels(API_URL);
+---
+
+<table data-ai-models data-api-url={API_URL}>
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Model ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    {
+      models.map((model) => (
+        <tr>
+          <td>{model.label}</td>
+          <td>
+            <code>{model.id}</code>
+          </td>
+        </tr>
+      ))
+    }
+  </tbody>
+</table>
+
+<script>
+  import { fetchAiModels, type AiModel } from './aiModels';
+
+  const toRow = (model: AiModel) => {
+    const row = document.createElement('tr');
+    row.insertCell().textContent = model.label;
+    const id = document.createElement('code');
+    id.textContent = model.id;
+    row.insertCell().append(id);
+    return row;
+  };
+
+  for (const table of document.querySelectorAll<HTMLTableElement>('table[data-ai-models]')) {
+    fetchAiModels(table.dataset.apiUrl!)
+      .then((models) => table.tBodies[0].replaceChildren(...models.map(toRow)))
+      // The list from the build stays in place
+      .catch((error) => console.warn(`Could not refresh the AI models: ${error.message}`));
+  }
+</script>

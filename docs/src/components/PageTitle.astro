@@ -1,0 +1,36 @@
+---
+/** Starlight's page title, with the icon of the component, add-on or starter kit on their pages */
+import { getCollection } from 'astro:content';
+import { ELEMENT_TYPES, TYPE_INFO } from '../elements/api';
+
+const { entry } = Astro.locals.starlightRoute;
+
+// Generated pages carry their element in the frontmatter; a hand-written page for an element is matched by its id
+const isElementPage = ELEMENT_TYPES.some((type) => entry.id.startsWith(`${TYPE_INFO[type].directory}/`));
+const element = entry.data.element ?? (isElementPage ? (await getCollection('elements')).find(({ data }) => data.pageId === entry.id)?.data : undefined);
+---
+
+<h1 id="_top">
+  {element && <img src={element.iconUrl} alt="" width="40" height="40" />}
+  {entry.data.title}
+</h1>
+
+<style>
+  @layer starlight.core {
+    h1 {
+      margin-top: 1rem;
+      font-size: var(--sl-text-h1);
+      line-height: var(--sl-line-height-headings);
+      font-weight: 600;
+      color: var(--sl-color-white);
+    }
+  }
+
+  h1 img {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-inline-end: 0.35em;
+    vertical-align: -0.12em;
+  }
+</style>

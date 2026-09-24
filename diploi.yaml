@@ -1,8 +1,17 @@
 diploiVersion: v1.0
+development:
+  env:
+    include:
+      - astro.*
 components:
   - name: Astro
     identifier: docs
-    package: https://github.com/diploi/component-astro#main
+    package: https://github.com/diploi/component-astro#v7.1.1
     env:
-      include: '*'
+      include:
+        - '*'
+        - name: VITE_API_URL
+          value: https://console.diploi.com
+        - name: API_KEY
+          value: ''
 addons: []

@@ -1,11 +1,12 @@
 ---
 title: diploi.yaml Explained
-description: A deployment is a full instance of your application.
+description: The configuration file that defines the components, add-ons and development environment of a project.
 ---
 
-The `diploi.yaml` file at the root of a Diploi repository is the **Infrastructure as Code (IaC)** configuration file Diploi uses to build the infrastructure for a deployment.   
-Our component-based model allows for easy configuration of stacks without making the config overly verbose.
-The more detailed config for a component, such as HELM charts and other setup files, are housed in dedicated GitHub repositories maintained by the component owners.
+The `diploi.yaml` file at the root of a Diploi repository is the **Infrastructure as Code (IaC)** configuration file
+Diploi uses to build the infrastructure for a deployment.
+The component-based model keeps the file short. The detailed configuration of a component, such as its Helm charts
+and other setup files, lives in a dedicated GitHub repository maintained by the component owners.
 
 :::tip
   Read our blog post about our [IaC implementation](https://dev.to/diploi/how-we-solved-infrastructure-as-code-2ldn) for more information.
@@ -13,16 +14,20 @@ The more detailed config for a component, such as HELM charts and other setup fi
 
 ```yaml
 diploiVersion: v1.0
+development:
+  env:
+    include:
+      - postgres.*
 components:
   - name: Next.js
     identifier: next
     package: https://github.com/diploi/component-nextjs#main
     env:
       include:
-        - *
+        - '*'
   - name: Bun
     identifier: bun
-    folder: /api #Optional
+    folder: /api # Optional
     package: https://github.com/diploi/component-bun#main
     env:
       include:
@@ -39,13 +44,26 @@ addons:
     package: https://github.com/diploi/addon-postgres#main
 ```
 
+The file has three top-level sections: [`components`](#components-and-addons) and [`addons`](#components-and-addons)
+describe what the deployment runs, and [`development`](#development) describes the environment you work in.
+`diploiVersion` is always `v1.0`.
+
+After editing the file, apply the changes from the deployment's **Overview** in the Console, or run
+[`diploi apply`](/reference/diploi-cli#diploi-apply) in the development environment. `diploi status` shows what is
+pending before you apply.
+
 ## `components` and `addons`
 
-The list of components and addons to be included in a project. Everything in this list can be edited and your infrastucture will adapt.
+The components and add-ons the deployment runs. Edit this list and the infrastructure adapts.
+
+To add one, take its entry from the component's page in these docs, or from
+[`diploi components`](/reference/diploi-cli#diploi-components) in the development environment, and apply the change
+before you write code in its folder. Applying creates the folder from the component's starter (its `Dockerfile`,
+`Dockerfile.dev`, configuration and starter code), but only when the folder does not exist yet.
 
 ### `name`
 
-The display name for a component. 
+The display name for a component.
 
 ### `identifier`
 
@@ -59,12 +77,15 @@ If the `folder` parameter is not defined, Diploi will use the component identifi
 
 ### `folder`
 
-Indicates to Diploi where to store the files necessary for a component, and is meant to be used when you import an existing application that already has a functioning app running in a specific folder inside your repository.
+Where the files of a component live in your repository. Use it when you import an existing application whose code is already in a folder of its own.
 
-If a component has a `folder` parameter assigned that already exists, Diploi will not generate any new files, and instead it will try to run the component using the files in the directory you are pointing to.
+The path is relative to the root of the repository and **has to start with a `/`**: `/api`, or `/` when the component is the repository root.
+
+If the folder already exists, Diploi generates no new files and runs the component from the files it finds there.
 
 :::note
-If you plan to run staging and production stages for your project in Diploi or you need to customize how a component is run at startup, you will need to add a Dockerfile (used by staging and production deployments) and a Dockerfile.dev (used by development deployments) files to the folder you are pointing to.
+Add a `Dockerfile` (used by staging and production) and a `Dockerfile.dev` (used by development) to that folder if you
+run staging or production stages, or if you need to change how the component starts.
 
 You can get all of our officially supported Dockerfiles for all components [in our GitHub repositories](https://github.com/orgs/diploi/repositories).
 :::
@@ -74,13 +95,28 @@ You can get all of our officially supported Dockerfiles for all components [in o
 The URL for the package repository.
 Version comes after the hashtag `#` symbol. Version can be a Git tag or branch reference.
 
+### `prebuildImage`
+
+An image to start the component from instead of building it from the repository, used by starter kits so a new
+deployment is running before the first build finishes. `[tag]` in the url is replaced with the version of the
+component.
+
+```yaml
+components:
+  - name: React
+    identifier: react
+    package: https://github.com/diploi/component-react-vite#v19.2.6
+    prebuildImage: public.ecr.aws/p8t2q7f4/diploi/starter-web-app/react:[tag]
+```
+
 ### `hosts`
 
-`hosts` declares the network endpoints a component exposes. Each entry maps a port inside the container to either a public HTTPS endpoint 
-and/or an internal service name reachable only by other components in the same deployment.
+`hosts` declares the network endpoints a component exposes. Each entry maps a port inside the container to a public
+HTTPS endpoint, to an internal service name that only other components in the deployment can reach, or to both.
 
 :::note
-Not all components support the `hosts` directive yet. Check the component's repository for details.
+Overriding a host that a component already declares works everywhere. Adding new hosts only works for components
+that support it. The page of each component lists the hosts it declares.
 :::
 
 ```yaml
@@ -89,12 +125,12 @@ components:
     identifier: bun
     package: https://github.com/diploi/component-bun#main
     hosts:
-      # Public endpoint — gets an SSL certificate and a configurable domain
+      # Public endpoint, gets an SSL certificate and a configurable domain
       - identifier: api
         name: API
         port: 3000
 
-      # Internal-only endpoint — accessible by other components but not the public internet
+      # Internal only, reachable by other components but not from the internet
       - identifier: metrics
         name: Metrics
         endpoint: false
@@ -103,7 +139,13 @@ components:
 
 #### `hosts[].identifier`
 
-A unique slug for this host entry within the component. The identifier becomes part of the internal hostname that other components use to reach this service. You can view the full internal hostname in the Diploi Console.
+A unique slug for the host inside the component. It becomes part of the internal hostname other components use to
+reach the service, and of the variables its addresses are published as: `<IDENTIFIER>_ENDPOINT` for the public url
+and `<IDENTIFIER>_INTERNAL_ENDPOINT` for the internal one (see
+[Addresses of Other Components](#addresses-of-other-components)). The full hostname is in the Diploi Console and in
+[`diploi describe <component>`](/reference/diploi-cli#diploi-describe).
+
+When it is left out, the identifier becomes `port-<port>`. Using the same identifier as a host the component already declares overrides that host (its name, port or `endpoint`) instead of adding a new one.
 
 #### `hosts[].name`
 
@@ -117,29 +159,27 @@ The port your application listens on inside the container.
 
 Controls whether the host is exposed publicly. Defaults to `true`.
 
-- **`true`** — Diploi provisions a public HTTPS endpoint with an automatically managed SSL certificate. You can assign a `diploi.app` subdomain or a [custom domain](/deploying/custom-domain/) from the deployment's **Options** tab.
-- **`false`** — The service is only reachable by other components inside the same deployment and is never exposed to the public internet.
+- **`true`**: Diploi provisions a public HTTPS endpoint with an automatically managed SSL certificate. Assign a
+  `diploi.app` subdomain or a [custom domain](/deploying/custom-domain/) from the deployment's **Options** tab.
+- **`false`**: The service is only reachable by other components in the same deployment, never from the public internet.
 
 
 ### `env`
 
-ENV values from other components aren't available by default, but can be configured here.
-Importing an ENV variable means making it available for processes inside of a component.
+ENV values from other components are not available by default. Import them here to make them available to the
+processes inside a component.
 
 #### Import From Other Components
 
-Imports let you reuse ENV values from other components,
-keeping everything in sync and avoiding repetitive manual configuration.
-
-Open the **Options** tab for any component to see the values it defines,
-review the ones it currently imports, and override individual entries whenever you need a custom value.
+Imports reuse the ENV values of other components, which keeps them in sync and avoids repeating configuration.
+Open the **Options** tab of a component to see the values it defines, the ones it imports, and to override any of them.
 
 
 ```yaml
 env:
   include:
-    # Imports every ENV value from every component
-    - *
+    # Imports every ENV value from every component (quoted: a bare * is not valid YAML)
+    - '*'
     # Imports all ENV values from a component with the `postgres` identifier
     - postgres.*
     # Imports all ENV values that start with `POSTGRES_` from a component with the `postgres` identifier
@@ -156,21 +196,52 @@ env:
       name: DB_USER
 ```
 
-You can use wildcards when importing values.
-- `*`
-  - Imports every ENV value from every component
-- `postgres.*`
-  - Imports all ENV values from a component with the `postgres` identifier
-- `postgres.POSTGRES_*`
-  - Imports all ENV values that start with `POSTGRES_` from a component with the `postgres` identifier
-- `post*`
-  - Imports all ENV values from all components where an identifier starts with `post`
-- `postgres.POSTGRES_USER`
-  - Imports the `POSTGRES_USER` ENV value from a component with the `postgres` identifier
+| Entry | Imports |
+| --- | --- |
+| `'*'` | Every ENV value of every component (quote it, a bare `*` is not valid YAML) |
+| `postgres.*` | Every ENV value of the `postgres` component |
+| `postgres.POSTGRES_*` | The values of `postgres` that start with `POSTGRES_` |
+| `post*` | Every ENV value of every component whose identifier starts with `post` |
+| `postgres.POSTGRES_USER` | One value of `postgres` |
+| `postgres.POSTGRES_USER:DB_USER` | One value of `postgres`, renamed to `DB_USER` |
 
-You can remap individual ENV values while importing them
-- `postgres.POSTGRES_USER:DB_USER`
-  - Imports the `POSTGRES_USER` ENV value from a component with the `postgres` identifier and renames it to `DB_USER`
+#### Addresses of Other Components
+
+Every host of a component is published as variables other components can import:
+
+| Variable | Value | Use it for |
+| --- | --- | --- |
+| `<HOST>_INTERNAL_ENDPOINT` | `http://app.odoo:8069` | Calls between components: they stay inside the deployment |
+| `<HOST>_ENDPOINT` | `https://my-dev--odoo.diploi.me` | Links for browsers, or anything outside the deployment |
+
+`<HOST>` is the host's identifier in capitals (`app` becomes `APP_`, `admin-ui` becomes `ADMIN_UI_`). The internal
+endpoint is published only for hosts with a [`port`](#hostsport), and only for other components to import: the
+component itself does not get it. The development environment can import it too, under
+[`development.env`](#developmentenv). It is for server-side code: a browser cannot reach an internal address.
+
+`diploi describe <component>` lists a component's addresses with the names to import them by. Importing a name a
+component does not publish gives nothing, without an error, so check there first.
+
+#### Compose Values From Imports
+
+A static value can use `${VARIABLE}` to refer to a variable the component has, including one it just imported. Use
+this to build a url or a connection string from what another component publishes, instead of writing that
+component's address into the configuration:
+
+```yaml
+components:
+  - name: Astro
+    identifier: astro
+    package: https://github.com/diploi/component-astro#main
+    env:
+      include:
+        - odoo.APP_INTERNAL_ENDPOINT:ODOO_URL
+        - name: ODOO_CATALOG_URL
+          value: '${ODOO_URL}/api/catalog/products'
+```
+
+A literal internal address (`http://app.odoo:8069`) contains another component's identifier, service name and port,
+and stops working when any of them changes. Import the address the component publishes instead.
 
 #### Static Values
 
@@ -191,15 +262,16 @@ ARG TEST
 ENV TEST_VALUE=$TEST
 ```
 
-Static values are scoped to the component where they are declared and remain consistent across deployments.
-Use the **Options** tab when you need runtime configuration instead.
-You can also overwrite a static ENV value in the **Options** tab without changing it in the config.
+Static values are scoped to the component that declares them and stay the same across deployments.
+For runtime configuration use the **Options** tab, which can also override a static value without changing the file.
 
 ### `containerCommands`
 
-Overrides the default startup commands for a component's container. Each component defines sensible defaults, but you can customize them here when your project structure or tooling differs from the component's assumptions.
+Overrides the commands a component's container starts with. Every component has defaults, so use this when your
+project structure or tooling differs from what the component assumes.
 
-The alternative to using `containerCommands` is to edit the startup command directly in the `Dockerfile` (for staging and production) or `Dockerfile.dev` (for development) inside your component's folder. Use `containerCommands` when you want to change the startup command without modifying the Dockerfiles.
+The alternative is to edit the command in the component's `Dockerfile` (staging and production) or `Dockerfile.dev`
+(development). Use `containerCommands` to change it without touching the Dockerfiles.
 
 ```yaml
 components:
@@ -226,6 +298,77 @@ For example, the Astro component defaults to `npm run dev -- --host` and the Fas
 The command used to start the container in a **staging or production** deployment. This replaces the component's default production start command.
 
 For example, the Astro component defaults to `npm start` and the FastAPI component defaults to `uv run --with uvicorn uvicorn src.main:app --host 0.0.0.0 --port 8000 --proxy-headers`. You can check the default command from the Dockerfile.
+
+## `development`
+
+Configures the **development environment**, the container with your editor and terminal that you open from the
+Console or connect to over SSH. It is separate from the containers your components run in, but shares the same
+`/app` folder, so it is where you edit code, run git, and use [the Diploi CLI](/reference/diploi-cli).
+
+This section only affects development deployments. Staging and production ignore it.
+
+```yaml
+development:
+  initCommands:
+    - apt-get install -y imagemagick
+  env:
+    include:
+      - postgres.*
+      - supabase.ANON_KEY:SUPABASE_ANON_KEY
+      - name: APP_ENV
+        value: development
+components:
+  # ...
+```
+
+### `development.env`
+
+Which environment variables are available in your terminal. A project created in the Stack Builder already imports
+the variables of every add-on, which is what makes `psql $POSTGRES_URL` or a migration script work from the terminal
+without copying credentials by hand.   
+
+ENVs from components are not imported by default.   
+
+The syntax is the same as [`env`](#env) on a component.
+
+```yaml
+development:
+  env:
+    include:
+      # Everything a component defines
+      - postgres.*
+      # One value, renamed
+      - supabase.APP_ENDPOINT:SUPABASE_URL
+      # A static value
+      - name: APP_ENV
+        value: development
+```
+
+Run `printenv` in the terminal to see them, or
+[`diploi describe`](/reference/diploi-cli#diploi-describe) to see each one with the component it came from. Changing
+this section restarts the development environment.
+
+### `development.initCommands`
+
+Commands to run when the development environment starts, as `root`, before your terminal is available. Use them for
+tools your work needs but the base image does not have.
+
+```yaml
+development:
+  initCommands:
+    - apt-get update
+    - apt-get install -y imagemagick
+```
+
+The commands run on every start of the environment, not only the first, so they should be safe to repeat. They run
+in a shell that stops at the first failing command, and their output is in the development environment's logs.
+Changing them restarts the environment.
+
+:::note
+`initCommands` install things in the development environment only. To install something a component needs at
+runtime, put it in that component's `Dockerfile` and `Dockerfile.dev`. For a quick test you can run
+[`diploi exec <component> -- ...`](/reference/diploi-cli#diploi-exec), but it is gone on the next restart.
+:::
 
 ## Diploi placeholders
 

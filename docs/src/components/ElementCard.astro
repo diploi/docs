@@ -1,22 +1,23 @@
 ---
-import type { DiploiElement } from "./types";
-import { Badge } from '@astrojs/starlight/components';
+import type { CollectionEntry } from 'astro:content';
 
 interface Props {
-  element: DiploiElement;
+  element: CollectionEntry<'elements'>['data'];
 }
 
 const { element } = Astro.props;
 ---
 
-<div class="flex items-center gap-2">
-  <img
-    src={`${element.url}/blob/main/.diploi/icon.svg?raw=true`}
-    alt={element.name}
-    class="element-icon"
-    width={28}
-    height={28}
-  />
+<a href={`/${element.pageId}`} class="element-card flex items-center gap-2 no-underline">
+  <img src={element.iconUrl} alt="" class="element-icon" width={28} height={28} loading="lazy" />
   <strong>{element.name}</strong>
-  { element.badge && (<Badge class="" text=`${element.badge}` variant="note"/>)}
-</div>
+</a>
+
+<style>
+  .element-card {
+    color: var(--sl-color-white);
+  }
+  .element-card:hover strong {
+    color: var(--sl-color-accent-high);
+  }
+</style>

@@ -10,12 +10,10 @@ import { Icon } from '@astrojs/starlight/components';
 <style>
   #diploi-link {
     display: block;
-    position: absolute;
-    left: 140px;
-    top: 13px;
     font-size: var(--sl-text-sm);
     color: var(--sl-color-white);
     text-decoration: none;
+
     svg {
       transform: translate(2px, 3px);
     }
@@ -23,12 +21,5 @@ import { Icon } from '@astrojs/starlight/components';
 
   #diploi-link:hover {
     color: var(--sl-color-gray-2);
-  }
-
-  @media (min-width: 50em) {
-    #diploi-link {
-      left: 180px;
-      top: 18px;
-    }
   }
 </style>
