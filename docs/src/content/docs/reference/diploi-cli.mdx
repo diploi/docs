@@ -45,6 +45,7 @@ A full pod name works too, and `-c <container>` picks a container without naming
 | [`diploi restart <component>`](#diploi-restart) | Restart a component and wait for the new pod |
 | [`diploi apply`](#diploi-apply) | Apply the pending `diploi.yaml` changes |
 | [`diploi components [query]`](#diploi-components) | Components and add-ons you can add, with their versions and `diploi.yaml` entry |
+| [`diploi agents init`](#diploi-agents) | Connect your AI clients to this deployment through the Diploi MCP server |
 
 Every command also accepts `--json`, which prints the same information as JSON instead of text.
 That is useful in scripts and for AI agents working in the environment.
@@ -222,6 +223,25 @@ diploi components database    # everything matching "database"
 Use one of the listed versions: a version that does not exist makes `diploi.yaml` fail to apply, and `diploi status`
 then lists the versions that do. The entry includes the add-ons a component needs, such as the database of Odoo;
 leave out the ones your `diploi.yaml` already has.
+
+### `diploi agents`
+
+Sets up the AI clients you bring along, so they can use the tools of this deployment. Claude Code, Codex, Gemini CLI,
+VS Code and Cursor are supported. Each one gets the Diploi MCP server and is pointed at the instructions in
+`/etc/diploi/AGENTS.md`. Your existing settings are kept, and only what is missing is added.
+
+OpenCode and Continue come with the development environment and Diploi configures them itself
+(see [Built-in tools](/reference/ai-gateway#built-in-tools)), so they need nothing from you.
+
+```bash
+diploi agents init             # configure the clients that are not configured yet
+diploi agents init --project   # also write AGENTS.md and .cursor/mcp.json into the project
+diploi agents init --force     # configure every client again, also the ones you changed
+```
+
+This already runs when the development environment starts, so you rarely need it yourself: only when the files it
+wrote have been deleted, or when your configuration is very old. Each client is configured once. If you remove the Diploi MCP server from a client, it stays removed until you run
+`diploi agents init --force`.
 
 ## See also
 
