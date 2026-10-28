@@ -88,10 +88,13 @@
   --sl-color-hairline-light: var(--sl-color-gray-6);
   --sl-color-hairline-shade: var(--sl-color-gray-6);
 
+  /* Backgrounds (the nav and sidebar follow it through the dark mode block) */
+  --sl-color-bg: var(--sl-color-black);
+
   .social-icons a {
     color: var(--sl-color-white);
   }
-  
+
   main {
     a {
       color: var(--sl-color-accent-high);
